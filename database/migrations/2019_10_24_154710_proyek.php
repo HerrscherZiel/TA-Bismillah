@@ -18,10 +18,10 @@ class Proyek extends Migration
             $table->increments('id_proyek');
             $table->string('judul')->unique();
             $table->text('deskripsi')->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('statusProyek')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id_user')->on('users')->onDelete('cascade');
-            $table->foreign('statusProyek')->references('id_status')->on('status')->onDelete('cascade');
+            $table->integer('kelasProyek_id')->unsigned()->nullable();
+            $table->foreign('statusProyek')->references('id_status')->on('status')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('kelasProyek_id')->references('id_kelasProyek')->on('kelasproyek')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 

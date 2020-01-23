@@ -18,10 +18,12 @@ class UsulMahasiswa extends Migration
             $table->increments('id_usulMahasiswa');
             $table->string('judulUsul')->unique();
             $table->text('deskripsi')->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('mahasiswaProyek_id')->unsigned()->nullable();
             $table->integer('statusProyek')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id_user')->on('users')->onDelete('cascade');
-            $table->foreign('statusProyek')->references('id_status')->on('status')->onDelete('cascade');
+            $table->integer('kelasProyek_id')->unsigned()->nullable();
+            $table->foreign('mahasiswaProyek_id')->references('id_mahasiswaProyek')->on('mahasiswaProyek')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('statusProyek')->references('id_status')->on('status')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('kelasProyek_id')->references('id_kelasProyek')->on('kelasproyek')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -34,5 +36,7 @@ class UsulMahasiswa extends Migration
     public function down()
     {
         //
+        Schema::drop('usulMahasiswa');
+
     }
 }
