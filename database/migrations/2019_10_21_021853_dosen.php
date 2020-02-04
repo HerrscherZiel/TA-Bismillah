@@ -16,7 +16,7 @@ class Dosen extends Migration
         //
         Schema::create('dosen', function (Blueprint $table) {
             $table->increments('id_dosen');
-            $table->integer('nip');
+            $table->string('nip');
             $table->string('namaDosen');
             $table->string('statusUser')->default("dosen");
 //            $table->integer('userStatus_id')->unsigned()->nullable();

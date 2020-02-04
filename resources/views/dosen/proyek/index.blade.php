@@ -13,9 +13,9 @@
     <!-- Content Row -->
     <div class="row">
 
-        <div class="col-1"></div>
+        <div class="col-2"></div>
 
-        <div class="col-lg-10 mb-4">
+        <div class="col-lg-8 mb-4">
 
             <!-- Approach -->
 
@@ -33,7 +33,14 @@
 
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
+
+                                {{--                                <a class="btn btn-primary" href="/proyek/tambah">--}}
+{{--                                    Tambah--}}
+{{--                                </a>--}}
+                                {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
+                            <!--                      </div>-->
+
                         </div>
 
                     </div>
@@ -44,23 +51,21 @@
                             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Kelas Proyek</th>
-                                        <th>Periode</th>
                                         <th>Judul</th>
                                         <th>Deskripsi</th>
-                                        <th>Penambah</th>
+                                        <th>Kelas Proyek</th>
+                                        <th>Periode</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
                                         <td>Sistem Informasi Kelas Proyek</td>
                                         <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Aktif</td>
+                                        <td>SIM</td>
+                                        <td>2019</td>
+                                        <td>Selesai</td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
@@ -80,12 +85,11 @@
                                     </tr>
 
                                     <tr>
+                                        <td>Sistem Informasi Apotek</td>
+                                        <td>Sistem Informasi Semester 5</td>
                                         <td>SIM</td>
                                         <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Aktif</td>
+                                        <td>Dikerjakan</td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
@@ -105,12 +109,11 @@
                                     </tr>
 
                                     <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
+                                        <td>Sistem Informasi Laundry Asik</td>
                                         <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Aktif</td>
+                                        <td>Proyek Aplikasi</td>
+                                        <td>2019</td>
+                                        <td>Dikerjakan</td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
@@ -133,11 +136,9 @@
                         </div>
                     </div>
 
+
                 </div>
-
             </div>
-
-
 
             <!-- Modal Insert -->
             <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -258,6 +259,4 @@
                     </div>
                 </div>
             </div>
-
-
 @endsection

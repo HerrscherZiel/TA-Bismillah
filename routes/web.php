@@ -28,7 +28,14 @@ Route::get('/home', 'HomeController@index')->name('home');
     //profile
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
 
-    //proyek
+    //proyek mahasiswa
+
+        Route::resources([
+
+            'proyekmahasiswa'       => 'ProyekMahasiswaController',
+
+        ]);
+
 
         //judul
         Route::get('/proyek/judul', 'ProyekJudulController@index')->name('proyek.judul.index');
@@ -37,7 +44,7 @@ Route::get('/home', 'HomeController@index')->name('home');
         Route::get('/proyek/kelompok', 'ProyekKelompokController@index')->name('proyek.kelompok.index');
 
         //undangan
-        Route::get('/proyek/undangan', 'ProyekUndanganController@index')->name('proyek.undangan.index');
+        Route::get('/undangan', 'ProyekUndanganController@index')->name('proyek.undangan.index');
 
         //informasi
         Route::get('/proyek/informasi', 'ProyekInformasiController@index')->name('proyek.informasi.index');
@@ -45,7 +52,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //laporan
     Route::get('/laporan', 'Laporan\LaporanController@index')->name('laporan.index');
-    Route::get('/laporan/tambah','Laporan\LaporanController@create')->name('laporan.tambah');
+    Route::get('/laporan/detail','Laporan\LaporanController@create')->name('laporan.tambah');
 
     //pencapaian
     Route::get('/pencapaian/tambah','PencapaianController@create')->name('pencapaian.tambah');
@@ -59,11 +66,31 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resources([
 
+    'proyek'            =>  'ProyekController',
+    'kelompokbimbingan' =>  'KelompokBimbinganController',
+
+
+]);
+
+Route::get('/profileDosen', 'ProfileController@indexDosen')->name('profilDosen.index');
+Route::get('/proyekDosen', 'ProyekController@indexDosen')->name('proyekDosen.index');
+Route::get('/laporanDosen', 'Laporan\LaporanController@indexDosen')->name('laporanDosen.index');
+Route::get('/laporan/detail','Laporan\LaporanController@show')->name('laporan.show');
+
+
+// ADMIN
+
+Route::resources([
+
     'kelasproyek'       => 'KelasProyekController',
     'periode'           => 'PeriodeController',
     'dosen'             => 'DosenController',
     'mahasiswa'         => 'MahasiswaController',
     'proyek'            =>  'ProyekController',
+    'admin'             =>  'AdminController',
+    'usulmahasiswa'     =>  'UsulMahasiswaController',
+    'mahasiswaproyek'   =>  'MahasiswaProyekController',
+    'kelompokproyek'    =>  'KelompokProyekController',
 
 ]);
 

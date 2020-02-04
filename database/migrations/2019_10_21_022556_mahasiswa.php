@@ -16,7 +16,7 @@ class Mahasiswa extends Migration
         //
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->increments('id_mahasiswa');
-            $table->integer('nim');
+            $table->string('nim');
             $table->string('namaMahasiswa');
             $table->string('statusUser')->default("mahasiswa");
 //            $table->integer('userStatus_id')->unsigned()->nullable();

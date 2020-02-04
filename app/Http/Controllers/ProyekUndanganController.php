@@ -14,7 +14,7 @@ class ProyekUndanganController extends Controller
     public function index()
     {
         //
-        return view('mahasiswa.proyek.undangan.index');
+        return view('mahasiswa.undangan.index');
 
     }
 

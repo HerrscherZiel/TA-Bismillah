@@ -16,7 +16,7 @@ class Admin extends Migration
         //
         Schema::create('admin', function (Blueprint $table) {
             $table->increments('id_admin');
-            $table->integer('nip');
+            $table->string('nip');
             $table->string('namaAdmin');
             $table->string('statusUser')->default("admin");
 //            $table->integer('userStatus_id')->unsigned()->nullable();

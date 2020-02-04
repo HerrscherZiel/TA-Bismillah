@@ -63,9 +63,9 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/kelasproyek">
+            <a class="nav-link" href="/admin">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Kelas Proyek</span></a>
+                <span>Admin</span></a>
         </li>
 
         <li class="nav-item">
@@ -81,44 +81,122 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="/mahasiswaproyek">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Mahasiswa Proyek</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/periode">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Periode</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/kelasproyek">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Kelas Proyek</span></a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="/proyek">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Proyek</span></a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="/usulmahasiswa">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Usul Proyek</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/kelompokproyek">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Kelompok Proyek</span></a>
+        </li>
+
+        <hr>
+
         <!-- Divider -->
 
+        <li class="nav-item">
+            <a class="nav-link" href="/profileDosen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/proyekDosen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Proyek</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/kelompokbimbingan">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Kelompok Bimbingan</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/laporanDosen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Laporan</span>
+            </a>
+        </li>
+
+
+
+        <hr>
+
         <!-- Nav Item - Pages Collapse Menu -->
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/profile">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Profile</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/profileMahasiswa">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Profile</span>
+            </a>
+        </li>
 
-{{--        <!-- Nav Item - Utilities Collapse Menu -->--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">--}}
-{{--                <i class="fas fa-fw fa-wrench"></i>--}}
-{{--                <span>Proyek</span>--}}
-{{--            </a>--}}
-{{--            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">--}}
-{{--                <div class="bg-white py-2 collapse-inner rounded">--}}
-{{--                    <h6 class="collapse-header">Daftar Proyek:</h6>--}}
-{{--                    <a class="collapse-item" href="/proyek/judul">Judul</a>--}}
-{{--                    <a class="collapse-item" href="/proyek/kelompok">Kelompok</a>--}}
-{{--                    <a class="collapse-item" href="/proyek/undangan">Undangan</a>--}}
-{{--                    <a class="collapse-item" href="/proyek/informasi">Informasi</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/proyekmahasiswa">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Proyek</span>
+            </a>
+        </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/laporan">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Laporan</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Proyek</span>
+            </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Daftar Proyek:</h6>
+                    <a class="collapse-item" href="/proyek/judul">Judul</a>
+                    <a class="collapse-item" href="/proyek/kelompok">Kelompok</a>
+                    <a class="collapse-item" href="/proyek/undangan">Undangan</a>
+                    <a class="collapse-item" href="/proyek/informasi">Informasi</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/undangan">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Undangan</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/laporan">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Laporan</span>
+            </a>
+        </li>
 
 
         <!-- Sidebar Toggler (Sidebar) -->

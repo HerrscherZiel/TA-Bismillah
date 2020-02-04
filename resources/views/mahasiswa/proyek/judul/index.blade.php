@@ -47,15 +47,15 @@
                 </div>
 
                 <form>
-                    <div class="col-md-5 ml-2">
-                        <div class="form-group" style="color: black">
-                            <h5> <b>Pilih Kelas Proyek</b> </h5>
-                            <select class="form-control">
-                                <option>SIM | 2019</option>
-                                <option>Proyek Aplikasi | 2017</option>
-                            </select>
-                        </div>
-                    </div>
+{{--                    <div class="col-md-5 ml-2">--}}
+{{--                        <div class="form-group" style="color: black">--}}
+{{--                            <h5> <b>Pilih Kelas Proyek</b> </h5>--}}
+{{--                            <select class="form-control">--}}
+{{--                                <option>SIM | 2019</option>--}}
+{{--                                <option>Proyek Aplikasi | 2017</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <div class="card-body" style="color: black;">
                         <div class="row">

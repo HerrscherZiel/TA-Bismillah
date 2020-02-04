@@ -20,6 +20,11 @@ class LaporanController extends Controller
 
     }
 
+    public  function indexDosen()
+    {
+        return view('dosen.laporan.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,10 +53,17 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(/*$id*/)
     {
         //
+        return view('mahasiswa.laporan.show');
+
     }
+
+//    public function  showDosen(/*$id*/)
+//    {
+//        return view('dosen.laporan.show');
+//    }
 
     /**
      * Show the form for editing the specified resource.

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProyekController extends Controller
+class ProyekMahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,8 @@ class ProyekController extends Controller
     public function index()
     {
         //
-        return view('admin.proyek.index');
+        return view('mahasiswa.proyek.index');
 
-    }
-
-    public function indexDosen()
-    {
-        return view('dosen.proyek.index');
     }
 
     /**
@@ -50,9 +45,11 @@ class ProyekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(/*$id*/)
     {
         //
+        return view('mahasiswa.proyek.show');
+
     }
 
     /**

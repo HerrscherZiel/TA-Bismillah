@@ -47,35 +47,49 @@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3 text-left">
-                                                    Judul :
+                                                    Kelas Proyek
                                                 </div>
                                                 <div class="col-md-8 ml-3">
-                                                    Sistem Informasi Kelas Proyek
+                                                   : Sistem Informasi Kelas Proyek
                                                 </div>
                                                 <hr>
                                                 <div class="col-md-3 text-left">
-                                                    Pembimbing :
+                                                    Periode
                                                 </div>
                                                 <div class="col-md-8 ml-3">
-                                                    Irkham Huda
+                                                   : 2019
                                                 </div>
                                                 <hr>
                                                 <div class="col-md-3 text-left">
-                                                    Deskripsi :
+                                                    Judul
                                                 </div>
                                                 <div class="col-md-8 ml-3">
-                                                    Sistem Informasi untuk memanajemen kelas proyek yang ada di prodi RPL.
+                                                   : Sistem Informasi Kelas Proyek
                                                 </div>
                                                 <hr>
                                                 <div class="col-md-3 text-left">
-                                                    Anggota :
+                                                    Pembimbing
                                                 </div>
                                                 <div class="col-md-8 ml-3">
-                                                    Elang Bayu Aji Hartanto<br>
-                                                    Adi Priyono<br>
-                                                    Jaffar Jatmiko Jati<br>
-                                                    Rosyidin Adinegara<br>
-                                                    Candra Febrianto<br>
+                                                   : Irkham Huda
+                                                </div>
+                                                <hr>
+                                                <div class="col-md-3 text-left">
+                                                    Deskripsi
+                                                </div>
+                                                <div class="col-md-8 ml-3">
+                                                   : Sistem Informasi untuk memanajemen kelas proyek yang ada di prodi RPL.
+                                                </div>
+                                                <hr>
+                                                <div class="col-md-3 text-left">
+                                                    Anggota
+                                                </div>
+                                                <div class="col-md-8 ml-3">
+                                                    : Elang Bayu Aji Hartanto<br>
+                                                      Adi Priyono<br>
+                                                      Jaffar Jatmiko Jati<br>
+                                                      Rosyidin Adinegara<br>
+                                                      Candra Febrianto<br>
                                                 </div>
                                                 <hr>
                                                 <div class="col-md-3 text-left">
@@ -94,7 +108,7 @@
                                                     <th>Minggu</th>
                                                     <th>Tanggal Mulai</th>
                                                     <th>Tanggal Selesai</th>
-                                                    <th>Keterangan</th>
+                                                    <th>Catatan</th>
                                                     <th>Action</th>
 
                                                 </tr>
@@ -105,10 +119,15 @@
                                                     <td>25-08-2019</td>
                                                     <td>17-08-2019</td>
                                                     <td>
-                                                        <span class="badge badge-warning">Selesai</span>
+                                                        -
                                                     </td>
                                                     <td>
-
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-info" href="laporan/lihat">
+                                                                <i class="fa fa-lg fa-eye">
+                                                                </i>
+                                                            </a>
+                                                        </div>
                                                         <div class="btn-group">
                                                             <a class="btn btn-info" href="#">
                                                                 <i class="fa fa-lg fa-edit">

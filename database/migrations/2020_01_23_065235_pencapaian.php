@@ -32,6 +32,6 @@ class Pencapaian extends Migration
     public function down()
     {
         //
-        Schema::drop('lampiran');
+        Schema::drop('pencapaian');
     }
 }

@@ -18,6 +18,11 @@ class ProfileController extends Controller
 
     }
 
+    public  function  indexDosen()
+    {
+        return view('dosen.profile.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
