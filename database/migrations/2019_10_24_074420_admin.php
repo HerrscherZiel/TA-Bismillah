@@ -18,7 +18,7 @@ class Admin extends Migration
             $table->increments('id_admin');
             $table->string('nip');
             $table->string('namaAdmin');
-            $table->string('statusUser')->default("admin");
+            $table->string('statusUser')->default("Admin");
 //            $table->integer('userStatus_id')->unsigned()->nullable();
 //            $table->foreign('userStatus_id')->references('id_userStatus')->on('userStatus')->onDelete('cascade');
             $table->timestamps();

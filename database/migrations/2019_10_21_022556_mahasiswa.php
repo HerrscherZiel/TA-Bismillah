@@ -18,7 +18,7 @@ class Mahasiswa extends Migration
             $table->increments('id_mahasiswa');
             $table->string('nim');
             $table->string('namaMahasiswa');
-            $table->string('statusUser')->default("mahasiswa");
+            $table->string('statusUser')->default("Mahasiswa");
 //            $table->integer('userStatus_id')->unsigned()->nullable();
 //            $table->integer('kelasProyek_id')->unsigned()->nullable();
 //            $table->integer('periode_id')->unsigned()->nullable();

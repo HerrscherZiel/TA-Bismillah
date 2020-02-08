@@ -15,8 +15,17 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $table = 'users';
+
+    protected $primaryKey = 'id_user';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'username',
+        'password',
+        'admin_id',
+        'dosen_id',
+        'mahasiswa_id',
     ];
 
     /**
@@ -36,4 +45,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function dosen(){
+        return $this->belongsTo('App\Dosen','dosen_id');
+    }
+
+    public function mahasiswa(){
+    return $this->belongsTo('App\Mahasiswa','mahasiswa_id');
+    }
+
+    public function admin(){
+    return $this->belongsTo('App\Admin','admin_id');
+    }
+
+    public function mahasiswaProyek(){
+        return $this->hasMany('App\MahasiswaProyek','user_id');
+    }
+
 }

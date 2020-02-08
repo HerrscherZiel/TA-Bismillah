@@ -20,8 +20,12 @@ class Proyek extends Migration
             $table->text('deskripsi')->nullable();
             $table->integer('statusProyek')->unsigned()->nullable();
             $table->integer('kelasProyek_id')->unsigned()->nullable();
+            $table->integer('periode_id')->unsigned()->nullable();
+            $table->integer('usulMahasiswa_id')->unsigned()->nullable();
             $table->foreign('statusProyek')->references('id_status')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('kelasProyek_id')->references('id_kelasProyek')->on('kelasproyek')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('periode_id')->references('id_periode')->on('periode')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('usulMahasiswa_id')->references('id_usulMahasiswa')->on('usulmahasiswa')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 

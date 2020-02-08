@@ -18,7 +18,7 @@ class Dosen extends Migration
             $table->increments('id_dosen');
             $table->string('nip');
             $table->string('namaDosen');
-            $table->string('statusUser')->default("dosen");
+            $table->string('statusUser')->default("Dosen");
 //            $table->integer('userStatus_id')->unsigned()->nullable();
 //            $table->foreign('userStatus_id')->references('id_userStatus')->on('userStatus')->onDelete('cascade');
             $table->timestamps();

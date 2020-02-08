@@ -18,6 +18,7 @@ class ProyekPilihan extends Migration
             $table->increments('id_proyekPilihan');
             $table->integer('kelompokProyek_id')->unsigned()->nullable();
             $table->integer('proyek_id')->unsigned()->nullable();
+            $table->integer('prioritas');
             $table->foreign('kelompokProyek_id')->references('id_kelompokProyek')->on('kelompokproyek')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('proyek_id')->references('id_proyek')->on('proyek')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
