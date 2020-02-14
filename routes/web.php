@@ -26,7 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/detailProject', 'DashboardController@detailProject')->name('dashboard.detailProject');
 
     //profile
-    Route::get('/profile', 'ProfileController@index')->name('profile.index');
+    Route::get('/profileMahasiswa', 'ProfileController@index')->name('profile.index');
 
     //proyek mahasiswa
 
@@ -70,6 +70,7 @@ Route::resources([
     'kelompokbimbingan' =>  'KelompokBimbinganController',
 
 
+
 ]);
 
 Route::get('/profileDosen', 'ProfileController@indexDosen')->name('profilDosen.index');
@@ -94,6 +95,9 @@ Route::resources([
 
 ]);
 
+Route::post('/dosen/import', 'DosenController@import')->name('dosen.import');
+Route::post('/mahasiswa/import', 'MahasiswaController@import')->name('mahasiswa.import');
+//Route::post('/dosen/update', 'DosenController@import')->name('dosen.import');
 
 
 

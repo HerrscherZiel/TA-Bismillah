@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Dosen;
 use Illuminate\Http\Request;
+use App\Imports\DosenImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class DosenController extends Controller
 {
@@ -14,7 +22,42 @@ class DosenController extends Controller
     public function index()
     {
         //
-        return view('admin.dosen.index');
+        $dosen = Dosen::latest()->paginate(5);;
+
+        return view('admin.dosen.index')->with('dosen', $dosen);
+
+
+
+//        return view('admin.dosen.index');
+
+    }
+
+    public function import(Request $request)
+    {
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand().$file->getClientOriginalName();
+
+        // upload ke folder file_siswa di dalam folder public
+
+        // import data
+        Excel::import(new DosenImport,$file);
+
+        // notifikasi dengan session
+        Session::flash('sukses','Data Siswa Berhasil Diimport!');
+
+        $file->move('import_dosen',$nama_file);
+
+
+        // alihkan halaman kembali
+        return redirect('/dosen');
 
     }
 
@@ -59,6 +102,8 @@ class DosenController extends Controller
     public function edit($id)
     {
         //
+
+
     }
 
     /**
@@ -68,9 +113,15 @@ class DosenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+//        dd($request->all());
+
+        $dosen = Dosen::findOrFail($request->id_dosen);
+        $dosen->update($request->all());
+
+        return back();
     }
 
     /**
@@ -82,5 +133,9 @@ class DosenController extends Controller
     public function destroy($id)
     {
         //
+        $dosen = Dosen::findOrFail($id);
+        $dosen->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

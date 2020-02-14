@@ -28,6 +28,10 @@ class Status extends Model
         return $this->hasMany('App\AnggotaProyek','statusAnggota');
     }
 
+    public function usulmahasiswa(){
+        return $this->hasMany('App\UsulMahasiswa','statusProyek');
+    }
+
     public function proyek(){
         return $this->hasMany('App\Proyek','statusProyek');
     }

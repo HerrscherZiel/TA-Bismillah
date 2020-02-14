@@ -19,10 +19,6 @@ class Dosen extends Model
         'statusUser',
     ];
 
-    protected $attributes = [
-        'statusUser' => 'Dosen',
-    ];
-
     public function users(){
         return $this->hasOne('App\Users','dosen_id');
     }

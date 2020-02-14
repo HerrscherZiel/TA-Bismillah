@@ -32,9 +32,7 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <a class="btn btn-primary" href="/admin/tambah">
-                                    Tambah
-                                </a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
                                 {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
                             <!--                      </div>-->
@@ -49,6 +47,7 @@
                             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>NIP</th>
                                     <th>Nama</th>
                                     <th>Status</th>
@@ -56,6 +55,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+{{--                                @foreach($dosen as $dos)--}}
                                 <tr>
                                     <td>11121241424353</td>
                                     <td>Ahmad</td>
@@ -77,51 +77,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>11121241424353</td>
-                                    <td>Rahmad</td>
-                                    <td>Admin</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>11121241424353</td>
-                                    <td>Khamad</td>
-                                    <td>Admin</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
 
                                 </tbody>
                             </table>

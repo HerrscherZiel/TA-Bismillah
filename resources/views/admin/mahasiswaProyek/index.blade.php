@@ -32,7 +32,7 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertDosen">Tambah</button>
                                 {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
                             <!--                      </div>-->
@@ -198,5 +198,8 @@
             </div>
         </div>
     </div>
+
+
+
 
 @endsection

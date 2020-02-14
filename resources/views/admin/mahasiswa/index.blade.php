@@ -32,9 +32,7 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <a class="btn btn-primary" href="/mahasiswa/tambah">
-                                    Tambah
-                                </a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswa">Tambah</button>
                                 {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
                             <!--                      </div>-->
@@ -49,88 +47,133 @@
                             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>NIM</th>
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
+
+                                @php $i = 1; @endphp
+                                @foreach($mahasiswa as $mhs)
                                 <tbody>
                                 <tr>
-                                    <td>17/416344/SV/14082</td>
-                                    <td>Elang Bayu Aji Hartanto</td>
-                                    <td>Mahasiswa</td>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{$mhs->nim}}</td>
+                                    <td>{{$mhs->namaMahasiswa}}</td>
+                                    <td>{{$mhs->statusUser}}</td>
+
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
+                                                <button class="btn btn-info"
+                                                        data-id="{{$mhs->id_mahasiswa}}"
+                                                        data-nim="{{$mhs->nim}}"
+                                                        data-nama="{{$mhs->namaMahasiswa}}"
+                                                        data-toggle="modal" data-target="#updateMahasiswa">
+                                                    <i class="fa fa-lg fa-edit"></i>
+                                                </button>
                                             </div>
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
+                                                <form class="delete" action="{{ route('mahasiswa.destroy', $mhs->id_mahasiswa)}}" method="post">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <i class="fa fa-lg fa-trash">
+                                                        </i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>17/416344/SV/14082</td>
-                                    <td>Elang Bayu Aji Hartanto</td>
-                                    <td>Mahasiswa</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>17/416344/SV/14082</td>
-                                    <td>Elang Bayu Aji Hartanto</td>
-                                    <td>Mahasiswa</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                @endforeach
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-
-
+                </div>
+            </div>
                 </div>
 
             </div>
+
+    <!-- Import Excel -->
+    <div class="modal fade" id="importMahasiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form method="post" action="{{ route('mahasiswa.import')}}" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div class="modal fade bd-modal-lg" id="updateMahasiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Dosen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form class="form-horizontal" action="{{ route('mahasiswa.update', 'edit')}}"
+                      method="post"
+                      enctype="multipart/form-data">
+                    @method('PATCH')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <input type="hidden" name="id_mahasiswa" id="id">
+                            <div class="row">
+                                <div class="col-md-12"><b>NIM :</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="nim" placeholder="NIM Mahasiswa" id="nim" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Nama Dosen :</b>
+                                    <div class="form-group">
+                                        <input class="form-control"  type="text" name="namaMahasiswa" placeholder="Nama Mahasiswa" id="namaMahasiswa">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" name="statusUser" value="Mahasiswa">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
 @endsection

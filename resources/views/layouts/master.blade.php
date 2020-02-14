@@ -329,6 +329,40 @@
                 <!-- Page level custom scripts -->
                 <script src="{{url('/')}}/asset/js/demo/datatables-demo.js"></script>
 
+            <script>
+                $('#updateDosen').on('show.bs.modal', function (event) {
+
+                    // console.log('modal opened');
+                    var button = $(event.relatedTarget)
+
+                    var id = button.data('id')
+                    var nip = button.data('nip')
+                    var namaDosen = button.data('nama')
+
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id)
+                    modal.find('.modal-body #nip').val(nip)
+                    modal.find('.modal-body #namaDosen').val(namaDosen)
+                })
+
+                $('#updateMahasiswa').on('show.bs.modal', function (event) {
+
+                    // console.log('modal opened');
+                    var button = $(event.relatedTarget)
+
+                    var id = button.data('id')
+                    var nim = button.data('nim')
+                    var namaMahasiswa = button.data('nama')
+
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id)
+                    modal.find('.modal-body #nim').val(nim)
+                    modal.find('.modal-body #namaMahasiswa').val(namaMahasiswa)
+                })
+
+
+            </script>
+
 </body>
 
 </html>

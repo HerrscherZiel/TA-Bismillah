@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mahasiswa;
 use Illuminate\Http\Request;
+use App\Imports\MahasiswaImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class MahasiswaController extends Controller
 {
@@ -14,7 +18,44 @@ class MahasiswaController extends Controller
     public function index()
     {
         //
-        return view('admin.mahasiswa.index');
+//        return view('admin.mahasiswa.index');
+
+        $mahasiswa = Mahasiswa::latest()->paginate(5);;
+
+        return view('admin.mahasiswa.index')->with('mahasiswa', $mahasiswa);
+
+
+
+//        return view('admin.dosen.index');
+
+    }
+
+    public function import(Request $request)
+    {
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand().$file->getClientOriginalName();
+
+        // upload ke folder file_siswa di dalam folder public
+
+        // import data
+        Excel::import(new MahasiswaImport,$file);
+
+        // notifikasi dengan session
+        Session::flash('sukses','Data Siswa Berhasil Diimport!');
+
+        $file->move('import_mahasiswa',$nama_file);
+
+
+        // alihkan halaman kembali
+        return redirect('/mahasiswa');
 
     }
 
@@ -68,9 +109,13 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $mahasiswa = Mahasiswa::findOrFail($request->id_mahasiswa);
+        $mahasiswa->update($request->all());
+
+        return back();
     }
 
     /**
@@ -82,5 +127,9 @@ class MahasiswaController extends Controller
     public function destroy($id)
     {
         //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

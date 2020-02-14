@@ -32,9 +32,7 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <a class="btn btn-primary" href="/dosen/tambah">
-                                    Tambah
-                                </a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importDosen">Tambah</button>
                                 {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
                             <!--                      </div>-->
@@ -49,88 +47,132 @@
                             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>NIP</th>
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
+
+                                @php $i = 1; @endphp
+                                @foreach($dosen as $dos)
                                 <tbody>
                                 <tr>
-                                    <td>11121241424353</td>
-                                    <td>Subari</td>
-                                    <td>Dosen</td>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{$dos->nip}}</td>
+                                        <td>{{$dos->namaDosen}}</td>
+                                        <td>{{$dos->statusUser}}</td>
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
+                                                <button class="btn btn-info"
+                                                        data-id="{{$dos->id_dosen}}"
+                                                        data-nip="{{$dos->nip}}"
+                                                        data-nama="{{$dos->namaDosen}}"
+                                                        data-toggle="modal" data-target="#updateDosen">
+                                                    <i class="fa fa-lg fa-edit"></i>
+                                                </button>
                                             </div>
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
+                                                <form class="delete" action="{{ route('dosen.destroy', $dos->id_dosen)}}" method="post">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <i class="fa fa-lg fa-trash">
+                                                        </i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>11121241424353</td>
-                                    <td>Subari</td>
-                                    <td>Dosen</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>11121241424353</td>
-                                    <td>Subari</td>
-                                    <td>Dosen</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-
-
                 </div>
 
             </div>
+
+        </div>
+    </div>
+
+    <!-- Import Excel -->
+    <div class="modal fade" id="importDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form method="post" action="{{ route('dosen.import')}}" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal Update -->
+    <div class="modal fade bd-modal-lg" id="updateDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Dosen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form class="form-horizontal" action="{{ route('dosen.update', 'edit')}}"
+                      method="post"
+                      enctype="multipart/form-data">
+                    @method('PATCH')
+                    @csrf
+                    <div class="modal-body">
+                            <div class="tile-body">
+                                <input type="hidden" name="id_dosen" id="id">
+                                <div class="row">
+                                    <div class="col-md-12"><b>NIP :</b>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="nip" placeholder="NIP Dosen" id="nip" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12"><b>Nama Dosen :</b>
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" name="namaDosen" placeholder="Nama Dosen" id="namaDosen">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="hidden" name="statusUser" value="Dosen">
+                                </div>
+                            </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+
 @endsection
