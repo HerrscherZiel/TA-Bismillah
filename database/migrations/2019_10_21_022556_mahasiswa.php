@@ -19,12 +19,8 @@ class Mahasiswa extends Migration
             $table->string('nim');
             $table->string('namaMahasiswa');
             $table->string('statusUser')->default("Mahasiswa");
-//            $table->integer('userStatus_id')->unsigned()->nullable();
-//            $table->integer('kelasProyek_id')->unsigned()->nullable();
-//            $table->integer('periode_id')->unsigned()->nullable();
-//            $table->foreign('userStatus_id')->references('id_userStatus')->on('userStatus')->onDelete('cascade');
-//            $table->foreign('kelasProyek_id')->references('id_kelasProyek')->on('kelasProyek')->onDelete('cascade');
-//            $table->foreign('periode_id')->references('id_periode')->on('periode')->onDelete('cascade');
+            $table->string('username');
+            $table->string('password');
             $table->timestamps();
         });
     }

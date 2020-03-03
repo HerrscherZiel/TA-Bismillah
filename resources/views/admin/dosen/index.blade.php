@@ -44,11 +44,12 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>NIP</th>
+                                    <th>Username</th>
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -56,11 +57,13 @@
                                 </thead>
 
                                 @php $i = 1; @endphp
-                                @foreach($dosen as $dos)
+
                                 <tbody>
+                                @foreach($dosen as $dos)
                                 <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{$dos->nip}}</td>
+                                        <td>{{$dos->username}}</td>
                                         <td>{{$dos->namaDosen}}</td>
                                         <td>{{$dos->statusUser}}</td>
                                     <td>
@@ -69,6 +72,7 @@
                                                 <button class="btn btn-info"
                                                         data-id="{{$dos->id_dosen}}"
                                                         data-nip="{{$dos->nip}}"
+                                                        data-username="{{$dos->username}}"
                                                         data-nama="{{$dos->namaDosen}}"
                                                         data-toggle="modal" data-target="#updateDosen">
                                                     <i class="fa fa-lg fa-edit"></i>
@@ -149,6 +153,13 @@
                                     <div class="col-md-12"><b>NIP :</b>
                                         <div class="form-group">
                                             <input class="form-control" type="text" name="nip" placeholder="NIP Dosen" id="nip" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12"><b>Username :</b>
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" name="username" placeholder="Nama Dosen" id="username">
                                         </div>
                                     </div>
                                 </div>

@@ -16,6 +16,8 @@ class KelasProyek extends Model
     protected $fillable = [
         'namaKelasProyek',
         'deskripsi',
+        'maksAnggota',
+
     ];
 
     public function mahasiswaProyek(){

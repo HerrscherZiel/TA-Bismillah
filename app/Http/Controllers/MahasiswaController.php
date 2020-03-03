@@ -20,7 +20,7 @@ class MahasiswaController extends Controller
         //
 //        return view('admin.mahasiswa.index');
 
-        $mahasiswa = Mahasiswa::latest()->paginate(5);;
+        $mahasiswa = Mahasiswa::latest()->get();
 
         return view('admin.mahasiswa.index')->with('mahasiswa', $mahasiswa);
 

@@ -15,8 +15,8 @@ class Periode extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'tahunMulai',
-        'tahunSelesai',
+        'tahunAjaran',
+        'semester',
     ];
 
     public function mahasiswaProyek(){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\KelasProyek;
 use Illuminate\Http\Request;
 
 class KelasProyekController extends Controller
@@ -14,7 +15,8 @@ class KelasProyekController extends Controller
     public function index()
     {
         //
-        return view('admin.kelasproyek.index');
+        $klsPro = KelasProyek::latest()->paginate(5);
+        return view('admin.kelasproyek.index')->with('kelasproyek', $klsPro);
 
     }
 
@@ -37,6 +39,9 @@ class KelasProyekController extends Controller
     public function store(Request $request)
     {
         //
+        KelasProyek::create($request->all());
+
+        return back();
     }
 
     /**
@@ -68,9 +73,13 @@ class KelasProyekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $klsPro = KelasProyek::findOrFail($request->id_kelasProyek);
+        $klsPro->update($request->all());
+
+        return back();
     }
 
     /**
@@ -82,5 +91,9 @@ class KelasProyekController extends Controller
     public function destroy($id)
     {
         //
+        $klsPro = KelasProyek::findOrFail($id);
+        $klsPro->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

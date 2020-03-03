@@ -30,10 +30,6 @@ class KelompokProyek extends Model
         return $this->belongsTo('App\Dosen', 'dosen_id');
     }
 
-    public function status(){
-        return $this->belongsTo('App\Status', 'statusKelompok');
-    }
-
     public function anggotakelompok(){
         return $this->hasMany('App\AnggotaKelompok', 'kelompokProyek_id');
     }

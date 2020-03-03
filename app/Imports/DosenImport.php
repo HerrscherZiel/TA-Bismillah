@@ -17,6 +17,8 @@ class DosenImport implements ToModel
         //
         return new Dosen([
             'nip' => $row[1],
+            'username' => $row[1],
+            'password' => $row[1],
             'namaDosen' => $row[2],
             'statusUser' => $row[3],
         ]);

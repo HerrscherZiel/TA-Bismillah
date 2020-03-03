@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Periode;
 use Illuminate\Http\Request;
 
 class PeriodeController extends Controller
@@ -14,7 +15,8 @@ class PeriodeController extends Controller
     public function index()
     {
         //
-        return view('admin.periode.index');
+        $periode = Periode::latest()->paginate(5);
+        return view('admin.periode.index')->with('periode', $periode);
 
     }
 
@@ -37,6 +39,9 @@ class PeriodeController extends Controller
     public function store(Request $request)
     {
         //
+        Periode::create($request->all());
+
+        return back();
     }
 
     /**
@@ -68,9 +73,13 @@ class PeriodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $periode = Periode::findOrFail($request->id_periode);
+        $periode->update($request->all());
+
+        return back();
     }
 
     /**
@@ -82,5 +91,9 @@ class PeriodeController extends Controller
     public function destroy($id)
     {
         //
+        $periode = Periode::findOrFail($id);
+        $periode->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

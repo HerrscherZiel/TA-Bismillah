@@ -44,11 +44,12 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>NIM</th>
+                                    <th>Username</th>
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -56,11 +57,12 @@
                                 </thead>
 
                                 @php $i = 1; @endphp
-                                @foreach($mahasiswa as $mhs)
                                 <tbody>
-                                <tr>
+                                @foreach($mahasiswa as $mhs)
+                                    <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{$mhs->nim}}</td>
+                                    <td>{{$mhs->username}}</td>
                                     <td>{{$mhs->namaMahasiswa}}</td>
                                     <td>{{$mhs->statusUser}}</td>
 
@@ -70,6 +72,7 @@
                                                 <button class="btn btn-info"
                                                         data-id="{{$mhs->id_mahasiswa}}"
                                                         data-nim="{{$mhs->nim}}"
+                                                        data-username="{{$mhs->username}}"
                                                         data-nama="{{$mhs->namaMahasiswa}}"
                                                         data-toggle="modal" data-target="#updateMahasiswa">
                                                     <i class="fa fa-lg fa-edit"></i>
@@ -153,7 +156,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12"><b>Nama Dosen :</b>
+                                <div class="col-md-12"><b>Username :</b>
+                                    <div class="form-group">
+                                        <input class="form-control"  type="text" name="username" placeholder="Nama Mahasiswa" id="username">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Nama Mahasiswa :</b>
                                     <div class="form-group">
                                         <input class="form-control"  type="text" name="namaMahasiswa" placeholder="Nama Mahasiswa" id="namaMahasiswa">
                                     </div>

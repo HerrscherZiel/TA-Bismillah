@@ -26,10 +26,6 @@ class UsulMahasiswa extends Model
         return $this->belongsTo('App\MahasiswaProyek', 'mahasiswaProyek_id');
     }
 
-    public function status(){
-        return $this->belongsTo('App\Status', 'statusProyek');
-    }
-
     public function proyek(){
         return $this->hasOne('App\Proyek', 'usulMahasiswa_id');
     }

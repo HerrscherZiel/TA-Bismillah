@@ -16,6 +16,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//Auth::logout();
+
+Route::prefix('mahasiswa')->group(function (){
+    Route::get('/login', 'MahasiswaAuthController@showLoginForm')->name('mahasiswa.login');
+    Route::post('/login', 'MahasiswaAuthController@login')->name('mahasiswa.login.post');
+    Route::get('/', 'DashboardController@index')->name('mahasiswa.dashboard');
+});
+
+Route::post('mahasiswa-logout', 'MahasiswaAuthController@logout')->name('mahasiswa.logout');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -24,6 +34,9 @@ Route::get('/home', 'HomeController@index')->name('home');
     //dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('/detailProject', 'DashboardController@detailProject')->name('dashboard.detailProject');
+
+//Route::group(['middleware'=>'mahasiswa'], function() {
+//    Route::get('/teacher/home', 'Teacher\HomeController@index');
 
     //profile
     Route::get('/profileMahasiswa', 'ProfileController@index')->name('profile.index');
@@ -58,7 +71,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/pencapaian/tambah','PencapaianController@create')->name('pencapaian.tambah');
     Route::post('/pencapaian/tambah/{id}','PencapaianController@store')->name('pencapaian.store');
 
-
+//});
 
 
 

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\KelasProyek;
+use App\Periode;
+use App\Proyek;
+use App\UsulMahasiswa;
 use Illuminate\Http\Request;
 
 class ProyekController extends Controller
@@ -14,7 +18,25 @@ class ProyekController extends Controller
     public function index()
     {
         //
-        return view('admin.proyek.index');
+        $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+            ->join('periode', 'periode_id', '=', 'id_periode')
+            ->select('proyek.*', 'kelasProyek.*', 'periode.*'/*, 'usulmahasiswa.*'*/)
+            ->getQuery()
+            ->get();
+
+        $usulMhs = UsulMahasiswa::all();
+        $kelasproyek = KelasProyek::all();
+        $periode = Periode::all();
+
+
+//        dd($proyek);
+
+
+        return view('admin.proyek.index') ->with('proyek', $proyek)
+                                                ->with('usulmahasiswa', $usulMhs)
+                                                ->with('kelasproyek', $kelasproyek)
+                                                ->with('periode', $periode);
+
 
     }
 
@@ -42,6 +64,9 @@ class ProyekController extends Controller
     public function store(Request $request)
     {
         //
+        Proyek::create($request->all());
+
+        return back();
     }
 
     /**

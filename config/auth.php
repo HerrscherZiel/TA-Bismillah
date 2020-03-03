@@ -41,6 +41,21 @@ return [
             'provider' => 'users',
         ],
 
+        'mahasiswa'  => [
+            'driver'  => 'session',
+            'provider' => 'mahasiswa',
+        ],
+
+        'dosen'  => [
+            'driver'  => 'session',
+            'provider' => 'dosen',
+        ],
+
+        'admin'  => [
+            'driver'  => 'session',
+            'provider' => 'admin',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -69,6 +84,21 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'mahasiswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Mahasiswa::class,
+        ],
+
+        'dosen' => [
+            'driver' => 'eloquent',
+            'model' => App\Dosen::class,
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
         ],
 
         // 'users' => [

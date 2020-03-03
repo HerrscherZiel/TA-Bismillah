@@ -13,22 +13,22 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id_user');
-            $table->string('username');
-//            $table->string('email')->unique();
-//            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-//            $table->string('user');
-            $table->integer('dosen_id')->unsigned()->nullable();
-            $table->integer('mahasiswa_id')->unsigned()->nullable();
-            $table->integer('admin_id')->unsigned()->nullable();
-            $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('dosen_id')->references('id_dosen')->on('dosen')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('admin_id')->references('id_admin')->on('admin')->onDelete('cascade')->onUpdate('cascade');
-//            $table->rememberToken();
-            $table->timestamps();
-        });
+//        Schema::create('users', function (Blueprint $table) {
+//            $table->increments('id_user');
+//            $table->string('username');
+////            $table->string('email')->unique();
+////            $table->timestamp('email_verified_at')->nullable();
+//            $table->string('password');
+////            $table->string('user');
+//            $table->integer('dosen_id')->unsigned()->nullable();
+//            $table->integer('mahasiswa_id')->unsigned()->nullable();
+//            $table->integer('admin_id')->unsigned()->nullable();
+//            $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->onDelete('cascade')->onUpdate('cascade');
+//            $table->foreign('dosen_id')->references('id_dosen')->on('dosen')->onDelete('cascade')->onUpdate('cascade');
+//            $table->foreign('admin_id')->references('id_admin')->on('admin')->onDelete('cascade')->onUpdate('cascade');
+////            $table->rememberToken();
+//            $table->timestamps();
+//        });
     }
 
     /**

@@ -18,9 +18,8 @@ class AnggotaKelompok extends Migration
             $table->increments('id_anggotaKelompok');
             $table->integer('kelompokProyek_id')->unsigned()->nullable();
             $table->tinyInteger('isPM')->default(1);
-            $table->integer('statusAnggota')->unsigned()->nullable();
+            $table->string('statusAnggota')->nullable();
             $table->foreign('kelompokProyek_id')->references('id_kelompokProyek')->on('kelompokproyek')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('statusAnggota')->references('id_status')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

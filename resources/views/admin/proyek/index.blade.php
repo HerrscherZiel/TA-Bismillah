@@ -41,30 +41,38 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Kelas Proyek</th>
                                         <th>Periode</th>
                                         <th>Judul</th>
-                                        <th>Deskripsi</th>
-                                        <th>Penambah</th>
+{{--                                        <th>Deskripsi</th>--}}
+{{--                                        <th>Penambah</th>--}}
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
+
                                     <tbody>
-                                    <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Aktif</td>
+                                    @foreach($proyek as $pro)
+                                        <tr>
+                                        <td>{{$pro -> namaKelasProyek}}</td>
+                                        <td>{{$pro -> tahunAjaran}} | {{$pro -> semester}}</td>
+                                        <td>{{$pro -> judul}}</td>
+{{--                                        <td>Sistem Informasi Semester 5</td>--}}
+                                        <td>{{$pro -> statusProyek}}</td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
+                                                    <button class="btn btn-info"
+                                                            data-id="{{$pro->id_proyek}}"
+                                                            data-kelas="{{$pro->namaKelasProyek}}"
+                                                            data-periode="{{$pro->tahunAjaran}} | {{$pro->semester}}"
+                                                            data-deskripsi="{{$pro->deskripsi}}"
+                                                            data-judul="{{$pro->judul}}"
+                                                            data-status="{{$pro->statusProyek}}"
+                                                            data-toggle="modal" data-target="#updateProyekAdmin">
                                                         <i class="fa fa-lg fa-edit">
                                                         </i>
                                                     </button>
@@ -78,57 +86,9 @@
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Aktif</td>
-                                        <td>
-                                            <div class="text-center">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-edit">
-                                                        </i>
-                                                    </button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-info" href="#">
-                                                        <i class="fa fa-lg fa-trash">
-                                                        </i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Aktif</td>
-                                        <td>
-                                            <div class="text-center">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-edit">
-                                                        </i>
-                                                    </button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-info" href="#">
-                                                        <i class="fa fa-lg fa-trash">
-                                                        </i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -151,14 +111,18 @@
                             </button>
                         </div>
 
+                        <form method="post" action="{{ route('proyek.store')}}" enctype="multipart/form-data">
+                            @csrf
+
                         <div class="modal-body">
                             <div class="tile-body">
                                 <div class="row">
                                     <div class="col-md-12"><b>Pilih Kelas Proyek</b>
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option>SIM</option>
-                                                <option>Proyek Aplikasi</option>
+                                            <select class="form-control" name="kelasProyek_id">
+                                                @foreach($kelasproyek as $kelPro)
+                                                <option value="{{$kelPro -> id_kelasProyek}}">{{$kelPro -> namaKelasProyek}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -166,41 +130,45 @@
                                 <div class="row">
                                     <div class="col-md-12"><b>Pilih Periode</b>
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option>2017</option>
-                                                <option>2018</option>
-                                                <option>2019</option>
+                                            <select class="form-control" name="periode_id">
+                                                @foreach($periode as $per)
+                                                <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12"><b>Nama Proyek :</b>
+                                    <div class="col-md-12"><b>Judul</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="kelasProyek" placeholder="Nama Kelas Proyek">
+                                            <input class="form-control" type="text" name="judul" placeholder="Judul Proyek">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12"><b>Deskripsi Proyek :</b>
                                         <div class="form-group">
-                                            <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Kelas Proyek"></textarea>
+                                            <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Proyek"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="statusProyek" value="Belum Diambil">
                             </div>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
+
+                        </form>
+
                     </div>
                 </div>
             </div>
 
             <!-- Modal Update -->
-            <div class="modal fade bd-modal-lg" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade bd-modal-lg" id="updateProyekAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
                     <div class="modal-content">
@@ -211,14 +179,18 @@
                             </button>
                         </div>
 
+                        <form method="post" action="{{ route('proyek.update', 'edit')}}" enctype="multipart/form-data">
+                            @method('PATCH')
+                            @csrf
                         <div class="modal-body">
                             <div class="tile-body">
                                 <div class="row">
-                                    <div class="col-md-12"><b>Pilih Kelas Proyek</b>
+                                    <div class="col-md-12"><b>Kelas Proyek</b>
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option>SIM</option>
-                                                <option>Proyek Aplikasi</option>
+                                            <select class="form-control" name="kelasProyek_id" id="kelas">
+                                                @foreach($kelasproyek as $kel)
+                                                <option value="{{$kel -> id_kelasProyek}}">{{$kel -> namaKelasProyek}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -226,25 +198,37 @@
                                 <div class="row">
                                     <div class="col-md-12"><b>Pilih Periode</b>
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option>2017</option>
-                                                <option>2018</option>
-                                                <option>2019</option>
+                                            <select class="form-control" name="periode_id" id="periode">
+                                                @foreach($periode as $per)
+                                                    <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12"><b>Nama Proyek :</b>
+                                    <div class="col-md-12"><b>Judul</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="kelasProyek" placeholder="Nama Kelas Proyek">
+                                            <input class="form-control" type="text" name="judul" id="judul">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12"><b>Deskripsi Proyek :</b>
+                                    <div class="col-md-12"><b>Deskripsi Proyek</b>
                                         <div class="form-group">
-                                            <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Kelas Proyek"></textarea>
+                                            <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12"><b>Status</b>
+                                        <div class="form-group">
+                                            <select class="form-control" id="status" name="statusProyek">
+                                                <option id="status"></option>
+                                                <option>Dikerjakan</option>
+                                                <option>Tidak Aktif</option>
+                                            </select>
+{{--                                            <input class="form-control" type="text" name="statusProyek" id="status">--}}
                                         </div>
                                     </div>
                                 </div>
@@ -253,8 +237,10 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
+                        </form>
+
                     </div>
                 </div>
             </div>

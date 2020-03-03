@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\KelasProyek;
+use App\Mahasiswa;
+use App\MahasiswaProyek;
+use App\Periode;
 use Illuminate\Http\Request;
 
 class MahasiswaProyekController extends Controller
@@ -14,8 +18,30 @@ class MahasiswaProyekController extends Controller
     public function index()
     {
         //
-        return view('admin.mahasiswaproyek.index');
+//        $mhsProyek = MahasiswaProyek::latest()->paginate(5);
+        $mhsProyek = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+            ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+            ->join('periode', 'periode_id', '=', 'id_periode')
+            ->select('mahasiswa.*', 'kelasProyek.*', 'periode.*', 'mahasiswaproyek.*')
+            ->orderBy('namaKelasProyek')
+            ->getQuery()
+            ->get();
+//        dd($mhsProyek);
 
+//        $data = MahasiswaProyek::with('proyek', 'periode')->get()
+
+        $mahasiswa = Mahasiswa::all();
+        $kelasproyek = KelasProyek::all();
+        $periode = Periode::all();
+
+
+//        dd($mahasiswa);
+
+
+        return view('admin.mahasiswaproyek.index')->with('mhsProyek', $mhsProyek)
+                                                        ->with('mahasiswa', $mahasiswa)
+                                                        ->with('kelasProyek', $kelasproyek)
+                                                        ->with('periode', $periode);
     }
 
     /**
@@ -36,7 +62,11 @@ class MahasiswaProyekController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        Vali
+        MahasiswaProyek::create($request->all());
+
+        return back();
+
     }
 
     /**
@@ -68,9 +98,13 @@ class MahasiswaProyekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $mhsPro = MahasiswaProyek::findOrFail($request->id_mahasiswaProyek);
+        $mhsPro->update($request->all());
+
+        return back();
     }
 
     /**
@@ -82,5 +116,9 @@ class MahasiswaProyekController extends Controller
     public function destroy($id)
     {
         //
+        $mhsPro = MahasiswaProyek::findOrFail($id);
+        $mhsPro->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

@@ -24,8 +24,4 @@ class AnggotaProyek extends Model
         return $this->belongsTo('App\KelompokProyek', 'kelompokProyek_id');
     }
 
-    public function status(){
-        return $this->belongsTo('App\Status', 'statusAnggota');
-    }
-
 }

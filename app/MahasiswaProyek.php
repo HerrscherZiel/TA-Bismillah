@@ -14,7 +14,7 @@ class MahasiswaProyek extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'user_id',
+        'mahasiswa_id',
         'kelasProyek_id',
         'periode_id',
 
@@ -28,8 +28,8 @@ class MahasiswaProyek extends Model
         return $this->belongsTo('App\KelasProyek','kelasProyek_id');
     }
 
-    public function users(){
-        return $this->belongsTo('App\User','user_id');
+    public function mahasiswa(){
+        return $this->belongsTo('App\Mahasiswa','mahasiswa_id');
     }
 
     public function kelompokproyek(){

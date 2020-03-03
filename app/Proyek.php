@@ -31,10 +31,6 @@ class Proyek extends Model
         return $this->belongsTo('App\KelasProyek', 'kelasProyek_id');
     }
 
-    public function status(){
-        return $this->belongsTo('App\Status', 'statusProyek');
-    }
-
     public function usulmahasiswa(){
         return $this->belongsTo('App\UsulMahasiswa', 'usulMahasiswa_id');
     }

@@ -16,10 +16,10 @@ class MahasiswaProyek extends Migration
         //
         Schema::create('mahasiswaProyek', function (Blueprint $table) {
             $table->increments('id_mahasiswaProyek');
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('mahasiswa_id')->unsigned()->nullable();
             $table->integer('kelasProyek_id')->unsigned()->nullable();
             $table->integer('periode_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('mahasiswa_id')->on('users')->onDelete('cascade');
+            $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->onDelete('cascade');
             $table->foreign('kelasProyek_id')->references('id_kelasProyek')->on('kelasProyek')->onDelete('cascade');
             $table->foreign('periode_id')->references('id_periode')->on('periode')->onDelete('cascade');
             $table->timestamps();

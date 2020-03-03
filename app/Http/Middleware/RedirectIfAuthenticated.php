@@ -17,9 +17,29 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+
+        switch ($guard) {
+            case 'mahasiswa':
+                if(Auth::guard($guard)->check()){
+                    return redirect()->route('dashboard.index');
+                }
+                break;
+
+            default:
+                if(Auth::guard($guard)->check()){
+                    return redirect()->route('/home');
+                }
+                break;
         }
+
+//        if (Auth::guard($guard)->check()) {
+//            return redirect('/home');
+//            foreach (config('auth.guards') as $key => $value) {
+//                if($key == $guard) {
+//                    return redirect()->route($value['redirectTo']);
+//                }
+//            }
+//        }
 
         return $next($request);
     }

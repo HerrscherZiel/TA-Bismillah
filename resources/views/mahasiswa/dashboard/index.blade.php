@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="h3 text-center font-weight-bold text-uppercase text-gray-800">Selamat datang, Elang Bayu Aji Hartanto </div>
+                            <div class="h3 text-center font-weight-bold text-uppercase text-gray-800">Selamat datang, Elang Baayu Aji Hartanto {{Auth::guard('mahasiswa')->user()->namaMahasiswa}} </div>
                             <div class="h6 mb-0 text-center font-weight-bold text-gray-800">Seluruh pendaftaran kelas proyek prodi Rekayasa Perangkat Lunak dilakukan pada sistem ini</div>
                         </div>
                     </div>

@@ -49,7 +49,9 @@
         <!--      </div>-->
 
         <div class="sidebar-heading mx-auto">
-            Mahasiswa
+            @if(Auth::guard('mahasiswa')->check())
+            {{Auth::guard('mahasiswa')->user()->statusUser}}
+            @endif
         </div>
 
         <hr class="sidebar-divider mt-2 mb-2">
@@ -81,12 +83,6 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/mahasiswaproyek">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Mahasiswa Proyek</span></a>
-        </li>
-
-        <li class="nav-item">
             <a class="nav-link" href="/periode">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Periode</span></a>
@@ -96,6 +92,12 @@
             <a class="nav-link" href="/kelasproyek">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Kelas Proyek</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/mahasiswaproyek">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Mahasiswa Proyek</span></a>
         </li>
 
         <li class="nav-item">
@@ -120,89 +122,89 @@
 
         <!-- Divider -->
 
-        <li class="nav-item">
-            <a class="nav-link" href="/profileDosen">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Profile</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/profileDosen">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Profile</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
-        <li class="nav-item">
-            <a class="nav-link" href="/proyekDosen">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Proyek</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/proyekDosen">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Proyek</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
-        <li class="nav-item">
-            <a class="nav-link" href="/kelompokbimbingan">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Kelompok Bimbingan</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/kelompokbimbingan">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Kelompok Bimbingan</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
-        <li class="nav-item">
-            <a class="nav-link" href="/laporanDosen">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Laporan</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/laporanDosen">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Laporan</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
 
 
         <hr>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="/profileMahasiswa">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Profile</span>
-            </a>
-        </li>
+{{--        <!-- Nav Item - Pages Collapse Menu -->--}}
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/profileMahasiswa">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Profile</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
-        <li class="nav-item">
-            <a class="nav-link" href="/proyekmahasiswa">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Proyek</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/proyekmahasiswa">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Proyek</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Proyek</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Daftar Proyek:</h6>
-                    <a class="collapse-item" href="/proyek/judul">Judul</a>
-                    <a class="collapse-item" href="/proyek/kelompok">Kelompok</a>
-                    <a class="collapse-item" href="/proyek/undangan">Undangan</a>
-                    <a class="collapse-item" href="/proyek/informasi">Informasi</a>
-                </div>
-            </div>
-        </li>
+{{--        <!-- Nav Item - Utilities Collapse Menu -->--}}
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">--}}
+{{--                <i class="fas fa-fw fa-wrench"></i>--}}
+{{--                <span>Proyek</span>--}}
+{{--            </a>--}}
+{{--            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">--}}
+{{--                <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                    <h6 class="collapse-header">Daftar Proyek:</h6>--}}
+{{--                    <a class="collapse-item" href="/proyek/judul">Judul</a>--}}
+{{--                    <a class="collapse-item" href="/proyek/kelompok">Kelompok</a>--}}
+{{--                    <a class="collapse-item" href="/proyek/undangan">Undangan</a>--}}
+{{--                    <a class="collapse-item" href="/proyek/informasi">Informasi</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </li>--}}
 
-        <li class="nav-item">
-            <a class="nav-link" href="/undangan">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Undangan</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/undangan">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Undangan</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
-        <li class="nav-item">
-            <a class="nav-link" href="/laporan">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Laporan</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" href="/laporan">--}}
+{{--                <i class="fas fa-fw fa-cog"></i>--}}
+{{--                <span>Laporan</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+{{--        <!-- Sidebar Toggler (Sidebar) -->--}}
+{{--        <div class="text-center d-none d-md-inline">--}}
+{{--            <button class="rounded-circle border-0" id="sidebarToggle"></button>--}}
+{{--        </div>--}}
 
     </ul>
     <!-- End of Sidebar -->
@@ -253,7 +255,10 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                @if(Auth::guard('mahasiswa')->check())
+                                    {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}
+                                @endif</span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -263,10 +268,15 @@
                                 Profile
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <a class="dropdown-item" href="{{route('mahasiswa.logout')}}" onclick="event.preventDefault();
+                                                                                            document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
+
+                            <form id="logout-form" action="{{route('mahasiswa.logout')}}" method="post" style="display: none">
+                                @csrf
+                            </form>
                         </div>
                     </li>
 
@@ -327,9 +337,10 @@
                 <script src="{{url('/')}}/asset/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
                 <!-- Page level custom scripts -->
-                <script src="{{url('/')}}/asset/js/demo/datatables-demo.js"></script>
+{{--                <script src="{{url('/')}}/asset/js/demo/datatables-demo.js"></script>--}}
 
             <script>
+                $('#table-test').DataTable();
                 $('#updateDosen').on('show.bs.modal', function (event) {
 
                     // console.log('modal opened');
@@ -337,13 +348,15 @@
 
                     var id = button.data('id')
                     var nip = button.data('nip')
+                    var username = button.data('username')
                     var namaDosen = button.data('nama')
 
                     var modal = $(this)
                     modal.find('.modal-body #id').val(id)
                     modal.find('.modal-body #nip').val(nip)
+                    modal.find('.modal-body #username').val(username)
                     modal.find('.modal-body #namaDosen').val(namaDosen)
-                })
+                });
 
                 $('#updateMahasiswa').on('show.bs.modal', function (event) {
 
@@ -352,16 +365,92 @@
 
                     var id = button.data('id')
                     var nim = button.data('nim')
+                    var username = button.data('username')
                     var namaMahasiswa = button.data('nama')
 
                     var modal = $(this)
                     modal.find('.modal-body #id').val(id)
                     modal.find('.modal-body #nim').val(nim)
+                    modal.find('.modal-body #username').val(username)
                     modal.find('.modal-body #namaMahasiswa').val(namaMahasiswa)
+                });
+
+                $('#updateMahasiswaProyek').on('show.bs.modal', function (event) {
+
+                    // console.log('modal opened');
+                    var button = $(event.relatedTarget)
+
+                    var id = button.data('id')
+                    var idmas = button.data('idmas')
+                    var nama = button.data('nama')
+                    var kelasproyek = button.data('kelasproyek')
+                    var periode = button.data('periode')
+
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id)
+                    modal.find('.modal-body #idmas').val(idmas)
+                    modal.find('.modal-body #nama').val(nama)
+                    // $('.namas').data('nama');
+                    modal.find('.modal-body #kelasproyek').val(kelasproyek)
+                    modal.find('.modal-body #periode').val(periode)
+                })
+
+                $('#updateKelasProyek').on('show.bs.modal', function (event) {
+
+                    // console.log('modal opened');
+                    var button = $(event.relatedTarget)
+
+                    var id = button.data('id')
+                    var nama = button.data('nama')
+                    var deskripsi = button.data('deskripsi')
+                    var anggota = button.data('anggota')
+
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id)
+                    modal.find('.modal-body #nama').val(nama)
+                    modal.find('.modal-body #deskripsi').val(deskripsi)
+                    modal.find('.modal-body #maksAnggota').val(anggota)
+                })
+
+                $('#updatePeriode').on('show.bs.modal', function (event) {
+
+                    // console.log('modal opened');
+                    var button = $(event.relatedTarget)
+
+                    var id = button.data('id')
+                    var tahun = button.data('tahun')
+                    var sem = button.data('sem')
+
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id)
+                    modal.find('.modal-body #tahun').val(tahun)
+                    modal.find('.modal-body #sem').val(sem)
+                })
+
+                $('#updateProyekAdmin').on('show.bs.modal', function (event) {
+
+                    // console.log('modal opened');
+                    var button = $(event.relatedTarget)
+
+                    var id = button.data('id')
+                    var kelas = button.data('kelas')
+                    var periode = button.data('periode')
+                    var judul = button.data('judul')
+                    var deskripsi = button.data('deskripsi')
+                    var status = button.data('status')
+
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id)
+                    modal.find('.modal-body #kelas').val(kelas)
+                    modal.find('.modal-body #periode').val(periode)
+                    modal.find('.modal-body #judul').val(judul)
+                    modal.find('.modal-body #deskripsi').val(deskripsi)
+                    modal.find('.modal-body #status').val(status)
                 })
 
 
             </script>
+            @stack('scripts')
 
 </body>
 

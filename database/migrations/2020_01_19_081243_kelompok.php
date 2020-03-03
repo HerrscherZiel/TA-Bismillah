@@ -19,10 +19,9 @@ class Kelompok extends Migration
             $table->integer('mahasiswaProyek_id')->unsigned()->nullable();
             $table->string('judulPrioritas')->default(null);
             $table->integer('dosen_id')->unsigned()->nullable();
-            $table->integer('statusKelompok')->unsigned()->nullable();
+            $table->string('statusKelompok')->nullable();
             $table->foreign('mahasiswaProyek_id')->references('id_mahasiswaProyek')->on('mahasiswaProyek')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('dosen_id')->references('id_dosen')->on('dosen')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('statusKelompok')->references('id_status')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

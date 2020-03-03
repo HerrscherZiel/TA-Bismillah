@@ -3,9 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Mahasiswa extends Model
+
+class Mahasiswa extends Authenticatable
+
 {
+    use Notifiable;
+
+    protected $guard = 'mahasiswa';
     //
     protected $table = 'mahasiswa';
 
@@ -15,16 +22,22 @@ class Mahasiswa extends Model
 
     protected $fillable = [
         'nim',
+        'username',
+        'password',
         'namaMahasiswa',
         'statusUser',
     ];
 
-    protected $attributes = [
-        'statusUser' => 'Mahasiswa',
-    ];
+    protected $hidden = ['password'];
+//
+//    public function getAuthPassword()
+//    {
+//        return $this->password;
+//    }
 
-    public function users(){
-        return $this->hasOne('App\Users','mahasiswa_id');
+
+    public function mahasiswaproyek(){
+        return $this->hasMany('App\MahasiswaProyek','mahasiswa_id');
     }
 
     public function profilmahasiswa(){

@@ -16,8 +16,8 @@ class Periode extends Migration
         //
         Schema::create('periode', function (Blueprint $table) {
             $table->increments('id_periode');
-            $table->date('tahunMulai');
-            $table->date('tahunSelesai');
+            $table->integer('tahunAjaran');
+            $table->string('semester');
             $table->timestamps();
         });
     }

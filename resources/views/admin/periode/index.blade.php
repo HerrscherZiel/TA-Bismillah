@@ -45,83 +45,51 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Periode Mulai</th>
-                                    <th>Periode Selesai</th>
+{{--                                    <th>No</th>--}}
+                                    <th>Tahun Ajaran</th>
+                                    <th>Semester</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2017</td>
-                                    <td>2018</td>
+                                @foreach($periode as $period)
+                                    <tr>
+{{--                                    <td>1</td>--}}
+                                    <td>{{$period -> tahunAjaran}}</td>
+                                    <td>{{$period -> semester}}</td>
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
+                                                <button class="btn btn-info"
+                                                        data-id="{{$period->id_periode}}"
+                                                        data-tahun="{{$period->tahunAjaran}}"
+                                                        data-sem="{{$period->semester}}"
+                                                        data-toggle="modal" data-target="#updatePeriode">
                                                     <i class="fa fa-lg fa-edit">
                                                     </i>
                                                 </button>
                                             </div>
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
+                                                <form class="delete" action="{{ route('periode.destroy', $period->id_periode)}}" method="post">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <i class="fa fa-lg fa-trash">
+                                                        </i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>2018</td>
-                                    <td>2019</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>2019</td>
-                                    <td>2020</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                    <i class="fa fa-lg fa-edit">
-                                                    </i>
-                                                </button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                @endforeach
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -145,19 +113,24 @@
                     </button>
                 </div>
 
+                <form method="post" action="{{ route('periode.store')}}" enctype="multipart/form-data">
+                    @csrf
                 <div class="modal-body">
                     <div class="tile-body">
                         <div class="row">
-                            <div class="col-md-12"><b>Periode Mulai :</b>
+                            <div class="col-md-12"><b>Tahun Ajaran :</b>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="tahunSelesai" placeholder="Tahun mulai periode">
+                                    <input class="form-control" type="text" name="tahunAjaran" placeholder="2019, 2020, .....">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><b>Periode Selesai :</b>
+                            <div class="col-md-12"><b>Semester :</b>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="tahunSelesai" placeholder="Tahun selesai periode">
+                                    <select class="form-control" type="text" name="semester" >
+                                        <option>Genap</option>
+                                        <option>Ganjil</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -166,14 +139,16 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+                </form>
+
             </div>
         </div>
     </div>
 
     <!-- Modal Update -->
-    <div class="modal fade bd-modal-lg" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade bd-modal-lg" id="updatePeriode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
             <div class="modal-content">
@@ -184,29 +159,38 @@
                     </button>
                 </div>
 
-                <div class="modal-body">
-                    <div class="tile-body">
-                        <div class="row">
-                            <div class="col-md-12"><b>Periode Mulai :</b>
-                                <div class="form-group">
-                                    <input class="form-control" type="date" name="tahunSelesai" placeholder="Tahun mulai periode">
+                <form method="post" action="{{ route('periode.update', 'edit')}}" enctype="multipart/form-data">
+                    @method('PATCH')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <input type="hidden" name="id_periode" id="id">
+                            <div class="row">
+                                <div class="col-md-12"><b>Tahun Ajaran :</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="tahunAjaran" id="tahun">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12"><b>Periode Selesai :</b>
-                                <div class="form-group">
-                                    <input class="form-control" type="date" name="tahunSelesai" placeholder="Tahun selesai periode">
+                            <div class="row">
+                                <div class="col-md-12"><b>Semester :</b>
+                                    <div class="form-group">
+                                        <select class="form-control" type="text" name="semester" id="sem">
+                                            <option>Genap</option>
+                                            <option>Ganjil</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
