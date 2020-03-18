@@ -24,6 +24,12 @@ Route::prefix('mahasiswa')->group(function (){
     Route::get('/', 'DashboardController@index')->name('mahasiswa.dashboard');
 });
 
+Route::prefix('dosen')->group(function (){
+    Route::get('/login', 'DosenAuthController@showLoginForm')->name('dosen.login');
+    Route::post('/login', 'DosenController@login')->name('dosen.login.post');
+    Route::get('/', 'DashboardController@index')->name('mahasiswa.dashboard');
+});
+
 Route::post('mahasiswa-logout', 'MahasiswaAuthController@logout')->name('mahasiswa.logout');
 
 

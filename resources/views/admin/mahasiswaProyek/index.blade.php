@@ -75,8 +75,6 @@
                                                         <i class="fa fa-lg fa-edit">
                                                         </i>
                                                     </button>
-                                                </div>
-                                                <div class="btn-group">
                                                     <form class="delete" action="{{ route('mahasiswaproyek.destroy', $mPro->id_mahasiswaProyek)}}" method="post">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         @csrf
@@ -119,9 +117,11 @@
                             <div class="row">
                                 <div class="col-md-12"><b>Pilih Mahasiswa</b>
                                     <div class="form-group">
-                                            <select class="form-control" name="mahasiswa_id" required="">
+                                            <select class="form-control selectbox" name="mahasiswa_id" required="" style="width: 100%">
                                                 @foreach($mahasiswa as $mhs)
-                                                <option value="{{$mhs->id_mahasiswa}}">{{$mhs->namaMahasiswa}}</option>
+                                                    {{preg_match('~/(.*?)/SV~', $mhs->nim, $output),
+                                                        $a = strval($output[1])}}
+                                                <option value="{{$mhs->id_mahasiswa}}">{{$mhs->namaMahasiswa}} ({{$a}})</option>
                                                 @endforeach
                                             </select>
                                     </div>
@@ -130,7 +130,7 @@
                             <div class="row">
                                 <div class="col-md-12"><b>Pilih Kelas Proyek</b>
                                     <div class="form-group">
-                                        <select class="form-control" name="kelasProyek_id" required="">
+                                        <select class="form-control selectbox" name="kelasProyek_id" required="" style="width: 100%">
                                             @foreach($kelasProyek as $kelPro)
                                                 <option value="{{$kelPro->id_kelasProyek}}">{{$kelPro->namaKelasProyek}}</option>
                                             @endforeach
@@ -141,7 +141,7 @@
                             <div class="row">
                                 <div class="col-md-12"><b>Pilih Periode</b>
                                     <div class="form-group">
-                                        <select class="form-control" name="periode_id" required="">
+                                        <select class="form-control selectbox" name="periode_id" required="" style="width: 100%">
                                             @foreach($periode as $per)
                                                 <option value="{{$per->id_periode}}">{{$per->tahunAjaran}} | {{$per->semester}}</option>
                                             @endforeach
@@ -181,15 +181,18 @@
                         <div class="modal-body">
                             <div class="tile-body">
                                 <input type="hidden" name="id_mahasiswaProyek" id="id">
-                                <input type="hidden" name="mahasiswa_id" id="idmas">
+{{--                                <input type="hidden" name="mahasiswa_id" id="idmas">--}}
                                 <div class="row">
                                     <div class="col-md-12"><b>Nama Mahasiswa</b>
                                         <div class="form-group">
-                                            <input class="form-control namas" id="nama" disabled>
-{{--                                                @foreach($mahasiswa as $mhs)--}}
-{{--                                                <option >{{$nam}}</option>--}}
-{{--                                                @endforeach--}}
-{{--                                            </input>--}}
+                                            <select class="form-control selectmhs" name="mahasiswa_id" id="idmas" style="width: 100%">
+                                                @foreach($mahasiswa as $mhs)
+                                                    <option value="{{$mhs->id_mahasiswa}}" {{preg_match('~/(.*?)/SV~', $mhs->nim, $output),
+                                                        $a = strval($output[1])}}>
+
+                                                        {{$mhs->namaMahasiswa}} ({{$a}})</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -205,24 +208,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-12"><b>Username :</b>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <input class="form-control"  type="text" name="username" placeholder="Nama Mahasiswa" id="nama">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-12"><b>Username :</b>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <select class="form-control" type="text" name="kelasproyek_id" id="nama">--}}
-{{--                                                <option class="form-control"  type="text" name="username"  id="nama">--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
 
                                 <div class="row">
                                     <div class="col-md-12"><b>Tahun Ajaran</b>
@@ -250,10 +235,28 @@
     </div>
 
 
-
-
 @endsection
-@push('script')
-    test
+@push('scripts')
+    <script>
+        $('#updateMahasiswaProyek').on('show.bs.modal', function (event) {
+
+        // console.log('modal opened');
+        var button = $(event.relatedTarget)
+
+        var id = button.data('id')
+        var idmas = button.data('idmas')
+        var nama = button.data('nama')
+        var kelasproyek = button.data('kelasproyek')
+        var periode = button.data('periode')
+
+        var modal = $(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #idmas').val(idmas)
+        modal.find('.modal-body #nama').val(nama)
+        // $('.namas').data('nama');
+        modal.find('.modal-body #kelasproyek').val(kelasproyek)
+        modal.find('.modal-body #periode').val(periode)
+        })
+    </script>
 @endpush
 

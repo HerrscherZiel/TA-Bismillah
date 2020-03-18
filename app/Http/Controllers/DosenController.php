@@ -80,6 +80,9 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         //
+        Dosen::create($request->all());
+
+        return back();
     }
 
     /**
@@ -120,6 +123,9 @@ class DosenController extends Controller
 
         $dosen = Dosen::findOrFail($request->id_dosen);
         $dosen->update($request->all());
+
+
+//        return redirect('/admin')->with('success', 'Data Dosen Berhasil Diubah');
 
         return back();
     }

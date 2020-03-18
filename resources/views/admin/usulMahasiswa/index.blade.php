@@ -37,37 +37,31 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Kelas Proyek</th>
-                                    <th>Periode</th>
                                     <th>Judul</th>
                                     <th>Deskripsi</th>
                                     <th>Pengusul</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
+                                        <td>SIM || Genap 2020</td>
                                         <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
+                                        <td>Sistem Informasi Semester 5 aisuhdahjsdlkaslkdalshduiagsuidaiuwgdawdapwpdajsndjnabsjndbawbdiabshdb</td>
                                         <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Menunggu Persetujuan</td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
                                                     <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-edit">
+                                                        <i class="fa fa-lg fa-check">
                                                         </i>
                                                     </button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-info" href="#">
-                                                        <i class="fa fa-lg fa-trash">
+                                                    <a class="btn btn-danger" href="#">
+                                                        <i class="fa fa-lg fa-times">
                                                         </i>
                                                     </a>
                                                 </div>
@@ -75,53 +69,6 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Menunggu Persetujuan</td>
-                                        <td>
-                                            <div class="text-center">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-edit">
-                                                        </i>
-                                                    </button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-info" href="#">
-                                                        <i class="fa fa-lg fa-trash">
-                                                        </i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>SIM</td>
-                                        <td>2019</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>Menunggu Persetujuan</td>
-                                        <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-edit">
-                                                        </i>
-                                                    </button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-info" href="#">
-                                                        <i class="fa fa-lg fa-trash">
-                                                        </i>
-                                                    </a>
-                                                </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

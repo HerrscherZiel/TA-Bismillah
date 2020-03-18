@@ -98,9 +98,13 @@ class ProyekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $pro = Proyek::findOrFail($request->id_proyek);
+        $pro->update($request->all());
+
+        return back();
     }
 
     /**
@@ -112,5 +116,9 @@ class ProyekController extends Controller
     public function destroy($id)
     {
         //
+        $pro = Proyek::findOrFail($id);
+        $pro->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

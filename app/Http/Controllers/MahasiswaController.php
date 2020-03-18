@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mahasiswa;
+use App\MahasiswaProyek;
 use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -78,6 +79,26 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         //
+//        Mahasiswa::create($request->all());
+
+        preg_match('~/(.*?)/SV~', $request->nim, $output);
+        $a = strval($output[1]);
+
+//        dd($a);
+
+        $mhs = new Mahasiswa([
+            'nim'   => $request->get('nim'),
+            'username'          => $a,
+            'namaMahasiswa'     => $request->get('namaMahasiswa'),
+            'statusUser'        => $request->get('statusUser'),
+            'password'          => bcrypt($a),
+            'passwordBackup'    => bcrypt($a)
+
+        ]);
+
+        $mhs->save();
+
+        return back();
     }
 
     /**

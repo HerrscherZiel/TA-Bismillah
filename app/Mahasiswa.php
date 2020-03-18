@@ -24,6 +24,7 @@ class Mahasiswa extends Authenticatable
         'nim',
         'username',
         'password',
+        'passwordBackup',
         'namaMahasiswa',
         'statusUser',
     ];

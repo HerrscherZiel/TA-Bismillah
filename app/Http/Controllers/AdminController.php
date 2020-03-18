@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,7 +15,8 @@ class AdminController extends Controller
     public function index()
     {
         //
-        return view('admin.admin.index');
+        $admin = Admin::all();
+        return view('admin.admin.index')->with('admin', $admin);
 
     }
 
@@ -26,6 +28,7 @@ class AdminController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -37,6 +40,9 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+        Admin::create($request->all());
+
+        return back();
     }
 
     /**
@@ -68,9 +74,17 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+//        $admin = Proyek::findOrFail($request->id_admin);
+//        $admin->update($request->all());
+
+        $admin = Admin::findOrFail($request->id_admin);
+        $admin->update($request->all());
+
+
+        return back();
     }
 
     /**
@@ -82,5 +96,9 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+
+        return back()->with('success', 'job has been deleted Successfully');
     }
 }

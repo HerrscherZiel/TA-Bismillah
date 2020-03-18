@@ -72,8 +72,6 @@
                                                     <i class="fa fa-lg fa-edit">
                                                     </i>
                                                 </button>
-                                            </div>
-                                            <div class="btn-group">
                                                 <form class="delete" action="{{ route('periode.destroy', $period->id_periode)}}" method="post">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf

@@ -2,42 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88c779a4-3cad-4c3a-92e6-e93fe4bfbc7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/auth/mahasiswalogin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AnggotaProyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AnggotaProyek.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Dosen.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Dosen.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KelasProyekController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KelasProyekController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DosenController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DosenController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MahasiswaProyekController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MahasiswaProyekController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PeriodeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PeriodeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Imports/DosenImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/DosenImport.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Imports/MahasiswaImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/MahasiswaImport.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/KelasProyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/KelasProyek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/KelompokProyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/KelompokProyek.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Mahasiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mahasiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/MahasiswaProyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/MahasiswaProyek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Periode.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Periode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Proyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Proyek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/UsulMahasiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/UsulMahasiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_21_014928_kelas_proyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_21_014928_kelas_proyek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_21_015411_periode.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_21_015411_periode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_21_021432_status.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_21_021853_dosen.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_21_021853_dosen.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_21_022556_mahasiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_21_022556_mahasiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_24_075555_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_24_075555_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_24_103154_mahasiswa_proyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_24_103154_mahasiswa_proyek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_24_140020_usul_mahasiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_24_140020_usul_mahasiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_24_154710_proyek.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_24_154710_proyek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_19_081243_kelompok.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_19_081243_kelompok.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_23_054637_anggota_kelompok.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_23_054637_anggota_kelompok.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_24_074420_admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_24_074420_admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/admin/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/admin/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/dosen/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dosen/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/kelasProyek/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/kelasProyek/index.blade.php" afterDir="false" />
@@ -45,8 +24,8 @@
       <change beforePath="$PROJECT_DIR$/resources/views/admin/mahasiswaProyek/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/mahasiswaProyek/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/periode/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/periode/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/proyek/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/proyek/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/usulMahasiswa/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/usulMahasiswa/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/mahasiswa/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/mahasiswa/dashboard/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,64 +43,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/master.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="37" column="56" lean-forward="true" selection-start-line="37" selection-start-column="56" selection-end-line="37" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaProyekController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
-              <folding>
-                <element signature="e#40#60#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/proyek/index.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="88" column="47" selection-start-line="88" selection-start-column="47" selection-end-line="88" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-              <folding>
-                <element signature="e#40#58#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/mahasiswa/dashboard/index.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="194" lean-forward="true" selection-start-line="17" selection-start-column="143" selection-end-line="17" selection-end-column="194" />
+            <state relative-caret-position="684">
+              <caret line="402" selection-start-line="402" selection-end-line="402" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/master.blade.php">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="155" selection-start-line="155" selection-end-line="170" />
-              <folding>
-                <element signature="n#style#0;n#form#0;n#div#0;n#li#1;n#ul#0;n#nav#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="323">
+              <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -144,7 +78,13 @@
       <find>datatable</find>
       <find>dataTa</find>
       <find>admin</find>
+      <find>form-control</find>
+      <find>1px !important</find>
+      <find>width</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\asus\TA\TugasAkhir\public\src</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -152,15 +92,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Milestone.php" />
-        <option value="$PROJECT_DIR$/app/AgendaSelanjutnya.php" />
-        <option value="$PROJECT_DIR$/app/Pencapaian.php" />
-        <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/config/filesystems.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/DosenController.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_10_21_014928_kelas_proyek.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_10_21_021853_dosen.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_10_21_022556_mahasiswa.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_10_24_103154_mahasiswa_proyek.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_10_24_075555_create_users_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/mahasiswaAuth.php" />
@@ -168,15 +99,10 @@
         <option value="$PROJECT_DIR$/app/Exceptions/Handler.php" />
         <option value="$PROJECT_DIR$/config/auth.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" />
-        <option value="$PROJECT_DIR$/app/Mahasiswa.php" />
-        <option value="$PROJECT_DIR$/app/Dosen.php" />
-        <option value="$PROJECT_DIR$/app/Imports/DosenImport.php" />
         <option value="$PROJECT_DIR$/app/Periode.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_10_21_015411_periode.php" />
         <option value="$PROJECT_DIR$/app/MahasiswaProyek.php" />
-        <option value="$PROJECT_DIR$/app/KelasProyek.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PeriodeController.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/admin/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/KelasProyekController.php" />
         <option value="$PROJECT_DIR$/app/Proyek.php" />
         <option value="$PROJECT_DIR$/app/KelompokProyek.php" />
@@ -186,23 +112,37 @@
         <option value="$PROJECT_DIR$/database/migrations/2020_01_19_081243_kelompok.php" />
         <option value="$PROJECT_DIR$/app/UsulMahasiswa.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_10_24_140020_usul_mahasiswa.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/mahasiswalogin.blade.php" />
-        <option value="$PROJECT_DIR$/app/Imports/MahasiswaImport.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MahasiswaProyekController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/mahasiswa/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" />
         <option value="$PROJECT_DIR$/resources/views/mahasiswa/dashboard/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MahasiswaAuthController.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_10_21_022556_mahasiswa.php" />
+        <option value="$PROJECT_DIR$/app/Mahasiswa.php" />
+        <option value="$PROJECT_DIR$/app/Imports/MahasiswaImport.php" />
+        <option value="$PROJECT_DIR$/app/Dosen.php" />
+        <option value="$PROJECT_DIR$/app/Admin.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_10_24_074420_admin.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_10_21_021853_dosen.php" />
+        <option value="$PROJECT_DIR$/app/KelasProyek.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_10_21_014928_kelas_proyek.php" />
+        <option value="$PROJECT_DIR$/app/Imports/DosenImport.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" />
+        <option value="$PROJECT_DIR$/public/asset/css/select2.min.css" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/DosenController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/admin/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/dosen/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/mahasiswa/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/periode/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/kelasProyek/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/mahasiswaProyek/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/periode/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/proyek/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/master.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/proyek/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/usulMahasiswa/index.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
       </list>
     </option>
   </component>
@@ -312,6 +252,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -340,27 +281,6 @@
             <path>
               <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
               <item name="TugasAkhir" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TugasAkhir" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Middleware" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TugasAkhir" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Imports" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TugasAkhir" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -375,6 +295,14 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TugasAkhir" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="mahasiswaProyek" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
@@ -383,6 +311,14 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="proyek" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TugasAkhir" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="usulMahasiswa" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TugasAkhir" type="b2602c69:ProjectViewProjectNode" />
@@ -400,7 +336,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -412,12 +347,12 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\asus\TA\TugasAkhir\public\asset" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asus\TA\TugasAkhir\app\Http\Controllers\Laporan" />
       <recent name="C:\Users\asus\TA\TugasAkhir\resources\views\mahasiswa\project\judul" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\asus\TA\TugasAkhir\public\asset" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -503,18 +438,29 @@
       <workItem from="1582712677229" duration="1098000" />
       <workItem from="1582725313589" duration="3606000" />
       <workItem from="1582835296611" duration="11356000" />
-      <workItem from="1582908013167" duration="43497000" />
+      <workItem from="1582908013167" duration="63436000" />
+      <workItem from="1583381008704" duration="1580000" />
+      <workItem from="1583471588424" duration="155000" />
+      <workItem from="1584174557670" duration="12013000" />
+      <workItem from="1584198886460" duration="48000" />
+      <workItem from="1584200691605" duration="5383000" />
+      <workItem from="1584258272749" duration="11897000" />
+      <workItem from="1584341523280" duration="9718000" />
+      <workItem from="1584428124873" duration="2353000" />
+      <workItem from="1584476036505" duration="42000" />
+      <workItem from="1584476369196" duration="35000" />
+      <workItem from="1584510535961" duration="662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="363924000" />
+    <option name="totallyTimeSpent" value="427749000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21481876" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24093817" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -529,14 +475,14 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917964" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.6209761" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.20456906" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18496802" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23027718" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -551,7 +497,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917964" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.24299066" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.20456906" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -562,60 +508,10 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Exceptions/Handler.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
-          <folding>
-            <element signature="e#34#48#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa7584.20114/Admin.php" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa7584.23617/auth.php" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa7584.33356/web.php" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa7584.24006/admin-login.blade.php" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa7584.43077/Kernel.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="647">
-          <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/ProfilMahasiswa.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Dosen.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_21_021853_dosen.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" selection-start-line="20" selection-end-line="21" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_21_022556_mahasiswa.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -625,34 +521,10 @@
     <entry file="file://$PROJECT_DIR$/resources/views/admin/kelompok/show.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Imports/DosenImport.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="e#31#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DosenController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1733">
-          <caret line="5" selection-start-line="5" selection-end-line="8" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_21_015411_periode.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/KelasProyek.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -739,16 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProyekController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="22" column="82" selection-start-line="22" selection-start-column="61" selection-end-line="22" selection-end-column="84" />
-          <folding>
-            <element signature="e#40#60#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Proyek.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1">
@@ -777,27 +639,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Mahasiswa.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
-          <folding>
-            <element signature="e#23#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/auth/mahasiswalogin.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="37" column="56" lean-forward="true" selection-start-line="37" selection-start-column="56" selection-end-line="37" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -808,19 +653,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaAuthController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/mahasiswa/dashboard/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="847">
-          <caret line="73" column="39" selection-start-line="73" selection-start-column="39" selection-end-line="73" selection-end-column="39" />
+        <state relative-caret-position="289">
+          <caret line="17" column="194" selection-start-line="17" selection-start-column="143" selection-end-line="17" selection-end-column="194" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php">
+    <entry file="file://$PROJECT_DIR$/app/Admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state relative-caret-position="408">
+          <caret line="24" column="29" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Dosen.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_21_021853_dosen.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_24_074420_admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_21_014928_kelas_proyek.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/KelasProyek.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Imports/DosenImport.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
           <folding>
-            <element signature="e#40#58#0#PHP" expanded="true" />
+            <element signature="e#31#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaProyekController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1908">
+          <caret line="118" column="8" selection-start-line="118" selection-start-column="8" selection-end-line="121" selection-end-column="88" />
+          <folding>
+            <element signature="e#40#60#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -828,86 +725,161 @@
     <entry file="file://$PROJECT_DIR$/app/Imports/MahasiswaImport.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
-          <caret line="30" column="52" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+          <caret line="30" column="32" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="32" />
           <folding>
             <element signature="e#31#49#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/mahasiswa/dashboard/index.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/asset/css/sb-admin-2.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/asset/css/sb-admin-2.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="194" lean-forward="true" selection-start-line="17" selection-start-column="143" selection-end-line="17" selection-end-column="194" />
+        <state relative-caret-position="29121">
+          <caret line="1713" column="2" selection-start-line="1713" selection-start-column="2" selection-end-line="1713" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/dosen/index.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/asset/css/select2.min.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="61" column="56" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
+        <state>
+          <caret column="2785" selection-start-column="2785" selection-end-column="2785" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_10_21_022556_mahasiswa.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DosenController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="124" column="29" selection-start-line="124" selection-end-line="125" />
+          <folding>
+            <element signature="e#40#54#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/admin/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="544">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/dosen/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="76" column="57" selection-start-line="76" selection-start-column="57" selection-end-line="76" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/mahasiswa/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="46" column="80" selection-start-line="46" selection-start-column="80" selection-end-line="46" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/kelasProyek/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/mahasiswaProyek/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="55">
+          <caret line="79" column="84" lean-forward="true" selection-start-line="79" selection-start-column="84" selection-end-line="80" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/periode/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="47" column="90" selection-start-line="47" selection-start-column="90" selection-end-line="47" selection-end-column="90" />
+        <state relative-caret-position="578">
+          <caret line="73" column="57" selection-start-line="73" selection-start-column="57" selection-end-line="73" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaProyekController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/kelasProyek/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
+        <state relative-caret-position="-268">
+          <caret line="77" column="57" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="94" column="32" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="32" />
+          <folding>
+            <element signature="e#40#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/mahasiswaProyek/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1618">
+          <caret line="119" column="83" selection-start-line="119" selection-start-column="83" selection-end-line="119" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
+          <folding>
+            <element signature="e#40#54#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProyekController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="103" column="7" selection-start-line="103" selection-start-column="7" selection-end-line="106" selection-end-column="22" />
           <folding>
             <element signature="e#40#60#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/usulMahasiswa/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="40" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MahasiswaAuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="73" column="39" selection-start-line="73" selection-start-column="39" selection-end-line="73" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Mahasiswa.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+          <folding>
+            <element signature="e#23#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/proyek/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="88" column="47" selection-start-line="88" selection-start-column="47" selection-end-line="88" selection-end-column="47" />
+        <state relative-caret-position="17">
+          <caret line="202" column="49" selection-start-line="202" selection-start-column="49" selection-end-line="202" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/master.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="155" selection-start-line="155" selection-end-line="170" />
-          <folding>
-            <element signature="n#style#0;n#form#0;n#div#0;n#li#1;n#ul#0;n#nav#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="684">
+          <caret line="402" selection-start-line="402" selection-end-line="402" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
         </state>
       </provider>
     </entry>

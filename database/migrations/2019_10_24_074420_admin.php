@@ -17,7 +17,10 @@ class Admin extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->increments('id_admin');
             $table->string('nip');
+            $table->string('email');
             $table->string('namaAdmin');
+            $table->string('password');
+            $table->string('passwordBackup');
             $table->string('statusUser')->default("Admin");
 //            $table->integer('userStatus_id')->unsigned()->nullable();
 //            $table->foreign('userStatus_id')->references('id_userStatus')->on('userStatus')->onDelete('cascade');

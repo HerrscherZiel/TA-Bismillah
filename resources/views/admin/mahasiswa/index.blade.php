@@ -32,7 +32,8 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswa">Tambah</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahMahasiswa">Tambah</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswa">Import</button>
                                 {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
                             <!--                      </div>-->
@@ -53,6 +54,7 @@
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th>Action</th>
+                                    <th>Reset</th>
                                 </tr>
                                 </thead>
 
@@ -77,8 +79,6 @@
                                                         data-toggle="modal" data-target="#updateMahasiswa">
                                                     <i class="fa fa-lg fa-edit"></i>
                                                 </button>
-                                            </div>
-                                            <div class="btn-group">
                                                 <form class="delete" action="{{ route('mahasiswa.destroy', $mhs->id_mahasiswa)}}" method="post">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
@@ -91,6 +91,15 @@
                                             </div>
                                         </div>
                                     </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-info">
+                                                        <i class="fa fa-lg fa-key"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
                                 </tr>
                                 @endforeach
 
@@ -120,11 +129,60 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Import</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+
+    <!-- Modal Tambah -->
+    <div class="modal fade bd-modal-lg" id="tambahMahasiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Mahasiswa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form class="form-horizontal" action="{{ route('mahasiswa.store')}}"
+                      method="post"
+                      enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <input type="hidden" name="id_mahasiswa" id="id">
+                            <div class="row">
+                                <div class="col-md-12"><b>NIM :</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="nim" placeholder="NIM Mahasiswa">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Nama Mahasiswa :</b>
+                                    <div class="form-group">
+                                        <input class="form-control"  type="text" name="namaMahasiswa" placeholder="Nama Mahasiswa">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" name="statusUser" value="Mahasiswa">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+
+            </div>
         </div>
     </div>
 
@@ -169,14 +227,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" type="hidden" name="statusUser" value="Mahasiswa">
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <input class="form-control" type="hidden" name="statusUser" value="Mahasiswa">--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
 
@@ -184,6 +242,26 @@
         </div>
     </div>
 
+    @push('scripts')
+        <script>
+            $('#updateMahasiswa').on('show.bs.modal', function (event) {
 
+                // console.log('modal opened');
+                var button = $(event.relatedTarget)
+
+                var id = button.data('id')
+                var nim = button.data('nim')
+                var username = button.data('username')
+                var namaMahasiswa = button.data('nama')
+
+                var modal = $(this)
+                modal.find('.modal-body #id').val(id)
+                modal.find('.modal-body #nim').val(nim)
+                modal.find('.modal-body #username').val(username)
+                modal.find('.modal-body #namaMahasiswa').val(namaMahasiswa)
+            });
+
+        </script>
+    @endpush
 
 @endsection

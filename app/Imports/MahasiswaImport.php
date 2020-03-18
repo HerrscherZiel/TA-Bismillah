@@ -29,6 +29,7 @@ class MahasiswaImport implements ToModel
 //            $nim7 = strval($output[1]),
             'username' => strval($output[1]),
             'password' => bcrypt(strval($output[1])),
+            'passwordBackup' => bcrypt(strval($output[1])),
             'namaMahasiswa' => $row[2],
             'statusUser' => "Mahasiswa",
         ]);

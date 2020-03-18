@@ -17,6 +17,7 @@ class KelasProyek extends Model
         'namaKelasProyek',
         'deskripsi',
         'maksAnggota',
+        'status',
 
     ];
 

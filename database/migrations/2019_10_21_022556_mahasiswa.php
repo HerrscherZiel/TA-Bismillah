@@ -21,6 +21,7 @@ class Mahasiswa extends Migration
             $table->string('statusUser')->default("Mahasiswa");
             $table->string('username');
             $table->string('password');
+            $table->string('passwordBackup');
             $table->timestamps();
         });
     }

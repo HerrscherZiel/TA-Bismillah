@@ -50,6 +50,7 @@
                                     <th>Kelas Proyek</th>
                                     <th>Deskripsi</th>
                                     <th>Maksimal Anggota</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -61,6 +62,7 @@
                                     <td>{{$kls -> namaKelasProyek}}</td>
                                     <td>{{$kls -> deskripsi}}</td>
                                     <td>{{$kls -> maksAnggota}}</td>
+                                    <td>{{$kls -> status}}</td>
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
@@ -69,12 +71,11 @@
                                                         data-nama="{{$kls->namaKelasProyek}}"
                                                         data-deskripsi="{{$kls->deskripsi}}"
                                                         data-anggota="{{$kls->maksAnggota}}"
+                                                        data-status="{{$kls->status}}"
                                                         data-toggle="modal" data-target="#updateKelasProyek">
                                                     <i class="fa fa-lg fa-edit">
                                                     </i>
                                                 </button>
-                                            </div>
-                                            <div class="btn-group">
                                                 <form class="delete" action="{{ route('kelasproyek.destroy', $kls->id_kelasProyek)}}" method="post">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
@@ -138,6 +139,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12"><b>Status</b>
+                                            <div class="form-group">
+                                                <select class="form-control" name="status" required="">
+                                                        <option>Pendaftaran</option>
+                                                        <option>Aktif</option>
+                                                        <option>Selesai</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -185,10 +197,17 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12"><b>Nama Kelas Proyek :</b>
+                                        <div class="col-md-12"><b>Maksimal Anggota:</b>
                                             <div class="form-group">
                                                 <input class="form-control" type="text" name="maksAnggota" id="maksAnggota">
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12"><b>Tahun Ajaran</b>
+                                        <div class="form-group">
+                                            <select class="form-control" name="status" id="periode">
+                                                    <option></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

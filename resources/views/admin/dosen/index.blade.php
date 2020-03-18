@@ -32,11 +32,12 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importDosen">Tambah</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahDosen">Tambah</button>
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importDosen">Import</button>
                                 {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
                             <!--                      </div>-->
-
                         </div>
 
                     </div>
@@ -47,38 +48,33 @@
                             <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>No</th>
                                     <th>NIP</th>
-                                    <th>Username</th>
                                     <th>Nama</th>
+                                    <th>Email</th>
                                     <th>Status</th>
                                     <th>Action</th>
+                                    <th>Reset</th>
                                 </tr>
                                 </thead>
-
-                                @php $i = 1; @endphp
 
                                 <tbody>
                                 @foreach($dosen as $dos)
                                 <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{$dos->nip}}</td>
-                                        <td>{{$dos->username}}</td>
-                                        <td>{{$dos->namaDosen}}</td>
-                                        <td>{{$dos->statusUser}}</td>
+                                    <td>{{$dos->nip}}</td>
+                                    <td>{{$dos->namaDosen}}</td>
+                                    <td>{{$dos->email}}</td>
+                                    <td>{{$dos->statusUser}}</td>
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
                                                 <button class="btn btn-info"
                                                         data-id="{{$dos->id_dosen}}"
                                                         data-nip="{{$dos->nip}}"
-                                                        data-username="{{$dos->username}}"
+                                                        data-email="{{$dos->email}}"
                                                         data-nama="{{$dos->namaDosen}}"
                                                         data-toggle="modal" data-target="#updateDosen">
                                                     <i class="fa fa-lg fa-edit"></i>
                                                 </button>
-                                            </div>
-                                            <div class="btn-group">
                                                 <form class="delete" action="{{ route('dosen.destroy', $dos->id_dosen)}}" method="post">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
@@ -88,6 +84,15 @@
                                                         </i>
                                                     </button>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <div class="btn-group">
+                                                <button class="btn btn-info">
+                                                    <i class="fa fa-lg fa-key"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </td>
@@ -128,6 +133,59 @@
         </div>
     </div>
 
+    {{--Insert Modal--}}
+    <div class="modal fade bd-modal-lg insert" id="tambahDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Dosen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="{{ route('dosen.store')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <div class="row">
+                                <div class="col-md-12"><b>NIP</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="nip" placeholder="nip dosen">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Nama</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="namaDosen" placeholder="nama dosen">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Email</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="email" placeholder="email">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="statusUser" value="Dosen">
+                            <input type="hidden" name="password" value="{{bcrypt("dosen123")}}">
+                            <input type="hidden" name="passwordBackup" value="{{bcrypt("dosen123")}}">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal Update -->
     <div class="modal fade bd-modal-lg" id="updateDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -157,21 +215,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12"><b>Username :</b>
-                                        <div class="form-group">
-                                            <input class="form-control"  type="text" name="username" placeholder="Nama Dosen" id="username">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-12"><b>Nama Dosen :</b>
                                         <div class="form-group">
                                             <input class="form-control"  type="text" name="namaDosen" placeholder="Nama Dosen" id="namaDosen">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" type="hidden" name="statusUser" value="Dosen">
+                                <div class="row">
+                                    <div class="col-md-12"><b>Email :</b>
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" name="email" placeholder="Email Dosen" id="email">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                     </div>
@@ -185,5 +240,26 @@
         </div>
     </div>
 
+    @push('scripts')
+        <script>
+            $('#updateDosen').on('show.bs.modal', function (event) {
+
+                // console.log('modal opened');
+                var button = $(event.relatedTarget)
+
+                var id = button.data('id')
+                var nip = button.data('nip')
+                var email = button.data('email')
+                var namaDosen = button.data('nama')
+
+                var modal = $(this)
+                modal.find('.modal-body #id').val(id)
+                modal.find('.modal-body #nip').val(nip)
+                modal.find('.modal-body #email').val(email)
+                modal.find('.modal-body #namaDosen').val(namaDosen)
+            });
+
+        </script>
+    @endpush
 
 @endsection

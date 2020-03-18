@@ -15,8 +15,9 @@ class Dosen extends Model
 
     protected $fillable = [
         'nip',
-        'username',
+        'email',
         'password',
+        'passwordBackup',
         'namaDosen',
         'statusUser',
     ];

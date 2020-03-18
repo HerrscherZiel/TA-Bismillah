@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<body lang="en">
 
 <head>
 
@@ -9,11 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Sistem Informasi Kelas Proyek</title>
 
     <!-- Custom fonts for this template-->
      <link href="{{url('/')}}/asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
      <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="{{url('/')}}/asset/css/select2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
      <link href="{{url('/')}}/asset/css/sb-admin-2.min.css" rel="stylesheet">
@@ -313,7 +314,13 @@
                         </div>
                     </div>
                 </div>
-                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
                 <!-- Bootstrap core JavaScript-->
                 <script src="{{url('/')}}/asset/vendor/jquery/jquery.min.js"></script>
@@ -331,69 +338,33 @@
                 <!-- Page level custom scripts -->
                 <script src="{{url('/')}}/asset/js/demo/chart-area-demo.js"></script>
                 <script src="{{url('/')}}/asset/js/demo/chart-pie-demo.js"></script>
+                <script src="{{url('/')}}/asset/js/select2.min.js"></script>
+
 
                 <!-- Page level plugins -->
                 <script src="{{url('/')}}/asset/vendor/datatables/jquery.dataTables.min.js"></script>
                 <script src="{{url('/')}}/asset/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#example').dataTable( {
+                            "language": {
+                                "url": "dataTables.indonesian.lang"
+                            }
+                        } );
+                    } );
+                </script>
 
                 <!-- Page level custom scripts -->
 {{--                <script src="{{url('/')}}/asset/js/demo/datatables-demo.js"></script>--}}
 
             <script>
+
+                $(document).ready(function() {
+                    $('.selectbox').select2();
+                });
+
                 $('#table-test').DataTable();
-                $('#updateDosen').on('show.bs.modal', function (event) {
 
-                    // console.log('modal opened');
-                    var button = $(event.relatedTarget)
-
-                    var id = button.data('id')
-                    var nip = button.data('nip')
-                    var username = button.data('username')
-                    var namaDosen = button.data('nama')
-
-                    var modal = $(this)
-                    modal.find('.modal-body #id').val(id)
-                    modal.find('.modal-body #nip').val(nip)
-                    modal.find('.modal-body #username').val(username)
-                    modal.find('.modal-body #namaDosen').val(namaDosen)
-                });
-
-                $('#updateMahasiswa').on('show.bs.modal', function (event) {
-
-                    // console.log('modal opened');
-                    var button = $(event.relatedTarget)
-
-                    var id = button.data('id')
-                    var nim = button.data('nim')
-                    var username = button.data('username')
-                    var namaMahasiswa = button.data('nama')
-
-                    var modal = $(this)
-                    modal.find('.modal-body #id').val(id)
-                    modal.find('.modal-body #nim').val(nim)
-                    modal.find('.modal-body #username').val(username)
-                    modal.find('.modal-body #namaMahasiswa').val(namaMahasiswa)
-                });
-
-                $('#updateMahasiswaProyek').on('show.bs.modal', function (event) {
-
-                    // console.log('modal opened');
-                    var button = $(event.relatedTarget)
-
-                    var id = button.data('id')
-                    var idmas = button.data('idmas')
-                    var nama = button.data('nama')
-                    var kelasproyek = button.data('kelasproyek')
-                    var periode = button.data('periode')
-
-                    var modal = $(this)
-                    modal.find('.modal-body #id').val(id)
-                    modal.find('.modal-body #idmas').val(idmas)
-                    modal.find('.modal-body #nama').val(nama)
-                    // $('.namas').data('nama');
-                    modal.find('.modal-body #kelasproyek').val(kelasproyek)
-                    modal.find('.modal-body #periode').val(periode)
-                })
 
                 $('#updateKelasProyek').on('show.bs.modal', function (event) {
 
@@ -404,12 +375,14 @@
                     var nama = button.data('nama')
                     var deskripsi = button.data('deskripsi')
                     var anggota = button.data('anggota')
+                    var status = button.data('status')
 
                     var modal = $(this)
                     modal.find('.modal-body #id').val(id)
                     modal.find('.modal-body #nama').val(nama)
                     modal.find('.modal-body #deskripsi').val(deskripsi)
                     modal.find('.modal-body #maksAnggota').val(anggota)
+                    modal.find('.modal-body #status').val(status)
                 })
 
                 $('#updatePeriode').on('show.bs.modal', function (event) {
@@ -427,31 +400,12 @@
                     modal.find('.modal-body #sem').val(sem)
                 })
 
-                $('#updateProyekAdmin').on('show.bs.modal', function (event) {
 
-                    // console.log('modal opened');
-                    var button = $(event.relatedTarget)
-
-                    var id = button.data('id')
-                    var kelas = button.data('kelas')
-                    var periode = button.data('periode')
-                    var judul = button.data('judul')
-                    var deskripsi = button.data('deskripsi')
-                    var status = button.data('status')
-
-                    var modal = $(this)
-                    modal.find('.modal-body #id').val(id)
-                    modal.find('.modal-body #kelas').val(kelas)
-                    modal.find('.modal-body #periode').val(periode)
-                    modal.find('.modal-body #judul').val(judul)
-                    modal.find('.modal-body #deskripsi').val(deskripsi)
-                    modal.find('.modal-body #status').val(status)
-                })
 
 
             </script>
             @stack('scripts')
-
 </body>
+
 
 </html>
