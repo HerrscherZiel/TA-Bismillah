@@ -49,7 +49,7 @@ class MahasiswaAuthController extends Controller
         if(auth()->guard('mahasiswa')->attempt(['username' => $request->username, 'password' => $request->password])) {
 
 //            dd(Auth::guard('mahasiswa')->user());
-            return redirect()->route('dashboard.index');
+            return redirect()->route('mahasiswa.dashboard.index');
         }
 
 //        dd("test");
@@ -71,7 +71,7 @@ class MahasiswaAuthController extends Controller
     {
         Auth::guard('mahasiswa')->logout();
         return redirect()
-            ->route('mahasiswa.login');
+            ->route('login');
 //            ->route('mahasiswa.login')
     }
 

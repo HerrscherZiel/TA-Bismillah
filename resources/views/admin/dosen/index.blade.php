@@ -171,8 +171,8 @@
                                 </div>
                             </div>
                             <input type="hidden" name="statusUser" value="Dosen">
-                            <input type="hidden" name="password" value="{{bcrypt("dosen123")}}">
-                            <input type="hidden" name="passwordBackup" value="{{bcrypt("dosen123")}}">
+                            <input type="hidden" name="password" value="{{bcrypt("12345678")}}">
+                            <input type="hidden" name="passwordBackup" value="{{bcrypt("12345678")}}">
                         </div>
                     </div>
 

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<body lang="en">
 
 <head>
 
@@ -37,9 +36,9 @@
         <!--      </a>-->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index2.html">
             <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+                <i class="fas fa-project-diagram"></i>
             </div>
-            <div class="sidebar-brand-text mx-4"><h4>PROYEK</h4><!--<sup>2</sup>--></div>
+            <div class="sidebar-brand-text mx-4"><h4>KELAS PROYEK</h4><!--<sup>2</sup>--></div>
         </a>
 
         <!-- Divider -->
@@ -49,9 +48,22 @@
         <!--        <h5>Elang</h5>-->
         <!--      </div>-->
 
-        <div class="sidebar-heading mx-auto">
+        <div class="sidebar-heading mx-auto text-center">
             @if(Auth::guard('mahasiswa')->check())
             {{Auth::guard('mahasiswa')->user()->statusUser}}
+            <br>
+            {{Auth::guard('mahasiswa')->user()->profilmahasiswa->email}}
+
+            @elseif(Auth::guard('dosen')->check())
+            {{Auth::guard('dosen')->user()->statusUser}}
+            <br>
+            {{Auth::guard('dosen')->user()->email}}
+
+            @elseif(Auth::guard('admin')->check())
+            {{Auth::guard('admin')->user()->statusUser}}
+            <br>
+            {{Auth::guard('admin')->user()->email}}
+
             @endif
         </div>
 
@@ -59,11 +71,13 @@
 
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="/dashboard">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
+
+        @if(Auth::guard('admin')->check())
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin/dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/admin">
@@ -118,96 +132,116 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Kelompok Proyek</span></a>
         </li>
+        @endif
+
 
         <hr>
 
         <!-- Divider -->
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/profileDosen">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Profile</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        @if(Auth::guard('dosen')->check())
+            <li class="nav-item active">
+                <a class="nav-link" href="/dosen/dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/proyekDosen">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Proyek</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/profileDosen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Profile</span>
+            </a>
+        </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/kelompokbimbingan">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Kelompok Bimbingan</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/proyekDosen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Proyek</span>
+            </a>
+        </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/laporanDosen">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Laporan</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/kelompokbimbingan">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Kelompok Bimbingan</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/laporanDosen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Laporan</span>
+            </a>
+        </li>
+        @endif
 
 
 
         <hr>
 
-{{--        <!-- Nav Item - Pages Collapse Menu -->--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/profileMahasiswa">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Profile</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        @if(Auth::guard('mahasiswa')->check())
+            <li class="nav-item active">
+                <a class="nav-link" href="/mahasiswa/dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/proyekmahasiswa">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Proyek</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/mahasiswa/profileMahasiswa">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Profile</span>
+            </a>
+        </li>
 
-{{--        <!-- Nav Item - Utilities Collapse Menu -->--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">--}}
-{{--                <i class="fas fa-fw fa-wrench"></i>--}}
-{{--                <span>Proyek</span>--}}
-{{--            </a>--}}
-{{--            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">--}}
-{{--                <div class="bg-white py-2 collapse-inner rounded">--}}
-{{--                    <h6 class="collapse-header">Daftar Proyek:</h6>--}}
-{{--                    <a class="collapse-item" href="/proyek/judul">Judul</a>--}}
-{{--                    <a class="collapse-item" href="/proyek/kelompok">Kelompok</a>--}}
-{{--                    <a class="collapse-item" href="/proyek/undangan">Undangan</a>--}}
-{{--                    <a class="collapse-item" href="/proyek/informasi">Informasi</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/mahasiswa/proyek/kelompok">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Proyek</span>
+            </a>
+        </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/undangan">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Undangan</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Proyek</span>
+            </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Daftar Proyek:</h6>
+                    <a class="collapse-item" href="/mahasiswa/proyek/judul">Judul</a>
+                    <a class="collapse-item" href="/mahasiswa/proyek/kelompok">Kelompok</a>
+                    <a class="collapse-item" href="/mahasiswa/proyek/undangan">Undangan</a>
+                    <a class="collapse-item" href="/mahasiswa/proyek/informasi">Informasi</a>
+                </div>
+            </div>
+        </li>
 
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="/laporan">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <span>Laporan</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="/mahasiswa/undangan">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Undangan</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/mahasiswa/laporan">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Laporan</span>
+            </a>
+        </li>
+    @endif
 
 
-{{--        <!-- Sidebar Toggler (Sidebar) -->--}}
-{{--        <div class="text-center d-none d-md-inline">--}}
-{{--            <button class="rounded-circle border-0" id="sidebarToggle"></button>--}}
-{{--        </div>--}}
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
 
     </ul>
+
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -229,24 +263,24 @@
                 <ul class="navbar-nav ml-auto">
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
+{{--                    <li class="nav-item dropdown no-arrow d-sm-none">--}}
+{{--                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                            <i class="fas fa-search fa-fw"></i>--}}
+{{--                        </a>--}}
+{{--                        <!-- Dropdown - Messages -->--}}
+{{--                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">--}}
+{{--                            <form class="form-inline mr-auto w-100 navbar-search">--}}
+{{--                                <div class="input-group">--}}
+{{--                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">--}}
+{{--                                    <div class="input-group-append">--}}
+{{--                                        <button class="btn btn-primary" type="button">--}}
+{{--                                            <i class="fas fa-search fa-sm"></i>--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
 
 
 
@@ -258,26 +292,55 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                 @if(Auth::guard('mahasiswa')->check())
+{{--                                    {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}--}}
                                     {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}
+                                @elseif(Auth::guard('dosen')->check())
+                                    {{Auth::guard('dosen')->user()->namaDosen}}
+                                @elseif(Auth::guard('admin')->check())
+                                    {{Auth::guard('admin')->user()->namaAdmin}}
                                 @endif</span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                                <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Ganti Password
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{route('mahasiswa.logout')}}" onclick="event.preventDefault();
-                                                                                            document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
+                            @if(Auth::guard('mahasiswa')->check())
+                                <a class="dropdown-item" href="{{route('mahasiswa.logout')}}" onclick="event.preventDefault();
+                                                                                                document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
 
-                            <form id="logout-form" action="{{route('mahasiswa.logout')}}" method="post" style="display: none">
-                                @csrf
-                            </form>
+                                <form id="logout-form" action="{{route('mahasiswa.logout')}}" method="post" style="display: none">
+                                    @csrf
+                                </form>
+                            @elseif(Auth::guard('dosen')->check())
+                                <a class="dropdown-item" href="{{route('dosen.logout')}}" onclick="event.preventDefault();
+                                                                                                document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{route('dosen.logout')}}" method="post" style="display: none">
+                                    @csrf
+                                </form>
+
+                            @elseif(Auth::guard('admin')->check())
+                                <a class="dropdown-item" href="{{route('admin.logout')}}" onclick="event.preventDefault();
+                                                                                                document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{route('admin.logout')}}" method="post" style="display: none">
+                                    @csrf
+                                </form>
+
+                            @endif
                         </div>
                     </li>
 
@@ -399,7 +462,6 @@
                     modal.find('.modal-body #tahun').val(tahun)
                     modal.find('.modal-body #sem').val(sem)
                 })
-
 
 
 

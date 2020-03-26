@@ -3,10 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Dosen extends Model
+class Dosen extends Authenticatable
+
 {
     //
+    use Notifiable;
+
+    protected $guard = 'dosen';
+
     protected $table = 'dosen';
 
     public $primaryKey = 'id_dosen';
@@ -16,18 +23,18 @@ class Dosen extends Model
     protected $fillable = [
         'nip',
         'email',
+        'namaDosen',
+        'hpDosen',
+        'fileFoto',
         'password',
         'passwordBackup',
-        'namaDosen',
         'statusUser',
     ];
 
-    public function users(){
-        return $this->hasOne('App\Users','dosen_id');
-    }
+    protected $hidden = ['password'];
 
-    public function profilDosen(){
-        return $this->hasOne('App\ProfilDosen','dosen_id');
-    }
 
+//    public function users(){
+//        return $this->hasOne('App\Users','dosen_id');
+//    }
 }

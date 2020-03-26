@@ -20,6 +20,7 @@ class Proyek extends Model
         'kelasProyek_id',
         'periode_id',
         'usulMahasiswa_id',
+        'dosen_id',
     ];
 
 

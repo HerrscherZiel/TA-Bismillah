@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Dosen;
 use App\KelasProyek;
 use App\Periode;
 use App\Proyek;
 use App\UsulMahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProyekController extends Controller
 {
@@ -20,11 +23,13 @@ class ProyekController extends Controller
         //
         $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
+//            ->join('usulMahasiswa', 'usulMahasiswa', '=', 'id_periode')
             ->select('proyek.*', 'kelasProyek.*', 'periode.*'/*, 'usulmahasiswa.*'*/)
             ->getQuery()
             ->get();
 
         $usulMhs = UsulMahasiswa::all();
+        $dosen   = Dosen::all();
         $kelasproyek = KelasProyek::all();
         $periode = Periode::all();
 
@@ -34,6 +39,7 @@ class ProyekController extends Controller
 
         return view('admin.proyek.index') ->with('proyek', $proyek)
                                                 ->with('usulmahasiswa', $usulMhs)
+                                                ->with('dosen', $dosen)
                                                 ->with('kelasproyek', $kelasproyek)
                                                 ->with('periode', $periode);
 
@@ -42,7 +48,26 @@ class ProyekController extends Controller
 
     public function indexDosen()
     {
-        return view('dosen.proyek.index');
+
+        $id = Auth::guard('dosen')->user()->id_dosen;
+
+//        dd($id);
+
+        $proyekDosen = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+            ->join('periode', 'periode_id', '=', 'id_periode')
+            ->join('dosen', 'dosen_id', '=', 'id_dosen')
+            ->where('dosen_id', '=', $id)
+//            ->join('usulMahasiswa', 'usulMahasiswa', '=', 'id_periode')
+            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'dosen.*')
+            ->getQuery()
+            ->get();
+
+        $kelasproyek = KelasProyek::all();
+        $periode = Periode::all();
+
+        return view('dosen.proyek.index') ->with('proyekDosen', $proyekDosen)
+                                                ->with('kelasproyek', $kelasproyek)
+                                                ->with('periode', $periode);
     }
 
     /**

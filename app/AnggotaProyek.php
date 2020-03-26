@@ -15,13 +15,17 @@ class AnggotaProyek extends Model
 
     protected $fillable = [
         'kelompokProyek_id',
-        'isPM',
+        'mahasiswaProyek_id',
         'statusAnggota',
     ];
 
 
     public function kelompokpoyek(){
         return $this->belongsTo('App\KelompokProyek', 'kelompokProyek_id');
+    }
+
+    public function mahasiswaProyek(){
+        return $this->belongsTo('App\MahasiswaProyek', 'MahasiswaProyek_id');
     }
 
 }

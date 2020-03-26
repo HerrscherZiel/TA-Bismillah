@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Dosen;
+use App\Mahasiswa;
+use App\ProfilMahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProfileController extends Controller
@@ -13,21 +17,54 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth:mahasiswa');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:mahasiswa');
+//        $this->middleware('auth:dosen');
+//    }
 
-    public function index()
+    public function indexMahasiswa()
     {
         //
-        return view('mahasiswa.profile.index');
+        if(Auth::guard('mahasiswa')->check()){
+
+            $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
+
+            $profil = Mahasiswa::join('profilmahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                               ->where('id_mahasiswa', '=', $id)
+                               ->get();
+
+//        dd($profil);
+
+            return view('mahasiswa.profile.index')->with('profil', $profil);
+        }
+
+        else{
+            return view('errors.403');
+
+        }
+
+//        return view('mahasiswa.profile.index');
 
     }
 
     public  function  indexDosen()
     {
-        return view('dosen.profile.index');
+        if(Auth::guard('dosen')->check()){
+
+            $id = Auth::guard('dosen')->user()->id_dosen;
+
+        $profil = Dosen::where('id_dosen', '=', $id)->get();
+
+//        dd($profil);
+
+        return view('dosen.profile.index')->with('profil', $profil);
+        }
+
+        else{
+            return view('errors.403');
+
+        }
     }
 
     /**
@@ -80,9 +117,25 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+//        dd($request);
+        if(Auth::guard('mahasiswa')->check()) {
+
+            $proMhs = ProfilMahasiswa::findOrFail($request->id_profilMahasiswa);
+            $proMhs->update($request->all());
+
+            return back();
+        }
+
+        if(Auth::guard('dosen')->check()){
+            $proDos = Dosen::findOrFail($request->id_dosen);
+            $proDos->update($request->all());
+
+            return back();
+        }
+
     }
 
     /**

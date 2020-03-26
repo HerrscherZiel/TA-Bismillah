@@ -17,11 +17,11 @@ class ProfilMahasiswa extends Migration
         Schema::create('profilMahasiswa', function (Blueprint $table) {
             $table->increments('id_profilMahasiswa');
             $table->string('email')->unique();
-            $table->double('ipk');
-            $table->integer('sks');
-            $table->bigInteger('hpMahasiswa');
-            $table->string('keahlian');
-            $table->text('pengalaman');
+            $table->string('ipk')->default('-');
+            $table->string('sks')->default('-');
+            $table->string('hpMahasiswa')->default('-');
+            $table->string('keahlian')->default('-');
+            $table->text('pengalaman')->default(NULL);
             $table->string('fileFoto')->nullable();
             $table->integer('mahasiswa_id')->unsigned()->nullable();
             $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->onDelete('cascade');

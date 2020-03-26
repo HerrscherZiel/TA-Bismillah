@@ -12,9 +12,27 @@ class DashboardController extends Controller
 //
 //    }
 
-    public function index()
+    public function indexMahasiswa()
     {
+
+
         return view('mahasiswa.dashboard.index');
+    }
+
+    public function indexDosen()
+    {
+
+//        $data = ::with('proyek', 'periode')->get()
+        return view('dosen.dashboard.index');
+
+    }
+
+    public function indexAdmin()
+    {
+
+//        $data = ::with('proyek', 'periode')->get()
+        return view('admin.dashboard.index');
+
     }
 
     public function detailProject()

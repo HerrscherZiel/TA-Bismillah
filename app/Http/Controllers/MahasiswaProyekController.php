@@ -101,6 +101,7 @@ class MahasiswaProyekController extends Controller
     public function update(Request $request)
     {
         //
+
         $mhsPro = MahasiswaProyek::findOrFail($request->id_mahasiswaProyek);
         $mhsPro->update($request->all());
 

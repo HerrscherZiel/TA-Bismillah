@@ -48,7 +48,7 @@
                                         <th>Periode</th>
                                         <th>Judul</th>
 {{--                                        <th>Deskripsi</th>--}}
-{{--                                        <th>Penambah</th>--}}
+                                        <th>Penambah</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -60,6 +60,21 @@
                                         <td>{{$pro -> namaKelasProyek}}</td>
                                         <td>{{$pro -> tahunAjaran}} | {{$pro -> semester}}</td>
                                         <td>{{$pro -> judul}}</td>
+                                        <td>@if($pro -> dosen_id == null && $pro -> usulMahasiswa_id == null)
+                                                Admin
+                                            @elseif($pro -> dosen_id == null)
+                                                @foreach($usulMhs as $usul)
+                                                    @if($usul->id_usulMahasiswa == $pro->usulMahasiswa_id)
+                                                        {{$usul->mahasiswaProyek_id}}
+                                                    @endif
+                                                @endforeach
+                                            @elseif($pro -> usulMahasiswa_id == null)
+                                                @foreach($dosen as $dos)
+                                                    @if($dos->id_dosen == $pro->dosen_id)
+                                                        {{$dos->namaDosen}}
+                                                    @endif
+                                                @endforeach
+                                            @endif</td>
                                         <td>{{$pro -> statusProyek}}</td>
                                         <td>
                                             <div class="text-center">

@@ -23,9 +23,9 @@ class Mahasiswa extends Authenticatable
     protected $fillable = [
         'nim',
         'username',
+        'namaMahasiswa',
         'password',
         'passwordBackup',
-        'namaMahasiswa',
         'statusUser',
     ];
 

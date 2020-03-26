@@ -16,6 +16,7 @@ class KelompokProyek extends Model
 
     protected $fillable = [
         'mahasiswaProyek_id',
+        'pm',
         'judulPrioritas',
         'dosen_id',
         'statusKelompok',

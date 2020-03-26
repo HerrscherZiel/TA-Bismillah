@@ -4,7 +4,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Proyek Mahasiswa</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
         <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
     </div>
 
@@ -28,7 +28,7 @@
 
                         <div class="row">
                             <div class="col-md-8 my-auto">
-                                <h6 class="font-weight-bold text-primary m-0">Proyek</h6>
+                                <h6 class="font-weight-bold text-primary m-0">Kelompok Proyek</h6>
                             </div>
 
                             <div class="col-md-4 text-right">
@@ -43,7 +43,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Kelas Proyek</th>
@@ -56,56 +56,60 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>SIM</td>
-                                    <td>2019</td>
-                                    <td>Elang Bayu Aji Hartanto</td>
-                                    <td>Sistem Informasi Kelas Proyek</td>
-                                    <td>Irkham Huda</td>
-                                    <td>Aktif</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="proyekmahasiswa/lihat">
-                                                    <i class="fa fa-lg fa-eye">
-                                                    </i>
-                                                </a>
+                                @foreach($kelompok as $kel)
+                                    <tr>
+                                        <td>
+                                            @foreach($kelasproyek as $kelPro)
+                                                @if($kelPro->id_kelasProyek == $kel->kelasProyek_id)
+                                                    {{$kelPro->namaKelasProyek}}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($periode as $per)
+                                                @if($per->id_periode == $kel->periode_id)
+                                                    {{$per->tahunAjaran}} | {{$per->semester}}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{$kel->pm}}
+                                        </td>
+                                        <td>
+                                            @if($kel->judulPrioritas == null)
+                                                Belum ada judul
+                                            @else
+                                                {{$kel->judulPrioritas}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($kel->dosen_id == null)
+                                                Belum ada pembimbing
+                                            @else
+                                                @foreach($dosen as $dos)
+                                                    @if($dos->id_dosen == $kel->dosen_id)
+                                                        {{$dos->namaDosen}}
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td>{{$kel->statusKelompok}}</td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="btn-group">
+                                                    <a class="btn btn-info" href="/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
+                                                        <i class="fa fa-lg fa-eye">
+                                                        </i>
+                                                    </a>
+                                                    <a class="btn btn-info" href="#">
+                                                        <i class="fa fa-lg fa-trash">
+                                                        </i>
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>SIM</td>
-                                    <td>2019</td>
-                                    <td>Jaffar Jatmiko Jati</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>Menunggu Persetujuan</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="proyekmahasiswa/lihat">
-                                                    <i class="fa fa-lg fa-eye">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="fa fa-lg fa-trash">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -122,35 +126,67 @@
 
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Proyek</h5>
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Buat Kelompok</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
 
+                        <form method="post" action="{{ route('kelompokproyek.store')}}" enctype="multipart/form-data">
+                            @csrf
+
                         <div class="modal-body">
                             <div class="tile-body">
+                                <p><b>*Dengan membentuk kelompok anda akan otomatis terdaftar sebagai Project Manager dalam kelompok<br>
+                                        *Project Manager dapat diganti dilain waktu</b>
+                                <br>
+                                <br>
+                                </p>
                                 <div class="row">
-                                    <div class="col-md-12"><b>Project Manager :</b>
+                                    <div class="col-md-12"><b>Pilih Kelas Proyek</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="projectmanager" value="Elang Bayu Aji Hartanto" readonly>
+                                            <select class="form-control selectbox" name="mahasiswaProyek_id" style="width: 100%" required>
+                                                @if($excs != null)
+                                                @foreach($excs as $exc)
+                                                    <option value="{{$exc -> id_mahasiswaProyek}}">
+                                                        {{$exc -> namaKelasProyek}}
+                                                    </option>
+                                                @endforeach
+                                                @else
+                                                    <option disabled>
+                                                        Belum terdaftar dalam kelas proyek
+                                                    </option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12"><b>Project Manager</b>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="pm"
+                                                   value="{{Auth::guard('mahasiswa')->user()->namaMahasiswa}}" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12"><b>Status :</b>
                                         <div class="form-group">
-                                            <input class="form-control"  type="text" name="status" value="Menunggu Persetujuan" readonly>
+                                            <input class="form-control"  type="text" name="statusKelompok" value="Menunggu Persetujuan" required>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="judulPrioritas" value="Belum ada judul">
                             </div>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Buat Kelompok</button>
                         </div>
+
+                        </form>
+
                     </div>
                 </div>
             </div>

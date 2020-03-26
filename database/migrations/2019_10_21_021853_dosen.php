@@ -17,8 +17,10 @@ class Dosen extends Migration
         Schema::create('dosen', function (Blueprint $table) {
             $table->increments('id_dosen');
             $table->string('nip');
-            $table->string('email');
             $table->string('namaDosen');
+            $table->string('email')->unique();
+            $table->string('hpDosen')->default('-');
+            $table->string('fileFoto')->nullable();
             $table->string('password');
             $table->string('passwordBackup');
             $table->string('statusUser')->default("Dosen");

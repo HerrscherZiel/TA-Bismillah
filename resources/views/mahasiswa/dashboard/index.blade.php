@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Sistem Informasi Kelas Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
         <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
     </div>
     <!-- Content Row -->
@@ -15,8 +15,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="h3 text-center font-weight-bold text-uppercase text-gray-800">Selamat datang, Elang Baayu Aji Hartanto {{Auth::guard('mahasiswa')->user()->namaMahasiswa}} </div>
-                            <div class="h6 mb-0 text-center font-weight-bold text-gray-800">Seluruh pendaftaran kelas proyek prodi Rekayasa Perangkat Lunak dilakukan pada sistem ini</div>
+                            <div class="h3 text-center font-weight-bold text-uppercase text-gray-800">Selamat datang, {{Auth::guard('mahasiswa')->user()->namaMahasiswa}} </div>
+                            <div class="h6 mb-0 text-center font-weight-bold text-gray-800">Seluruh aktifitas kelas proyek prodi Rekayasa Perangkat Lunak dilakukan pada sistem ini</div>
                         </div>
                     </div>
                 </div>
@@ -26,14 +26,12 @@
 
     <!-- Content Row -->
 
-    <div id="projects">
+    <div>
 
-
+{{--        @if--}}
+{{--        @endif--}}
 
         <div class="row list">
-
-            <!--              <div class="col-md-2">-->
-            <!--              </div>-->
 
             <div class="col-md-6">
 
@@ -236,10 +234,6 @@
                 </div>
 
             </div>
-
-
-
-
 
         </div>
 

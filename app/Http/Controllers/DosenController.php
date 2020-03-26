@@ -22,7 +22,7 @@ class DosenController extends Controller
     public function index()
     {
         //
-        $dosen = Dosen::latest()->paginate(5);;
+        $dosen = Dosen::all();
 
         return view('admin.dosen.index')->with('dosen', $dosen);
 

@@ -17,6 +17,7 @@ class Kelompok extends Migration
         Schema::create('kelompokProyek', function (Blueprint $table) {
             $table->increments('id_kelompokProyek');
             $table->integer('mahasiswaProyek_id')->unsigned()->nullable();
+            $table->string('pm');
             $table->string('judulPrioritas')->default(null);
             $table->integer('dosen_id')->unsigned()->nullable();
             $table->string('statusKelompok')->nullable();

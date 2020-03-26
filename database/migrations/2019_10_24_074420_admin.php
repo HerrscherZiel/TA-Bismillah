@@ -26,6 +26,18 @@ class Admin extends Migration
 //            $table->foreign('userStatus_id')->references('id_userStatus')->on('userStatus')->onDelete('cascade');
             $table->timestamps();
         });
+
+        DB::table('admin')->insert(
+            array(
+                'nip' => '11928391238129',
+                'email' => 'admin@mail.com',
+                'namaAdmin' => 'admin',
+                'password' => bcrypt('admin123'),
+                'passwordBackup' => bcrypt('admin123'),
+//                'verified' => true
+            )
+        );
+
     }
 
     /**
