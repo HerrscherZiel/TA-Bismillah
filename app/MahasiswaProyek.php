@@ -36,10 +36,6 @@ class MahasiswaProyek extends Model
         return $this->hasOne('App\KelompokProyek','mahasiswaProyek_id');
     }
 
-    public function usulmahasiswa(){
-        return $this->hasOne('App\UsulMahasiswa','mahasiswaProyek_id');
-    }
-
     public function anggotakelompok(){
         return $this->hasOne('App\AnggotaKelompok','mahasiswaProyek_id');
     }

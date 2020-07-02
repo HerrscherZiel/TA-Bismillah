@@ -23,8 +23,6 @@ Auth::routes();
 Route::get('/login', 'HomeController@index')->name('login');
 
 
-
-
 Route::prefix('dosen')->group(function (){
     Route::get('/login', 'DosenAuthController@showLoginForm')->name('dosen.login');
     Route::post('/login', 'DosenAuthController@login')->name('dosen.login.post');
@@ -64,30 +62,60 @@ Route::prefix('mahasiswa')->group(function (){
 
     //kelompok proyek
     Route::get('/proyek/kelompok', 'KelompokProyekController@indexMahasiswa')->name('mahasiswa.kelompok.proyek');
-    Route::get('/proyek/kelompok/show', 'KelompokProyekController@showMahasiswa')->name('mahasiswa.kelompok.proyek.show');
+    Route::get('/proyek/kelompok/show/{id}', 'KelompokProyekController@showMahasiswa')->name('mahasiswa.kelompok.proyek.show');
+    Route::delete('/proyek/kelompok/{id}', 'KelompokProyekController@destroy')->name('mahasiswa.kelompok.proyek.destroy');
 
+
+    //Anggota Kelompok
+    Route::post('/anggota', 'AnggotaKelompokController@store')->name('anggota.kelompok.store');
+    Route::delete('/anggota/{id}', 'AnggotaKelompokController@destroy')->name('anggota.kelompok.destroy');
+    Route::match(['put', 'patch'], '/anggota-kelompok/update/{id}','AnggotaKelompokController@update')->name('anggota.kelompok.update');
+
+    //ProyekPilihan
+    Route::post('/proyek-pilihan', 'ProyekPilihanController@store')->name('proyek.pilihan.store');
+    Route::match(['put', 'patch'], '/proyek-pilihan/update/{id}','ProyekPilihanController@update')->name('proyek.pilihan.update');
 
 
         //judul
         Route::get('/proyek/judul', 'ProyekJudulController@index')->name('proyek.judul.index');
 
-        //kelompok
-//        Route::get('/proyek/kelompok', 'ProyekKelompokController@index')->name('proyek.kelompok.index');
-
-        //undangan
-        Route::get('/undangan', 'ProyekUndanganController@index')->name('proyek.undangan.index');
+    //undangan
+    Route::get('/undangan', 'UndanganController@index')->name('undangan.index');
+    Route::get('/undangan/detail/{id}', 'UndanganController@show')->name('undangan.show');
 
         //informasi
         Route::get('/proyek/informasi', 'ProyekInformasiController@index')->name('proyek.informasi.index');
 
 
     //laporan
-    Route::get('/laporan', 'Laporan\LaporanController@index')->name('laporan.index');
-    Route::get('/laporan/detail','Laporan\LaporanController@create')->name('laporan.tambah');
+    Route::get('/laporan', 'LaporanController@indexMahasiswa')->name('laporan.mahasiswa.index');
+    Route::get('/laporan/index/{id}', 'LaporanController@indexLaporanMahasiswa')->name('laporanindex.mahasiswa.index');
+    Route::get('/laporan/detail/{id}', 'LaporanController@showMahasiswa')->name('laporandetail.mahasiswa.index');
+    Route::post('/laporan', 'LaporanController@store')->name('laporan.store');
+    Route::match(['put', 'patch'], '/laporan-proyek/update/{id}','LaporanController@update')->name('laporan.proyek.update');
+    Route::delete('/laporan/{id}', 'LaporanController@destroy')->name('laporan.destroy');
 
     //pencapaian
-    Route::get('/pencapaian/tambah','PencapaianController@create')->name('pencapaian.tambah');
-    Route::post('/pencapaian/tambah/{id}','PencapaianController@store')->name('pencapaian.store');
+    Route::post('/pencapaian','PencapaianController@store')->name('pencapaian.store');
+    Route::match(['put', 'patch'], '/pencapaian/update/{id}','PencapaianController@update')->name('pencapaian.update');
+    Route::delete('/pencapaian/{id}', 'PencapaianController@destroy')->name('pencapaian.destroy');
+
+    //agendaselanjutnya
+    Route::post('/agendaselanjutnya','AgendaSelanjutnyaController@store')->name('agendaselanjutnya.store');
+    Route::match(['put', 'patch'], '/agendaselanjutnya/update/{id}','AgendaSelanjutnyaController@update')->name('agendaselanjutnya.update');
+    Route::delete('/agendaselanjutnya/{id}', 'AgendaSelanjutnyaController@destroy')->name('agendaselanjutnya.destroy');
+
+    //milestone
+    Route::post('/milestone','MilestoneController@store')->name('milestone.store');
+    Route::match(['put', 'patch'], '/milestone/update/{id}','MilestoneController@update')->name('milestone.update');
+    Route::delete('/milestone/{id}', 'MilestoneController@destroy')->name('milestone.destroy');
+
+    //lampiran
+    // Route::get('/lampiran', 'LampiranController@upload');
+    Route::post('/lampiran','LampiranController@store')->name('lampiran.store');
+    Route::delete('/lampiran/{id}', 'LampiranController@destroy')->name('lampiran.destroy');
+
+
 
 //});
 
@@ -100,8 +128,6 @@ Route::resources([
     'proyek'            =>  'ProyekController',
     'kelompokbimbingan' =>  'KelompokBimbinganController',
     'profile'           =>  'ProfileController',
-
-
 
 ]);
 
@@ -119,10 +145,10 @@ Route::get('/laporan/detail','Laporan\LaporanController@show')->name('laporan.sh
 
 Route::resources([
 
-    'kelasproyek'       => 'KelasProyekController',
-    'periode'           => 'PeriodeController',
-    'dosen'             => 'DosenController',
-    'mahasiswa'         => 'MahasiswaController',
+    'kelasproyek'       =>  'KelasProyekController',
+    'periode'           =>  'PeriodeController',
+    'dosen'             =>  'DosenController',
+    'mahasiswa'         =>  'MahasiswaController',
     'proyek'            =>  'ProyekController',
     'admin'             =>  'AdminController',
     'usulmahasiswa'     =>  'UsulMahasiswaController',
@@ -130,6 +156,16 @@ Route::resources([
     'kelompokproyek'    =>  'KelompokProyekController',
 
 ]);
+
+    //kelompokproyek
+    Route::get('/kelompok/index/{idkel}/{idper}', 'KelompokProyekController@indexKelompok')->name('index.kelompok.proyek');
+    Route::get('/kelompok/detail/{idkel}', 'KelompokProyekController@showAdmin')->name('admin.detail.kelompok.proyek');
+    Route::match(['put', 'patch'], '/kelompok-proyek/update/{id}','KelompokProyekController@update')->name('admin.kelompok.proyek.update');
+
+
+    //detailusul
+    Route::get('/usul/detail/{idkel}/{idper}', 'UsulMahasiswaController@detail')->name('usul.mahasiswa.detail');
+    Route::match(['put', 'patch'], '/usul-mahasiswa/update/{id}','UsulMahasiswaController@update')->name('usul.mahasiswa.update');
 
 Route::post('/dosen/import', 'DosenController@import')->name('dosen.import');
 Route::post('/mahasiswa/import', 'MahasiswaController@import')->name('mahasiswa.import');

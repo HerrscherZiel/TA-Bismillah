@@ -24,11 +24,20 @@ class ProyekController extends Controller
         $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
 //            ->join('usulMahasiswa', 'usulMahasiswa', '=', 'id_periode')
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*'/*, 'usulmahasiswa.*'*/)
+            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
             ->getQuery()
             ->get();
 
-        $usulMhs = UsulMahasiswa::all();
+        $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
+                                    ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                    ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
+                                    ->getQuery()
+                                    ->get();
+
+        // dd($penambah);    
+
+        // $usulMhs = UsulMahasiswa::all();
         $dosen   = Dosen::all();
         $kelasproyek = KelasProyek::all();
         $periode = Periode::all();
@@ -38,7 +47,8 @@ class ProyekController extends Controller
 
 
         return view('admin.proyek.index') ->with('proyek', $proyek)
-                                                ->with('usulmahasiswa', $usulMhs)
+                                                ->with('penambah', $penambah)
+                                                // ->with('usulMhs', $usulMhs)
                                                 ->with('dosen', $dosen)
                                                 ->with('kelasproyek', $kelasproyek)
                                                 ->with('periode', $periode);

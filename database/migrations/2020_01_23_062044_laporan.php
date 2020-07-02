@@ -20,9 +20,7 @@ class Laporan extends Migration
             $table->date('tglSelesai');
             $table->date('tglKirim');
             $table->integer('kelompokProyek_id')->unsigned()->nullable();
-            $table->integer('dosen_id')->unsigned()->nullable();
             $table->foreign('kelompokProyek_id')->references('id_kelompokProyek')->on('kelompokproyek')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('dosen_id')->references('id_dosen')->on('dosen')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

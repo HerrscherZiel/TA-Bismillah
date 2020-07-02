@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Laporan;
+use App\MahasiswaProyek;
+use App\Proyek;
+use App\KelompokProyek;
+use App\Dosen;
+use App\Pencapaian;
 
 class PencapaianController extends Controller
 {
@@ -39,6 +46,11 @@ class PencapaianController extends Controller
     public function store(Request $request)
     {
         //
+
+        // dd($request);
+        Pencapaian::create($request->all());
+
+        return back();
     }
 
     /**
@@ -70,9 +82,16 @@ class PencapaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        // dd($request);
+            $pencapaian                    = Pencapaian::findOrFail($request->id_pencapaian);
+            $pencapaian->pencapaian             = $request->pencapaian;
+            $pencapaian->deskripsi           = $request->deskripsi;
+            $pencapaian->save();
+
+            return back();
     }
 
     /**
@@ -84,5 +103,9 @@ class PencapaianController extends Controller
     public function destroy($id)
     {
         //
+        $pencapaian = Pencapaian::findOrFail($id);
+        $pencapaian->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

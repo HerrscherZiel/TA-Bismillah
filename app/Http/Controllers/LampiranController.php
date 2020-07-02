@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Laporan;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Laporan;
+use App\MahasiswaProyek;
+use App\Proyek;
+use App\KelompokProyek;
+use App\Lampiran;
 
-
-class LaporanController extends Controller
+class LampiranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +20,6 @@ class LaporanController extends Controller
     public function index()
     {
         //
-        return view('mahasiswa.laporan.index');
-
-    }
-
-    public  function indexDosen()
-    {
-        return view('dosen.laporan.index');
     }
 
     /**
@@ -33,7 +30,6 @@ class LaporanController extends Controller
     public function create()
     {
         //
-        return view('mahasiswa.laporan.create');
     }
 
     /**
@@ -45,6 +41,18 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         //
+        $lamp = new Lampiran;
+
+        $file = $request->file('fileLampiran');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'data_upload';
+        $file->move($tujuan_upload, $nama_file);
+        $lamp->fileLampiran = $nama_file;
+
+        $lamp->lampiran = $request->lampiran;
+        $lamp->laporan_id = $request->laporan_id;
+        $lamp->save();
+        return redirect()->back()->with('success', 'Lampiran berhasil ditambah');
     }
 
     /**
@@ -53,17 +61,10 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(/*$id*/)
+    public function show($id)
     {
         //
-        return view('mahasiswa.laporan.show');
-
     }
-
-//    public function  showDosen(/*$id*/)
-//    {
-//        return view('dosen.laporan.show');
-//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -97,5 +98,9 @@ class LaporanController extends Controller
     public function destroy($id)
     {
         //
+        $lamp = Lampiran::findOrFail($id);
+        $lamp->delete();
+
+        return redirect()->back()->with('success', 'job has been deleted Successfully');
     }
 }

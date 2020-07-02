@@ -2,95 +2,55 @@
 
 @section('content')
 
-    <!-- Page Heading -->
+    <!-- Page Heading
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto text-center">
         <h1 class="h3 mb-0 text-gray-800">Login</h1>
-        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
-    </div>
-
-    <!-- Content Row -->
-
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div> -->
     <!-- Content Row -->
     <div class="row">
-
-        <div class="col-2"></div>
-
-        <div class="col-lg-8 mb-4">
-
             <!-- Approach -->
 
-            <div class="col-md-12">
-
-                <div class="card shadow mb-4">
-
-
-                    <div class="card-header py-3">
+            <div class="col-md-12" style="padding:0px;">
+                    <!-- <div class="card-header py-3">
 
                         <div class="row">
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Login</h6>
                             </div>
-                            <!--                      </div>-->
-
                         </div>
+                    </div> -->
 
-                    </div>
 
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    {{--                                    <th>No</th>--}}
-                                    <th>Login Admin</th>
-                                    <th>Login Dosen</th>
-                                    <th>Login Mahasiswa</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-{{--                                @foreach($periode as $period)--}}
-                                    <tr>
-                                        {{--                                    <td>1</td>--}}
-                                        <td><a href="/admin/login">Admin</a> </td>
-                                        <td><a href="/dosen/login">Dosen</a></td>
-                                        <td><a href="/mahasiswa/login">Mahasiswa</a></td>
-{{--                                        <td>--}}
-{{--                                            <div class="text-center">--}}
-{{--                                                <div class="btn-group">--}}
-{{--                                                    <button class="btn btn-info"--}}
-{{--                                                            data-id="{{$period->id_periode}}"--}}
-{{--                                                            data-tahun="{{$period->tahunAjaran}}"--}}
-{{--                                                            data-sem="{{$period->semester}}"--}}
-{{--                                                            data-toggle="modal" data-target="#updatePeriode">--}}
-{{--                                                        <i class="fa fa-lg fa-edit">--}}
-{{--                                                        </i>--}}
-{{--                                                    </button>--}}
-{{--                                                    <form class="delete" action="{{ route('periode.destroy', $period->id_periode)}}" method="post">--}}
-{{--                                                        <input type="hidden" name="_method" value="DELETE">--}}
-{{--                                                        @csrf--}}
-{{--                                                        @method('DELETE')--}}
-{{--                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">--}}
-{{--                                                            <i class="fa fa-lg fa-trash">--}}
-{{--                                                            </i>--}}
-{{--                                                        </button>--}}
-{{--                                                    </form>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-                                    </tr>
-{{--                                @endforeach--}}
-                                </tbody>
-
-                            </table>
+                    <div class="text-center">
+                        <div style="margin-top: 25px;color:black;"> 
+                            <br>
+                            <h2><b>Selamat datang di</h2>
+                            <h2>Sistem Informasi Kelas Proyek</b></h2>
+                            <p>Seluruh aktivitas kelas proyek Program Studi Komputer dan Sistem Informasi Sekolah Vokasi Universitas Gadjah Mada</p>
+                            <br>
+                            <p>Masuk sebagai :</p>
+                            <br>
+                        </div>
+                        <div class="row" style="padding: 0px; color:black;">
+                            <div class="col-4" style="padding: 0px;">
+                            <a href="/admin/login" style="color:black;">
+                            <img class="img-fluid float-center" src="{{url('/')}}/asset/img/mahasiswa.svg" style="width: 100px; height: auto; padding-bottom:5px;" alt="Icon admin">
+                            <h4>Admin</a></h4>
+                            </div>
+                            <div class="col-4" style="padding: 0px;">
+                            <a href="/dosen/login" style="color:black;">
+                            <img class="img-fluid float-center" src="{{url('/')}}/asset/img/teacher.svg" style="width: 100px; height: auto; padding-bottom:5px;" alt="Icon dosen">
+                            <h4>Dosen</a></h4>
+                            </div>
+                            <div class="col-4" style="padding: 0px;">
+                            <a href="/mahasiswa/login" style="color:black;">
+                            <img class="img-fluid float-center" src="{{url('/')}}/asset/img/student.svg" style="width: 100px; height: auto; padding-bottom:5px;" alt="Icon mahasiswa">
+                            <h4>Mahasiswa</a></h4>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-
             </div>
-        </div>
     </div>
 
 

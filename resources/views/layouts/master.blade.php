@@ -38,7 +38,8 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-project-diagram"></i>
             </div>
-            <div class="sidebar-brand-text mx-4"><h4>KELAS PROYEK</h4><!--<sup>2</sup>--></div>
+            <div class="sidebar-brand-text mx-4"><h4>KELAS PROYEK</h4>
+            </div>
         </a>
 
         <!-- Divider -->
@@ -52,7 +53,6 @@
             @if(Auth::guard('mahasiswa')->check())
             {{Auth::guard('mahasiswa')->user()->statusUser}}
             <br>
-            {{Auth::guard('mahasiswa')->user()->profilmahasiswa->email}}
 
             @elseif(Auth::guard('dosen')->check())
             {{Auth::guard('dosen')->user()->statusUser}}
@@ -175,10 +175,6 @@
         </li>
         @endif
 
-
-
-        <hr>
-
         @if(Auth::guard('mahasiswa')->check())
             <li class="nav-item active">
                 <a class="nav-link" href="/mahasiswa/dashboard">
@@ -201,23 +197,6 @@
             </a>
         </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Proyek</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Daftar Proyek:</h6>
-                    <a class="collapse-item" href="/mahasiswa/proyek/judul">Judul</a>
-                    <a class="collapse-item" href="/mahasiswa/proyek/kelompok">Kelompok</a>
-                    <a class="collapse-item" href="/mahasiswa/proyek/undangan">Undangan</a>
-                    <a class="collapse-item" href="/mahasiswa/proyek/informasi">Informasi</a>
-                </div>
-            </div>
-        </li>
-
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswa/undangan">
                 <i class="fas fa-fw fa-cog"></i>
@@ -232,14 +211,10 @@
             </a>
         </li>
     @endif
-
-
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
-
     </ul>
 
     <!-- End of Sidebar -->
@@ -291,15 +266,20 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                            @php
+                            $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
+                            $users = DB::table('profilmahasiswa')->where('mahasiswa_id', $id)->first()->fileFoto;
+                            @endphp
                                 @if(Auth::guard('mahasiswa')->check())
-{{--                                    {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}--}}
                                     {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}
                                 @elseif(Auth::guard('dosen')->check())
                                     {{Auth::guard('dosen')->user()->namaDosen}}
                                 @elseif(Auth::guard('admin')->check())
                                     {{Auth::guard('admin')->user()->namaAdmin}}
                                 @endif</span>
-                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+
+                            <img class="img-profile rounded-circle" src="{{asset('data_profilmhs/'.$users)}}">
+
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -310,36 +290,33 @@
                             <div class="dropdown-divider"></div>
                             @if(Auth::guard('mahasiswa')->check())
                                 <a class="dropdown-item" href="{{route('mahasiswa.logout')}}" onclick="event.preventDefault();
-                                                                                                document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
-
                                 <form id="logout-form" action="{{route('mahasiswa.logout')}}" method="post" style="display: none">
                                     @csrf
                                 </form>
+
                             @elseif(Auth::guard('dosen')->check())
                                 <a class="dropdown-item" href="{{route('dosen.logout')}}" onclick="event.preventDefault();
-                                                                                                document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
-
                                 <form id="logout-form" action="{{route('dosen.logout')}}" method="post" style="display: none">
                                     @csrf
                                 </form>
 
                             @elseif(Auth::guard('admin')->check())
                                 <a class="dropdown-item" href="{{route('admin.logout')}}" onclick="event.preventDefault();
-                                                                                                document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
-
                                 <form id="logout-form" action="{{route('admin.logout')}}" method="post" style="display: none">
                                     @csrf
                                 </form>
-
                             @endif
                         </div>
                     </li>
@@ -377,8 +354,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
         </div>
@@ -428,28 +403,7 @@
 
                 $('#table-test').DataTable();
 
-
-                $('#updateKelasProyek').on('show.bs.modal', function (event) {
-
-                    // console.log('modal opened');
-                    var button = $(event.relatedTarget)
-
-                    var id = button.data('id')
-                    var nama = button.data('nama')
-                    var deskripsi = button.data('deskripsi')
-                    var anggota = button.data('anggota')
-                    var status = button.data('status')
-
-                    var modal = $(this)
-                    modal.find('.modal-body #id').val(id)
-                    modal.find('.modal-body #nama').val(nama)
-                    modal.find('.modal-body #deskripsi').val(deskripsi)
-                    modal.find('.modal-body #maksAnggota').val(anggota)
-                    modal.find('.modal-body #status').val(status)
-                })
-
-                $('#updatePeriode').on('show.bs.modal', function (event) {
-
+                    $('#updatePeriode').on('show.bs.modal', function (event) {
                     // console.log('modal opened');
                     var button = $(event.relatedTarget)
 
@@ -462,9 +416,6 @@
                     modal.find('.modal-body #tahun').val(tahun)
                     modal.find('.modal-body #sem').val(sem)
                 })
-
-
-
             </script>
             @stack('scripts')
 </body>

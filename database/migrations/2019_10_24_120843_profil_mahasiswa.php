@@ -22,7 +22,7 @@ class ProfilMahasiswa extends Migration
             $table->string('hpMahasiswa')->default('-');
             $table->string('keahlian')->default('-');
             $table->text('pengalaman')->default(NULL);
-            $table->string('fileFoto')->nullable();
+            $table->string('fileFoto', 255)->nullable();
             $table->integer('mahasiswa_id')->unsigned()->nullable();
             $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->onDelete('cascade');
             $table->timestamps();

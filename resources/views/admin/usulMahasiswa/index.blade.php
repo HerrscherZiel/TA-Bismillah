@@ -2,82 +2,79 @@
 
 @section('content')
 
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Usul Proyek</h1>
-        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+        <h1 class="h3 mb-0 text-gray-800">Usul Proyek</h1>
     </div>
 
-    <!-- Content Row -->
+    <div>
+        <div class="row list">
+            <div class="col-10 offset-1 text-right">
+            Search
+            </div>
+            <div class="col-10 offset-1">
+                <div class="row">
 
-    <!-- Content Row -->
-    <div class="row">
+                @php $i=1;  @endphp
+                @if(count($kelasperiode) > 0)
+                @foreach($kelasperiode as $kelper)
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
 
-        <div class="col-1"></div>
-
-        <div class="col-lg-10 mb-4">
-
-            <!-- Approach -->
-
-            <div class="col-md-12">
-
-                <div class="card shadow mb-4">
-
-
-                    <div class="card-header py-3">
-
-                        <div class="row">
-                            <div class="col-md-8 my-auto">
-                                <h6 class="font-weight-bold text-primary m-0">Usul Proyek</h6>
+                            <div class="card-header py-3">
+                                <div class="row">
+                                    <div class="col-md-8 my-auto">
+                                        <h6 class="font-weight-bold text-primary m-0">{{$kelper->namaKelasProyek}}</h6>
+                                    </div>
+                                    <div class="col-md-4 text-primary text-right">
+                                        <a type="button" class="btn btn-primary" href="/usul/detail/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}">
+                                            Detail
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+                            <div class="card-body">
+                                <div class="row">
 
+                                    <div class="col-4 text-left">
+                                        Semester
+                                    </div>
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Kelas Proyek</th>
-                                    <th>Judul</th>
-                                    <th>Deskripsi</th>
-                                    <th>Pengusul</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>SIM || Genap 2020</td>
-                                        <td>Sistem Informasi Kelas Proyek</td>
-                                        <td>Sistem Informasi Semester 5 aisuhdahjsdlkaslkdalshduiagsuidaiuwgdawdapwpdajsndjnabsjndbawbdiabshdb</td>
-                                        <td>Elang Bayu Aji Hartanto</td>
-                                        <td>
-                                            <div class="text-center">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-check">
-                                                        </i>
-                                                    </button>
-                                                    <a class="btn btn-danger" href="#">
-                                                        <i class="fa fa-lg fa-times">
-                                                        </i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->semester}}
+                                    </div>
 
-                                </tbody>
-                            </table>
+                                    <div class="col-4 text-left">
+                                        Tahun Ajaran
+                                    </div>
+
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->tahunAjaran}}
+                                    </div>
+                                  
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+                @php $i++; @endphp
+                
+                @endforeach
+                @else
+                <div class="card-body">
+                    <div class="col-12 text-center">
+                        <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
+                            <h5>Belum ada undangan kelompok proyek</h5>
+                        </div>
+                    </div>
+                </div>
+                @endif
 
                 </div>
-
             </div>
-
+        </div>
+    </div>
 
             <!-- Modal Update -->
             <div class="modal fade bd-modal-lg" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -148,4 +145,5 @@
                     </div>
                 </div>
             </div>
+
 @endsection

@@ -2,53 +2,31 @@
 
 @section('content')
 
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Dashboard | Periode</h1>
-        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
     </div>
 
-    <!-- Content Row -->
-
-    <!-- Content Row -->
     <div class="row">
-
-        <div class="col-2"></div>
-
-        <div class="col-lg-8 mb-4">
-
-            <!-- Approach -->
-
+        <div class="col-10 offset-1 mb-4">
             <div class="col-md-12">
-
                 <div class="card shadow mb-4">
 
-
                     <div class="card-header py-3">
-
                         <div class="row">
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Periode</h6>
                             </div>
-
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
-
-                                {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
-                            <!--                      </div>-->
-
                         </div>
-
                     </div>
-
 
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-{{--                                    <th>No</th>--}}
                                     <th>Tahun Ajaran</th>
                                     <th>Semester</th>
                                     <th>Action</th>
@@ -58,13 +36,12 @@
                                 <tbody>
                                 @foreach($periode as $period)
                                     <tr>
-{{--                                    <td>1</td>--}}
                                     <td>{{$period -> tahunAjaran}}</td>
                                     <td>{{$period -> semester}}</td>
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-info"
+                                                <button class="btn btn-success"
                                                         data-id="{{$period->id_periode}}"
                                                         data-tahun="{{$period->tahunAjaran}}"
                                                         data-sem="{{$period->semester}}"
@@ -87,13 +64,11 @@
                                 </tr>
                                 @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
 
                 </div>
-
             </div>
         </div>
     </div>
@@ -136,8 +111,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
                 </form>
 
@@ -184,8 +159,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
 

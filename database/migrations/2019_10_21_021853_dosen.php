@@ -20,7 +20,7 @@ class Dosen extends Migration
             $table->string('namaDosen');
             $table->string('email')->unique();
             $table->string('hpDosen')->default('-');
-            $table->string('fileFoto')->nullable();
+            $table->string('fileFoto', 255)->nullable();
             $table->string('password');
             $table->string('passwordBackup');
             $table->string('statusUser')->default("Dosen");

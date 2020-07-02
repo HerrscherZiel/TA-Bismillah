@@ -7,41 +7,24 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard | Mahasiswa</h1>
         <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
     </div>
-
-    <!-- Content Row -->
-
     <!-- Content Row -->
     <div class="row">
 
-        <div class="col-2"></div>
-
-        <div class="col-lg-8 mb-4">
-
-            <!-- Approach -->
-
+        <div class="col-10 offset-1 mb-4">
             <div class="col-md-12">
-
                 <div class="card shadow mb-4">
 
-
                     <div class="card-header py-3">
-
                         <div class="row">
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Mahasiswa</h6>
                             </div>
-
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahMahasiswa">Tambah</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswa">Import</button>
-                                {{--                                <a href="/detailProject" class="btn btn-primary">Detail</a>--}}
                             </div>
-                            <!--                      </div>-->
-
                         </div>
-
                     </div>
-
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -61,17 +44,16 @@
                                 @php $i = 1; @endphp
                                 <tbody>
                                 @foreach($mahasiswa as $mhs)
-                                    <tr>
+                                <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{$mhs->nim}}</td>
                                     <td>{{$mhs->username}}</td>
                                     <td>{{$mhs->namaMahasiswa}}</td>
                                     <td>{{$mhs->statusUser}}</td>
-
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-info"
+                                                <button class="btn btn-success"
                                                         data-id="{{$mhs->id_mahasiswa}}"
                                                         data-nim="{{$mhs->nim}}"
                                                         data-username="{{$mhs->username}}"
@@ -94,7 +76,7 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-info">
+                                                    <button class="btn btn-warning">
                                                         <i class="fa fa-lg fa-key"></i>
                                                     </button>
                                                 </div>

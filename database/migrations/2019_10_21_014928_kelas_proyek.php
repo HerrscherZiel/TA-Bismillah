@@ -18,7 +18,7 @@ class KelasProyek extends Migration
             $table->increments('id_kelasProyek');
             $table->string('namaKelasProyek');
             $table->text('deskripsi')->nullable();
-            $table->string('maksAnggota');
+            $table->integer('maksAnggota');
             $table->string('status');
             $table->timestamps();
         });

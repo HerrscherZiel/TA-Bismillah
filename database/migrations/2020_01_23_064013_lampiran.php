@@ -17,7 +17,7 @@ class Lampiran extends Migration
         Schema::create('lampiran', function (Blueprint $table) {
             $table->increments('id_lampiran');
             $table->string('lampiran');
-            $table->string('fileLampiran');
+            $table->string('fileLampiran', 255);
             $table->integer('laporan_id')->unsigned()->nullable();
             $table->foreign('laporan_id')->references('id_laporan')->on('laporan')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

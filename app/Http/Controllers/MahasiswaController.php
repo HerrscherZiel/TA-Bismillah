@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mahasiswa;
 use App\MahasiswaProyek;
+use App\ProfilMahasiswa;
 use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -95,8 +96,14 @@ class MahasiswaController extends Controller
             'passwordBackup'    => bcrypt($a)
 
         ]);
-
         $mhs->save();
+
+        $profMhs = new ProfilMahasiswa([
+            'mahasiswa_id'   => $mhs->id_mahasiswa,
+            'email'          => 'email',
+            'pengalaman'     => '-'
+        ]);
+        $profMhs->save();
 
         return back();
     }

@@ -2,51 +2,31 @@
 
 @section('content')
 
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Dashboard | Kelas Proyek</h1>
-        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
     </div>
 
-    <!-- Content Row -->
-
-    <!-- Content Row -->
     <div class="row">
-
-        <div class="col-2"></div>
-
-        <div class="col-lg-8 mb-4">
-
-            <!-- Approach -->
-
+        <div class="col-10 offset-1 mb-4">
             <div class="col-md-12">
-
                 <div class="card shadow mb-4">
 
-
                     <div class="card-header py-3">
-
                         <div class="row">
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Kelas Proyek</h6>
                             </div>
-
                             <div class="col-md-4 text-right">
-
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
-
                             </div>
                         </div>
-
                     </div>
-
 
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-{{--                                    <th>No</th>--}}
                                     <th>Kelas Proyek</th>
                                     <th>Deskripsi</th>
                                     <th>Maksimal Anggota</th>
@@ -58,7 +38,6 @@
                                 <tbody>
                                 @foreach($kelasproyek as $kls)
                                     <tr>
-{{--                                    <td>1</td>--}}
                                     <td>{{$kls -> namaKelasProyek}}</td>
                                     <td>{{$kls -> deskripsi}}</td>
                                     <td>{{$kls -> maksAnggota}}</td>
@@ -66,7 +45,7 @@
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-info"
+                                                <button class="btn btn-success"
                                                         data-id="{{$kls->id_kelasProyek}}"
                                                         data-nama="{{$kls->namaKelasProyek}}"
                                                         data-deskripsi="{{$kls->deskripsi}}"
@@ -90,17 +69,15 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-                </div>
 
+                </div>
             </div>
+        </div>
+    </div>
 
 
             <!-- Modal Insert -->
@@ -154,8 +131,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Tambah</button>
                             </div>
                             </form>
 
@@ -203,25 +180,55 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12"><b>Tahun Ajaran</b>
-                                        <div class="form-group">
-                                            <select class="form-control" name="status" id="periode">
-                                                    <option></option>
-                                            </select>
+                                    <div class="row">
+                                        <div class="col-md-12"><b>Status</b>
+                                            <div class="form-group">
+                                                <select class="form-control" name="status" id="status">
+                                                @php $i = 1; @endphp
+                                                @foreach($kelasproyek as $kls)
+                                                    @if($i == 1)
+                                                    <option value="{{$kls->status}}">{{$kls->status}}</option>
+                                                    @endif
+                                                    @php $i++ @endphp
+                                                @endforeach
+                                                    <option value="Pendaftaran">Pendaftaran</option>
+                                                    <option value="Aktif">Aktif</option>
+                                                    <option value="Selesai">Selesai</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </div>    
                                 </div>
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
 
+        @push('scripts')
+        <script>
+            $('#updateKelasProyek').on('show.bs.modal', function (event) {
+                // console.log('modal opened');
+                var button = $(event.relatedTarget)
 
+                var id = button.data('id')
+                var nama = button.data('nama')
+                var deskripsi = button.data('deskripsi')
+                var anggota = button.data('anggota')
+                var status = button.data('status')
+
+                var modal = $(this)
+                modal.find('.modal-body #id').val(id)
+                modal.find('.modal-body #nama').val(nama)
+                modal.find('.modal-body #deskripsi').val(deskripsi)
+                modal.find('.modal-body #maksAnggota').val(anggota)
+                modal.find('.modal-body #status').val(status)
+            })
+        </script>
+        @endpush
 @endsection

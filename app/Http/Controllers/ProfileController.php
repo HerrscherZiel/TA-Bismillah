@@ -27,14 +27,14 @@ class ProfileController extends Controller
     {
         //
         if(Auth::guard('mahasiswa')->check()){
-
+            
             $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
 
             $profil = Mahasiswa::join('profilmahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
                                ->where('id_mahasiswa', '=', $id)
                                ->get();
 
-//        dd($profil);
+    //    dd($id);
 
             return view('mahasiswa.profile.index')->with('profil', $profil);
         }
@@ -86,6 +86,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -124,7 +125,24 @@ class ProfileController extends Controller
         if(Auth::guard('mahasiswa')->check()) {
 
             $proMhs = ProfilMahasiswa::findOrFail($request->id_profilMahasiswa);
-            $proMhs->update($request->all());
+
+            if($request->fileFoto == NULL){
+                $proMhs->update($request->all());
+            }
+
+            else{
+
+                $file = $request->file('fileFoto');
+
+                $nama_file = time()."_".$file->getClientOriginalName();
+                $tujuan_upload = 'data_profilmhs';
+                $file->move($tujuan_upload, $nama_file);
+                $proMhs->fileFoto = $nama_file;
+
+                $proMhs->save();
+            
+            }
+            // $proMhs->update($request->all());
 
             return back();
         }

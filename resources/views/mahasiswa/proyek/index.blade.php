@@ -2,44 +2,25 @@
 
 @section('content')
 
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
-        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
     </div>
 
-    <!-- Content Row -->
-
-    <!-- Content Row -->
-    <div class="row">
-
-        <div class="col-1"></div>
-
-        <div class="col-lg-10 mb-4">
-
-            <!-- Approach -->
-
-            <div class="col-md-12">
-
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-sm-12 mb-4">
+            <div class="col-12">
                 <div class="card shadow mb-4">
 
-
                     <div class="card-header py-3">
-
                         <div class="row">
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Kelompok Proyek</h6>
                             </div>
-
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
                             </div>
-                            <!--                      </div>-->
-
                         </div>
-
                     </div>
-
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -50,7 +31,7 @@
                                     <th>Periode</th>
                                     <th>Project Manager</th>
                                     <th>Proyek</th>
-                                    <th>Dosen Pembimbing</th>
+                                    <th>Pembimbing</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -97,14 +78,19 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-info" href="/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
+                                                    <a class="btn btn-info" href="/mahasiswa/proyek/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
                                                         <i class="fa fa-lg fa-eye">
                                                         </i>
                                                     </a>
-                                                    <a class="btn btn-info" href="#">
-                                                        <i class="fa fa-lg fa-trash">
-                                                        </i>
-                                                    </a>
+                                                    <form class="delete" action="{{ route('mahasiswa.kelompok.proyek.destroy', $kel->id_kelompokProyek)}}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                            <i class="fa fa-lg fa-trash">
+                                                            </i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </td>
@@ -114,82 +100,85 @@
                             </table>
                         </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
     </div>
 
-            <!-- Modal Insert -->
-            <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <!-- Modal Insert -->
+    <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Buat Kelompok</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Buat Kelompok</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-                        <form method="post" action="{{ route('kelompokproyek.store')}}" enctype="multipart/form-data">
-                            @csrf
+                <form method="post" action="{{ route('kelompokproyek.store')}}" enctype="multipart/form-data">
+                    @csrf
 
-                        <div class="modal-body">
-                            <div class="tile-body">
-                                <p><b>*Dengan membentuk kelompok anda akan otomatis terdaftar sebagai Project Manager dalam kelompok<br>
-                                        *Project Manager dapat diganti dilain waktu</b>
-                                <br>
-                                <br>
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-12"><b>Pilih Kelas Proyek</b>
-                                        <div class="form-group">
-                                            <select class="form-control selectbox" name="mahasiswaProyek_id" style="width: 100%" required>
-                                                @if($excs != null)
-                                                @foreach($excs as $exc)
-                                                    <option value="{{$exc -> id_mahasiswaProyek}}">
-                                                        {{$exc -> namaKelasProyek}}
-                                                    </option>
-                                                @endforeach
-                                                @else
-                                                    <option disabled>
-                                                        Belum terdaftar dalam kelas proyek
-                                                    </option>
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
+                <div class="modal-body">
+                    <div class="tile-body">
+                        <p><b>*Dengan membentuk kelompok anda akan otomatis terdaftar sebagai Project Manager dalam kelompok<br>
+                                *Project Manager dapat diganti dilain waktu</b>
+                        <br>
+                        <br>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-12"><b>Pilih Kelas Proyek</b>
+                                <div class="form-group">
+                                    <select class="form-control selectbox" name="mahasiswaProyek_id" style="width: 100%" required>
+                                        @if($excs != null)
+                                        @foreach($excs as $exc)
+                                            <option value="{{$exc -> id_mahasiswaProyek}}">
+                                                {{$exc -> namaKelasProyek}}
+                                            </option>
+                                        @endforeach
+                                        @else
+                                            <option disabled>
+                                                Belum terdaftar dalam kelas proyek
+                                            </option>
+                                        @endif
+                                    </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12"><b>Project Manager</b>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" name="pm"
-                                                   value="{{Auth::guard('mahasiswa')->user()->namaMahasiswa}}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12"><b>Status :</b>
-                                        <div class="form-group">
-                                            <input class="form-control"  type="text" name="statusKelompok" value="Menunggu Persetujuan" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="judulPrioritas" value="Belum ada judul">
                             </div>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Buat Kelompok</button>
+                        <div class="row">
+                            <div class="col-md-12"><b>Project Manager</b>
+                                <div class="form-group">
+                                    <input class="form-control" type="text"
+                                            value="{{Auth::guard('mahasiswa')->user()->namaMahasiswa}}" disabled>
+                                </div>
+                            </div>
                         </div>
-
-                        </form>
-
+                        <div class="row">
+                            <div class="col-md-12"><b>Status :</b>
+                                <div class="form-group">
+                                    <input class="form-control"  type="text" value="Menunggu Persetujuan" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" type="text" name="pm"
+                                            value="{{Auth::guard('mahasiswa')->user()->namaMahasiswa}}">
+                        <input type="hidden"  type="text" name="statusKelompok" value="Menunggu Persetujuan">
+                        <input type="hidden" name="judulPrioritas" value="Belum ada judul">
                     </div>
                 </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Buat Kelompok</button>
+                </div>
+
+                </form>
+
             </div>
+        </div>
+    </div>
 
 
 @endsection

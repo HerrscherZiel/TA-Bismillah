@@ -18,9 +18,9 @@ class UsulMahasiswa extends Migration
             $table->increments('id_usulMahasiswa');
             $table->string('judulUsul')->unique();
             $table->text('deskripsi')->nullable();
-            $table->integer('mahasiswaProyek_id')->unsigned()->nullable();
-            $table->string('statusProyek')->nullable();
-            $table->foreign('mahasiswaProyek_id')->references('id_mahasiswaProyek')->on('mahasiswaProyek')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('kelompokProyek_id')->unsigned()->nullable();
+            $table->string('statusUsul')->nullable();
+            $table->foreign('kelompokProyek_id')->references('id_kelompokProyek')->on('kelompokProyek')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

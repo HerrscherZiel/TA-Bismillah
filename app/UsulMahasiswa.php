@@ -17,13 +17,13 @@ class UsulMahasiswa extends Model
     protected $fillable = [
         'judulUsul',
         'deskripsi',
-        'mahasiswaProyek_id',
-        'statusProyek',
+        'kelompokProyek_id',
+        'statusUsul',
     ];
 
 
-    public function mahasiswaproyek(){
-        return $this->belongsTo('App\MahasiswaProyek', 'mahasiswaProyek_id');
+    public function kelompokproyek(){
+        return $this->belongsTo('App\KelompokProyek', 'kelompokProyek_id');
     }
 
     public function proyek(){

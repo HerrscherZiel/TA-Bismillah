@@ -40,7 +40,11 @@ class KelompokProyek extends Model
     }
 
     public function proyekpilihan(){
-        return $this->hasOne('App\ProyekPilihan', 'kelompokProyek_id');
+        return $this->hasMany('App\ProyekPilihan', 'kelompokProyek_id');
+    }
+
+    public function usulmahasiswa(){
+        return $this->hasOne('App\UsulMahasiswa','mahasiswaProyek_id');
     }
 
 }

@@ -18,36 +18,35 @@
     <!-- Custom styles for this template-->
     <link href="{{url('/')}}/asset/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="{{url('/')}}/asset/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-
+  </style>
+  <style>
+    img:hover {
+    background-color: #4c85c7;
+    }
+    body {
+    color: black;
+    }
+    button {
+     width: 80%;
+     height: 100%;
+     align: center;
+}  
+</style>
 </head>
 
-<body id="page-top">
+<body class="bg-gradient-primary">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-
-
-    <!-- End of Sidebar -->
-
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-            @yield('content')
-            <!-- Scroll to Top Button-->
-
-                <!-- Logout Modal-->
-
-
-
-
-            </div>
-
+    <div class="container-fluid" style="padding: 5% 0">
+        <div class="row text-center" style="padding: 0; background-color:white;">
+                <div class="col-lg-6" style="padding:0px;  margin:auto;">
+                <img class="img-fluid float-center" src="{{url('/')}}/asset/img/logos.jpg" style="width: 70%; height: auto; padding:0px; " alt="Responsive image">
+                </div>
+                <div class="col-lg-6" style="padding:0px; background-color:#d5e1f5;">
+                @yield('content')
+                <br>
+                </div>
         </div>
     </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{url('/')}}/asset/vendor/jquery/jquery.min.js"></script>

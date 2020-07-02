@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class AnggotaProyek extends Model
 {
     //
-    protected $table = 'anggotaproyek';
+    protected $table = 'anggotakelompok';
 
-    public $primaryKey = 'id_anggotaProyek';
+    public $primaryKey = 'id_anggotaKelompok';
 
     public $timestamps = true;
 
