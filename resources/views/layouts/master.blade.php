@@ -12,7 +12,7 @@
 
     <!-- Custom fonts for this template-->
      <link href="{{url('/')}}/asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+     <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
     <link href="{{url('/')}}/asset/css/select2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -35,8 +35,8 @@
 
         <!--      </a>-->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index2.html">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-project-diagram"></i>
+            <div class="sidebar-brand-icon">
+                <i class="fas fa-sitemap"></i>
             </div>
             <div class="sidebar-brand-text mx-4"><h4>KELAS PROYEK</h4>
             </div>
@@ -45,25 +45,16 @@
         <!-- Divider -->
         <hr class="sidebar-divider mb-2">
 
-        <!--      <div class="sidebar-heading mx-auto">-->
-        <!--        <h5>Elang</h5>-->
-        <!--      </div>-->
-
         <div class="sidebar-heading mx-auto text-center">
             @if(Auth::guard('mahasiswa')->check())
             {{Auth::guard('mahasiswa')->user()->statusUser}}
             <br>
-
             @elseif(Auth::guard('dosen')->check())
             {{Auth::guard('dosen')->user()->statusUser}}
             <br>
-            {{Auth::guard('dosen')->user()->email}}
-
             @elseif(Auth::guard('admin')->check())
             {{Auth::guard('admin')->user()->statusUser}}
             <br>
-            {{Auth::guard('admin')->user()->email}}
-
             @endif
         </div>
 
@@ -73,69 +64,67 @@
         <!-- Nav Item - Dashboard -->
 
         @if(Auth::guard('admin')->check())
-            <li class="nav-item active">
-                <a class="nav-link" href="/admin/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/admin/dashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/admin">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-user"></i>
                 <span>Admin</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/dosen">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-user"></i>
                 <span>Dosen</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswa">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-user"></i>
                 <span>Mahasiswa</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/periode">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-clock"></i>
                 <span>Periode</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/kelasproyek">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-chalkboard-teacher"></i>
                 <span>Kelas Proyek</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswaproyek">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-book-reader"></i>
                 <span>Mahasiswa Proyek</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/proyek">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-tasks"></i>
                 <span>Proyek</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/usulmahasiswa">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-sticky-note"></i>
                 <span>Usul Proyek</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/kelompokproyek">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-users"></i>
                 <span>Kelompok Proyek</span></a>
         </li>
         @endif
 
-
-        <hr>
 
         <!-- Divider -->
 
@@ -147,29 +136,29 @@
             </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/profileDosen">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="/dosen/profil">
+                <i class="fas fa-fw fa-user"></i>
                 <span>Profile</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/proyekDosen">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="/dosen/proyek">
+                <i class="fas fa-fw fa-tasks"></i>
                 <span>Proyek</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/kelompokbimbingan">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="/dosen/kelompok-bimbingan">
+                <i class="fas fa-fw fa-users"></i>
                 <span>Kelompok Bimbingan</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/laporanDosen">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="/dosen/laporan">
+                <i class="fas fa-fw fa-copy"></i>
                 <span>Laporan</span>
             </a>
         </li>
@@ -185,28 +174,28 @@
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswa/profileMahasiswa">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-user"></i>
                 <span>Profile</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswa/proyek/kelompok">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-tasks"></i>
                 <span>Proyek</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswa/undangan">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-inbox"></i>
                 <span>Undangan</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/mahasiswa/laporan">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-copy"></i>
                 <span>Laporan</span>
             </a>
         </li>
@@ -266,24 +255,44 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                            @php
-                            $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
-                            $users = DB::table('profilmahasiswa')->where('mahasiswa_id', $id)->first()->fileFoto;
-                            @endphp
+                            
                                 @if(Auth::guard('mahasiswa')->check())
-                                    {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}
+                                    @php
+                                        $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
+                                        $users = DB::table('profilmahasiswa')->where('mahasiswa_id', $id)->first()->fileFoto;
+                                    @endphp
+
+                                        {{Auth::guard('mahasiswa')->user()->namaMahasiswa}}
+
+                                    @if($users != NULL)
+                                    <img class="img-profile rounded-circle" src="{{asset('data_profilmhs/'.$users)}}">
+                                    @else
+                                    <img class="img-profile rounded-circle" src="{{url('/')}}/asset/img/user.svg">
+                                    @endif
+
                                 @elseif(Auth::guard('dosen')->check())
+                                    @php
+                                        $fo = Auth::guard('dosen')->user()->fileFoto;
+                                    @endphp
+
                                     {{Auth::guard('dosen')->user()->namaDosen}}
+
+                                    @if($fo != NULL)
+                                    <img class="img-profile rounded-circle" src="{{asset('data_profildos/'.$fo)}}">
+                                    @else
+                                    <img class="img-profile rounded-circle" src="{{url('/')}}/asset/img/user.svg">
+                                    @endif
+
                                 @elseif(Auth::guard('admin')->check())
                                     {{Auth::guard('admin')->user()->namaAdmin}}
+                                    <img class="img-profile rounded-circle" src="{{url('/')}}/asset/img/user.svg">
                                 @endif</span>
 
-                            <img class="img-profile rounded-circle" src="{{asset('data_profilmhs/'.$users)}}">
 
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="/ganti-password">
                                 <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Ganti Password
                             </a>
@@ -328,6 +337,8 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                @include('flash-message')
+
 
                 <!-- Page Heading -->
                 @yield('content')
@@ -377,6 +388,8 @@
                 <script src="{{url('/')}}/asset/js/demo/chart-area-demo.js"></script>
                 <script src="{{url('/')}}/asset/js/demo/chart-pie-demo.js"></script>
                 <script src="{{url('/')}}/asset/js/select2.min.js"></script>
+                <script src="{{url('/')}}/asset/js/sweetalert.min.js"></script>
+
 
 
                 <!-- Page level plugins -->
@@ -416,6 +429,8 @@
                     modal.find('.modal-body #tahun').val(tahun)
                     modal.find('.modal-body #sem').val(sem)
                 })
+
+                
             </script>
             @stack('scripts')
 </body>

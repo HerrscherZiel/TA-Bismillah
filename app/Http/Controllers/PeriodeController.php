@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Periode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PeriodeController extends Controller
 {
@@ -15,8 +17,16 @@ class PeriodeController extends Controller
     public function index()
     {
         //
+        if(Auth::guard('admin')->check()) {
+
         $periode = Periode::latest()->paginate(5);
         return view('admin.periode.index')->with('periode', $periode);
+
+        }
+
+        else {
+            return view('errors.403');
+        }
 
     }
 
@@ -39,9 +49,14 @@ class PeriodeController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'tahunAjaran' => 'required',
+            'semester' => 'required | unique_with:periode,tahunAjaran,semester',
+        ]);
+
         Periode::create($request->all());
 
-        return back();
+        return back()->with('success','Berhasil menambah data');
     }
 
     /**
@@ -76,10 +91,14 @@ class PeriodeController extends Controller
     public function update(Request $request)
     {
         //
+        $this->validate($request, [
+            'tahunAjaran' => 'required',
+            'semester' => 'required',
+        ]);
         $periode = Periode::findOrFail($request->id_periode);
         $periode->update($request->all());
 
-        return back();
+        return back()->with('success','Berhasil mengubah data');
     }
 
     /**
@@ -94,6 +113,6 @@ class PeriodeController extends Controller
         $periode = Periode::findOrFail($id);
         $periode->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success','Berhasil menghapus data');
     }
 }

@@ -1,24 +1,35 @@
 @extends('layouts.master')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Proyek</h1>
     </div>
 
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
                     <div class="col-12">
                         <div class="row">
                             <div class="col-md-8 my-auto">
-                            Kelompok
                             @foreach($kelompok as $kel)
-                                @if($kel->judulPrioritas == null)
-                                    Proyek
+                                @if($kel->judulPrioritas == "Belum ada judul")
+                                Kelompok Proyek
                                 @else
-                                    {{$kel->judulPrioritas}}
+                                Kelompok {{$kel->judulPrioritas}}
                                 @endif
                             @endforeach
                             </div>
@@ -31,7 +42,7 @@
                                                 data-stat="{{$kel->statusKelompok}}"
                                                 data-idos="{{$kel->dosen_id}}"
                                                 data-toggle="modal" data-target="#updateKelompok">
-                                                Edit Kelompok
+                                                Ubah Kelompok
                                         </button>
                                     @endforeach
                                 </div>
@@ -51,26 +62,26 @@
                                         @foreach($kelompok as $kel)
                                             <div class="col-12">
                                                 <div class="row">
-                                                    <div class="col-2 text-left">
+                                                    <div class="col-lg-2 col-sm-12 text-left">
                                                         <b> Kelas Proyek</b>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-sm-12">
                                                         : {{$kel->namaKelasProyek}}
                                                     </div>
                                                     <hr>
-                                                    <div class="col-2 text-left">
+                                                    <div class="col-lg-2 col-sm-12 text-left">
                                                         <b> Periode</b>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-sm-12">
                                                         : {{$kel->semester}} | {{$kel->tahunAjaran}}
                                                     </div>
                                                     <hr>
                                                 </div>
                                             </div>
-                                            <div class="col-2 text-left">
+                                            <div class="col-lg-2 col-sm-12 text-left">
                                             <b> Judul</b>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-lg-4 col-sm-12">
                                                 : 
                                                 @if($kel->judulPrioritas == null)
                                                     Belum ada judul
@@ -79,10 +90,10 @@
                                                 @endif
                                             </div>
                                             <hr>
-                                            <div class="col-2 text-left">
+                                            <div class="col-lg-2 col-sm-12 text-left">
                                             <b> Pembimbing</b>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-lg-4 col-sm-12">
                                                 : 
                                                 @if($kel->dosen_id == null)
                                                     Belum ada Pembimbing
@@ -95,17 +106,17 @@
                                                 @endif
                                             </div>
                                             <hr>
-                                            <div class="col-2 text-left">
+                                            <div class="col-lg-2 col-sm-12 text-left">
                                                 <b> Project Manager</b>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-lg-4 col-sm-12">
                                                 : {{$kel->pm}}<br>
                                             </div>
                                             <hr>
-                                            <div class="col-2 text-left">
+                                            <div class="col-lg-2 col-sm-12 text-left">
                                                 <b>Status</b>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-lg-4 col-sm-12">
                                                 : {{$kel->statusKelompok}}
                                             </div>
 
@@ -115,9 +126,10 @@
                                     </div>
 
                                     <div class="col-md-3 text-left">
-                                    <b>Anggota Kelompok</b> : 
+                                        <b>Anggota Kelompok</b> : 
                                     </div>
-                                    <div class="card-body col-12">
+
+                                    <div class="card-body col-12 text-center">
 
                                         <div class="row">
                                             <div class="col-12 table-responsive">
@@ -145,6 +157,7 @@
                                         </div>
 
                                     </div>
+
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-md-3 text-left">
@@ -186,7 +199,7 @@
                                                         <td>{{$jud->prioritas}}</td>
                                                         <td>
                                                         @foreach($ambiljudul as $amb)
-                                                            @if($amb->judulPrioritas != $jud->judul)
+                                                            @if($amb->judulPrioritas != $jud->judul && $jud->statusProyek != "Aktif")
                                                                 <button class="btn btn-success"
                                                                         data-judul="{{$jud->judul}}"
                                                                         data-idkel="{{$jud->id_kelompokProyek}}"
@@ -194,6 +207,10 @@
                                                                         data-judulprio="{{$jud->judulPrioritas}}"
                                                                         data-toggle="modal" data-target="#pilihJudul">
                                                                     Pilih
+                                                                </button>
+                                                            @elseif($amb->judulPrioritas != $jud->judul && $jud->statusProyek == "Aktif" )
+                                                                <button class="btn btn-secondary" disabled>
+                                                                    Terpilih
                                                                 </button>
                                                             @else
                                                                 <button class="btn btn-secondary" disabled>
@@ -223,18 +240,22 @@
                                                                             data-toggle="modal" data-target="#pilihUsul">
                                                                         Pilih
                                                                     </button>
-                                                                @else
-                                                                    <button class="btn btn-secondary" disabled>
-                                                                        Dipilih
-                                                                    </button>
-                                                                @endif
+                                                                    @elseif($amb->judulPrioritas != $jud->judul && $jud->statusProyek == "Aktif" )
+                                                                        <button class="btn btn-secondary" disabled>
+                                                                            Terpilih
+                                                                        </button>
+                                                                    @else
+                                                                        <button class="btn btn-secondary" disabled>
+                                                                            Dipilih
+                                                                        </button>
+                                                                    @endif
                                                             @endforeach
                                                         @else
                                                             @foreach($ambiljudul as $amb)
                                                                 @php $setujuiusul = "ya"; @endphp
                                                                 <button class="btn btn-success"
                                                                         data-judulusul="{{$us->judulUsul}}"
-                                                                        data-deskripsi="{{$us->deskripsi}}"
+                                                                        data-deskripsi="{{$us->usDesk}}"
                                                                         data-idkel="{{$us->id_kelompokProyek}}"
                                                                         data-idus="{{$us->id_usulMahasiswa}}"
                                                                         data-idkls="{{$us->id_kelasProyek}}"
@@ -289,18 +310,6 @@
                     <div class="modal-body">
                         <div class="tile-body">
 
-                            <!-- <div class="row">
-                                <div class="col-md-12"><b>Judul Proyek :</b>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Sistem Informasi Kelas Proyek</option>
-                                            <option>Sistem Informasi Apotek</option>
-                                            <option>Sistem Informasi Laundry Asik</option>
-                                            <option>Sistem Informasi Damkar</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="row">
                                 <div class="col-md-12"><b>Dosen Pembimbing :</b>
                                     <div class="form-group">
@@ -325,7 +334,7 @@
                                                 @endforeach
                                                 <option value="Menunggu Persetujuan">Menunggu Persetujuan</option>
                                                 <option value="Aktif">Aktif</option>
-                                                <option value="Tidak Aktif">Tidak Aktif</option>
+                                                <option value="Non Aktif">Non Aktif</option>
                                         </select>
                                     </div>
                                 </div>
@@ -528,6 +537,7 @@
                 </div>
         </div>
     </div>
+
 
 
 

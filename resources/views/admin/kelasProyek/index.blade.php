@@ -2,12 +2,30 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Kelas Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kelas Proyek</h1>
     </div>
 
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="col-lg-11 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
+        <div class="btn-group">
+            <button type="button" class="btn btn-success text-center" ><a href="/kelasproyek/aktif/index" style="color: white;">Aktif</a></button>
+            <button type="button" class="btn btn-secondary text-center" ><a href="/kelasproyek/non-aktif/index" style="color: white;">Non Aktif</a></button>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-md-12">
                 <div class="card shadow mb-4">
 
@@ -59,7 +77,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -98,21 +116,21 @@
                                     <div class="row">
                                         <div class="col-md-12"><b>Nama Kelas Proyek :</b>
                                             <div class="form-group">
-                                                <input class="form-control" type="text" name="namaKelasProyek" placeholder="Nama Kelas Proyek">
+                                                <input class="form-control" type="text" name="namaKelasProyek" placeholder="Nama Kelas Proyek" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12"><b>Deskripsi Kelas Proyek:</b>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Kelas Proyek"></textarea>
+                                                <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Kelas Proyek" required></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12"><b>Maksimal Anggota Proyek :</b>
                                             <div class="form-group">
-                                                <input class="form-control" type="text" name="maksAnggota" placeholder="1, 2, 3 dsb...">
+                                                <input class="form-control" type="number" name="maksAnggota" placeholder="1, 2, 3 dst..." required>
                                             </div>
                                         </div>
                                     </div>
@@ -120,9 +138,9 @@
                                         <div class="col-md-12"><b>Status</b>
                                             <div class="form-group">
                                                 <select class="form-control" name="status" required="">
-                                                        <option>Pendaftaran</option>
+                                                        <option selected>Pendaftaran</option>
                                                         <option>Aktif</option>
-                                                        <option>Selesai</option>
+                                                        <option>Non Aktif</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -162,28 +180,28 @@
                                     <div class="row">
                                         <div class="col-md-12"><b>Nama Kelas Proyek :</b>
                                             <div class="form-group">
-                                                <input class="form-control" type="text" name="namaKelasProyek" id="nama">
+                                                <input class="form-control" type="text" name="namaKelasProyek" id="nama" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12"><b>Deskripsi Kelas :</b>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi"></textarea>
+                                                <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi" required></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12"><b>Maksimal Anggota:</b>
                                             <div class="form-group">
-                                                <input class="form-control" type="text" name="maksAnggota" id="maksAnggota">
+                                                <input class="form-control" type="number" name="maksAnggota" id="maksAnggota" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12"><b>Status</b>
                                             <div class="form-group">
-                                                <select class="form-control" name="status" id="status">
+                                                <select class="form-control" name="status" id="status" required>
                                                 @php $i = 1; @endphp
                                                 @foreach($kelasproyek as $kls)
                                                     @if($i == 1)
@@ -193,7 +211,7 @@
                                                 @endforeach
                                                     <option value="Pendaftaran">Pendaftaran</option>
                                                     <option value="Aktif">Aktif</option>
-                                                    <option value="Selesai">Selesai</option>
+                                                    <option value="Non Aktif">Non Aktif</option>
                                                 </select>
                                             </div>
                                         </div>

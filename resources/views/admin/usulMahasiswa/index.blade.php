@@ -7,11 +7,9 @@
     </div>
 
     <div>
-        <div class="row list">
-            <div class="col-10 offset-1 text-right">
-            Search
-            </div>
-            <div class="col-10 offset-1">
+        <div class="row list justify-content-md-center">
+
+            <div class="col-lg-10 col-md-12 col-sm-12">
                 <div class="row">
 
                 @php $i=1;  @endphp
@@ -65,7 +63,7 @@
                 <div class="card-body">
                     <div class="col-12 text-center">
                         <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
-                            <h5>Belum ada undangan kelompok proyek</h5>
+                            <h5>Belum ada kelas proyek aktif</h5>
                         </div>
                     </div>
                 </div>

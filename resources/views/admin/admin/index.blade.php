@@ -2,13 +2,23 @@
 
 @section('content')
 
-    <!-- Page Heading -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Admin</h1>
+        <h1 class="h3 mb-0 text-gray-800">Admin</h1>
     </div>
 
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-md-12">
                 <div class="card shadow mb-4">
 
@@ -33,6 +43,8 @@
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Action</th>
+                                    <th>Reset</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,11 +70,25 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <div class="btn-group">
+                                            <form class="delete" action="{{ route('admin.reset', 'edit')}}" method="post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="hidden" name="id_admin" value="{{$ads->id_admin}}">
+                                                <button class="btn btn-warning" onclick="return confirm('Apakah anda yakin ?')">
+                                                    <i class="fa fa-lg fa-key"></i>
+                                                </button>
+                                            </form>
                                             </div>
                                         </div>
                                     </td>
@@ -97,27 +123,24 @@
                             <div class="row">
                                 <div class="col-md-12"><b>NIP</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="nip" placeholder="NIP administrator">
+                                        <input class="form-control" type="number" name="nip" placeholder="NIP administrator" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Nama</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="namaAdmin" placeholder="Nama">
+                                        <input class="form-control" type="text" name="namaAdmin" placeholder="Nama" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Email</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="email" placeholder="email">
+                                        <input class="form-control" type="text" name="email" placeholder="email" required>
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="statusUser" value="Admin">
-                            <input type="hidden" name="password" value="{{bcrypt("admin123")}}">
-                            <input type="hidden" name="passwordBackup" value="{{bcrypt("admin123")}}">
                         </div>
                     </div>
 
@@ -152,7 +175,7 @@
                             <div class="row">
                                 <div class="col-md-12"><b>NIP</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="nip" id="nip">
+                                        <input class="form-control" type="number" name="nip" id="nip">
                                     </div>
                                 </div>
                             </div>
@@ -174,8 +197,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
 
@@ -201,6 +224,10 @@
                 modal.find('.modal-body #nama').val(nama)
                 modal.find('.modal-body #email').val(email)
             })
+
+
+
+            
 
         </script>
     @endpush

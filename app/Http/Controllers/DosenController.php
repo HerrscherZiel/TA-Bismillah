@@ -8,8 +8,7 @@ use App\Imports\DosenImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-
-
+use Illuminate\Support\Facades\Auth;
 
 
 class DosenController extends Controller
@@ -22,9 +21,17 @@ class DosenController extends Controller
     public function index()
     {
         //
-        $dosen = Dosen::all();
+        if(Auth::guard('admin')->check()) {
 
-        return view('admin.dosen.index')->with('dosen', $dosen);
+            $dosen = Dosen::all();
+
+            return view('admin.dosen.index')->with('dosen', $dosen);
+        
+        }
+
+        else {
+            return view('errors.403');
+        }
 
 
 
@@ -36,7 +43,7 @@ class DosenController extends Controller
     {
         // validasi
         $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
+            'file' => 'required|mimes:xls,xlsx'
         ]);
 
         // menangkap file excel
@@ -57,7 +64,7 @@ class DosenController extends Controller
 
 
         // alihkan halaman kembali
-        return redirect('/dosen');
+        return redirect('/dosen')->with('success','Berhasil mengimpor data dosen');
 
     }
 
@@ -80,9 +87,24 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         //
-        Dosen::create($request->all());
 
-        return back();
+        $this->validate($request, [
+            'nip' => 'required',
+            'namaDosen' => 'required',
+            'email' => 'required | email | unique :dosen,email'
+        ]);
+
+        $dosen = new Dosen([
+            'nip'               => $request->nip,
+            'namaDosen'         => $request->namaDosen,
+            'email'             => $request->email,
+            'statusUser'        => 'Dosen',
+            'password'          => bcrypt("12345678"),
+            'passwordBackup'    => "12345678"
+        ]);
+        $dosen->save();
+
+        return back()->with('success','Berhasil menambah dosen');
     }
 
     /**
@@ -119,15 +141,37 @@ class DosenController extends Controller
     public function update(Request $request)
     {
         //
-//        dd($request->all());
+
+        $this->validate($request, [
+            'nip' => 'required',
+            'namaDosen' => 'required',
+            'email' => ['required',
+                        Rule::unique('dosen', 'email')->ignore($request->id_dosen, 'id_dosen'),
+                        ],
+        ]);
 
         $dosen = Dosen::findOrFail($request->id_dosen);
         $dosen->update($request->all());
 
+        return back()->with('success', 'Data Berhasil Diubah');;
+    }
 
-//        return redirect('/admin')->with('success', 'Data Dosen Berhasil Diubah');
+    public function reset(Request $request)
+    {
+        //
+        // dd($request);
 
-        return back();
+        $passwordBackup = Dosen::where('id_dosen', '=', $request->id_dosen)->select('passwordBackup')->getQuery()->get();
+
+        foreach($passwordBackup as $pasbc){
+            $backup = $pasbc->passwordBackup;
+        }
+
+        $dosen = Dosen::findOrFail($request->id_dosen);
+        $dosen->password           = bcrypt($backup);
+        $dosen->save();
+
+        return back()->with('update','Berhasil mereset password dosen');
     }
 
     /**
@@ -142,6 +186,6 @@ class DosenController extends Controller
         $dosen = Dosen::findOrFail($id);
         $dosen->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Data berhasil dihapus');
     }
 }

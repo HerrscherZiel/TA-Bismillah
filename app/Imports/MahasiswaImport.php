@@ -24,13 +24,8 @@ class MahasiswaImport implements ToCollection
             $nim6 = $row[1],
             'namaMahasiswa' => $row[2],
 
-                //            $nim6 =
-    //            $input = "17/416344/SV/14082",
             preg_match('~/(.*?)/SV~', $nim6, $output),
-    //            'namaMahasiswa' => strval($output[1]),
 
-    //            dd($output[1]),
-    //            $nim7 = strval($output[1]),
             'username' => strval($output[1]),
             'password' => bcrypt(strval($output[1])),
             'passwordBackup' => bcrypt(strval($output[1])),
@@ -39,8 +34,7 @@ class MahasiswaImport implements ToCollection
 
             ProfilMahasiswa::create([
                 'mahasiswa_id'   => $mahasiswa->id_mahasiswa,
-//                'hpDosen'    => '-',
-                'email'          => rand(0,999),
+                'email'          => strtok($row[2], " ") . '@email',
                 'pengalaman'     => '-'
             ]);
         }

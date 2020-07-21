@@ -36,8 +36,9 @@
 
 <body class="bg-gradient-primary">
 
-    <div class="container-fluid" style="padding: 5% 0">
-        <div class="row text-center" style="padding: 0; background-color:white;">
+<div style="min-height: 100%; min-height: 100vh;display: flex; align-items: center;">
+    <div class="container-fluid" style="padding: 0 0;">
+        <div class="row text-center" style="padding: 0; background-color:white; margin: 0;">
                 <div class="col-lg-6" style="padding:0px;  margin:auto;">
                 <img class="img-fluid float-center" src="{{url('/')}}/asset/img/logos.jpg" style="width: 70%; height: auto; padding:0px; " alt="Responsive image">
                 </div>
@@ -47,6 +48,7 @@
                 </div>
         </div>
     </div>
+</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{url('/')}}/asset/vendor/jquery/jquery.min.js"></script>

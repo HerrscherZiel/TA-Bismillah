@@ -3,19 +3,25 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek | Menunggu Persetujuan</h1>
     </div>
 
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-md-12">
                 <div class="card shadow mb-4">
 
 
                     <div class="card-header py-3">
                         <div class="row">
-                            <div class="col-md-8 my-auto">
+                            <div class="col-lg-4 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Kelompok</h6>
+                            </div>
+                            <div class="col-lg-8 my-auto text-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success text-center" ><a href="/kelompok/index-aktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Aktif</a></button>
+                                    <button type="button" class="btn btn-secondary text-center" ><a href="/kelompok/index-nonaktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Non Aktif</a></button>
+                                </div>                            
                             </div>
                         </div>
                     </div>
@@ -29,8 +35,8 @@
                                     <th>Kelas Proyek</th>
                                     <th>Periode</th>
                                     <th>Project Manager</th>
-                                    <th>Judul Proyek</th>
-                                    <th>Dosen pembimbing</th>
+                                    <th>Proyek</th>
+                                    <th>Pembimbing</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -46,7 +52,11 @@
                                         @if($kel->dosen_id == null)
                                             Belum ada dosen pembimbing
                                         @else
-                                            {{$kel->dosen_id}}
+                                            @foreach($dosen as $dos)
+                                                @if($dos->id_dosen == $kel->dosen_id)
+                                                {{$dos->namaDosen}}
+                                                @endif
+                                            @endforeach
                                         @endif
 
                                         </td>

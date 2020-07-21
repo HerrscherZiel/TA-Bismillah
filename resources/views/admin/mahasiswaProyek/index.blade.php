@@ -1,9 +1,20 @@
 @extends('layouts.master')
 
 @section('content')
+    
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Mahasiswa Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Mahasiswa Proyek</h1>
     </div>
 
     <div class="row">
@@ -18,6 +29,7 @@
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswaProyek">Import</button>
                             </div>
                         </div>
                     </div>
@@ -59,7 +71,7 @@
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                             <i class="fa fa-lg fa-trash">
                                                             </i>
                                                         </button>
@@ -159,11 +171,10 @@
                         <div class="modal-body">
                             <div class="tile-body">
                                 <input type="hidden" name="id_mahasiswaProyek" id="id">
-{{--                                <input type="hidden" name="mahasiswa_id" id="idmas">--}}
                                 <div class="row">
                                     <div class="col-md-12"><b>Nama Mahasiswa</b>
                                         <div class="form-group">
-                                            <select class="form-control selectmhs" name="mahasiswa_id" id="idmas" style="width: 100%">
+                                            <select class="form-control selectmhs" name="mahasiswa_id" id="idmas" style="width: 100%" required>
                                                 @foreach($mahasiswa as $mhs)
                                                     <option value="{{$mhs->id_mahasiswa}}" {{preg_match('~/(.*?)/SV~', $mhs->nim, $output),
                                                         $a = strval($output[1])}}>
@@ -178,7 +189,7 @@
                                 <div class="row">
                                     <div class="col-md-12"><b>Kelas Proyek</b>
                                         <div class="form-group">
-                                            <select class="form-control" name="kelasProyek_id" id="kelasproyek">
+                                            <select class="form-control" name="kelasProyek_id" id="kelasproyek" required>
                                                 @foreach($kelasProyek as $kel)
                                                 <option value="{{$kel->id_kelasProyek}}">{{$kel->namaKelasProyek}}</option>
                                                 @endforeach
@@ -190,7 +201,7 @@
                                 <div class="row">
                                     <div class="col-md-12"><b>Tahun Ajaran</b>
                                         <div class="form-group">
-                                            <select class="form-control" name="periode_id" id="periode">
+                                            <select class="form-control" name="periode_id" id="periode" required>
                                                 @foreach($periode as $per)
                                                     <option value="{{$per->id_periode}}">{{$per->tahunAjaran}} | {{$per->semester}}</option>
                                                 @endforeach
@@ -209,10 +220,54 @@
                 </div>
         </div>
     </div>
+    
+    <!-- Import Excel -->
+    <div class="modal fade" id="importMahasiswaProyek" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form method="post" action="{{ route('mahasiswa.proyek.import')}}" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><b>Pilih Kelas Proyek</b>
+                                <div class="form-group">
+                                    <select class="form-control selectbox" name="kelasProyek_id" required="" style="width: 100%">
+                                        @foreach($kelasProyek as $kelPro)
+                                            <option value="{{$kelPro->id_kelasProyek}}">{{$kelPro->namaKelasProyek}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><b>Pilih Periode</b>
+                                <div class="form-group">
+                                    <select class="form-control selectbox" name="periode_id" required="" style="width: 100%">
+                                        @foreach($periode as $per)
+                                            <option value="{{$per->id_periode}}">{{$per->tahunAjaran}} | {{$per->semester}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-@endsection
-@push('scripts')
+    @push('scripts')
     <script>
         $('#updateMahasiswaProyek').on('show.bs.modal', function (event) {
 
@@ -229,10 +284,12 @@
         modal.find('.modal-body #id').val(id)
         modal.find('.modal-body #idmas').val(idmas)
         modal.find('.modal-body #nama').val(nama)
-        // $('.namas').data('nama');
         modal.find('.modal-body #kelasproyek').val(kelasproyek)
         modal.find('.modal-body #periode').val(periode)
         })
     </script>
-@endpush
+    @endpush
+
+@endsection
+
 

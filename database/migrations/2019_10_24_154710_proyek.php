@@ -16,7 +16,7 @@ class Proyek extends Migration
         //
         Schema::create('proyek', function (Blueprint $table) {
             $table->increments('id_proyek');
-            $table->string('judul')->unique();
+            $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->string('statusProyek')->nullable();
             $table->integer('kelasProyek_id')->unsigned()->nullable();

@@ -7,6 +7,8 @@ use App\Mahasiswa;
 use App\ProfilMahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 
 
 class ProfileController extends Controller
@@ -34,7 +36,6 @@ class ProfileController extends Controller
                                ->where('id_mahasiswa', '=', $id)
                                ->get();
 
-    //    dd($id);
 
             return view('mahasiswa.profile.index')->with('profil', $profil);
         }
@@ -44,7 +45,6 @@ class ProfileController extends Controller
 
         }
 
-//        return view('mahasiswa.profile.index');
 
     }
 
@@ -56,7 +56,6 @@ class ProfileController extends Controller
 
         $profil = Dosen::where('id_dosen', '=', $id)->get();
 
-//        dd($profil);
 
         return view('dosen.profile.index')->with('profil', $profil);
         }
@@ -121,7 +120,6 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         //
-//        dd($request);
         if(Auth::guard('mahasiswa')->check()) {
 
             $proMhs = ProfilMahasiswa::findOrFail($request->id_profilMahasiswa);
@@ -142,16 +140,44 @@ class ProfileController extends Controller
                 $proMhs->save();
             
             }
-            // $proMhs->update($request->all());
 
             return back();
         }
 
         if(Auth::guard('dosen')->check()){
-            $proDos = Dosen::findOrFail($request->id_dosen);
-            $proDos->update($request->all());
 
-            return back();
+            $proDos = Dosen::findOrFail($request->id_dosen);
+
+            if($request->fileFoto == NULL){
+
+                $this->validate($request, [
+                    'email' => ['required',
+                                Rule::unique('dosen', 'email')->ignore($request->id_dosen, 'id_dosen'),
+                                ],
+                    'hpDosen' => 'required'
+                ]);
+
+                $proDos->update($request->all());
+            }
+
+            else{
+
+                $this->validate($request, [
+                    'fileFoto' => 'required | image | mimes:jpeg,png,jpg | max:2000',
+                ]);
+
+                $file = $request->file('fileFoto');
+
+                $nama_file = time()."_".$file->getClientOriginalName();
+                $tujuan_upload = 'data_profildos';
+                $file->move($tujuan_upload, $nama_file);
+                $proDos->fileFoto = $nama_file;
+
+                $proDos->save();
+            
+            }
+
+            return back()->with('success', 'Berhasil mengubah profil');
         }
 
     }

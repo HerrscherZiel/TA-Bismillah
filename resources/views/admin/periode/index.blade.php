@@ -2,12 +2,23 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Periode</h1>
+        <h1 class="h3 mb-0 text-gray-800">Periode</h1>
     </div>
 
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-md-12">
                 <div class="card shadow mb-4">
 
@@ -53,7 +64,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -93,14 +104,14 @@
                         <div class="row">
                             <div class="col-md-12"><b>Tahun Ajaran :</b>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="tahunAjaran" placeholder="2019, 2020, .....">
+                                    <input class="form-control" type="number" name="tahunAjaran" placeholder="2019, 2020, ....." required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12"><b>Semester :</b>
                                 <div class="form-group">
-                                    <select class="form-control" type="text" name="semester" >
+                                    <select class="form-control" type="text" name="semester" required>
                                         <option>Genap</option>
                                         <option>Ganjil</option>
                                     </select>
@@ -141,14 +152,14 @@
                             <div class="row">
                                 <div class="col-md-12"><b>Tahun Ajaran :</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="tahunAjaran" id="tahun">
+                                        <input class="form-control" type="number" name="tahunAjaran" id="tahun" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Semester :</b>
                                     <div class="form-group">
-                                        <select class="form-control" type="text" name="semester" id="sem">
+                                        <select class="form-control" type="text" name="semester" id="sem" required>
                                             <option>Genap</option>
                                             <option>Ganjil</option>
                                         </select>

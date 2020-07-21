@@ -49,11 +49,6 @@ class DosenAuthController extends Controller
 
     }
 
-    /**
-    _
-    _ @return property guard use for login
-    _
-    _**/
     public function guard()
     {
         return Auth::guard('dosen');

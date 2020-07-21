@@ -2,20 +2,36 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Usul Proyek</h1>
     </div>
 
-
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-12">
                 <div class="card shadow mb-4">
 
                     <div class="card-header py-3">
                         <div class="row">
-                            <div class="colmd-8 my-auto">
+                            <div class="col-4 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Usul Proyek Mahasiswa</h6>
+                            </div>
+                            <div class="col-8 text-right" style="margin-bottom:10px">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success text-center" ><a href="/usul/detail-diterima/{{$id_kls}}/{{$id_per}}" style="color: white;">Diterima</a></button>
+                                    <button type="button" class="btn btn-secondary text-center" ><a href="/usul/detail-ditolak/{{$id_kls}}/{{$id_per}}" style="color: white;">Ditolak</a></button>
+                                </div>    
                             </div>
                         </div>
                     </div>
@@ -35,8 +51,8 @@
                                 <tbody>
                                 @foreach($usul as $us)
                                     <tr>
-                                        <td>{{$us->namaKelasProyek}}|{{$us->id_usulMahasiswa}}</td>
-                                        <td>{{$us->semester}} || {{$us->tahunAjaran}}</td>
+                                        <td>{{$us->namaKelasProyek}}</td>
+                                        <td>{{$us->semester}} | {{$us->tahunAjaran}}</td>
                                         <td>{{$us->judulUsul}}</td>
                                         <td>{{$us->pm}}</td>
                                         <td>
@@ -45,7 +61,7 @@
                                                     <button class="btn btn-info" data-toggle="modal" data-target="#showUsul" 
                                                                             data-id="{{$us->id_usulMahasiswa}}"
                                                                             data-kelas="{{$us->namaKelasProyek}}"
-                                                                            data-periode="{{$us->semester}} || {{$us->tahunAjaran}}"
+                                                                            data-periode="{{$us->semester}} | {{$us->tahunAjaran}}"
                                                                             data-kelasid="{{$us->kelasProyek_id}}"
                                                                             data-kelompokid="{{$us->id_kelompokProyek}}"
                                                                             data-periodeid="{{$us->periode_id}}"
@@ -57,16 +73,6 @@
                                                         <i class="fa fa-lg fa-eye">
                                                         </i>
                                                     </button>
-                                                    <!-- <button class="btn btn-info" data-toggle="modal" 
-                                                                            
-                                                                            data-target="#updateModal">
-                                                        <i class="fa fa-lg fa-check">
-                                                        </i>
-                                                    </button>
-                                                    <a class="btn btn-danger" href="#">
-                                                        <i class="fa fa-lg fa-times">
-                                                        </i>
-                                                    </a> -->
                                                 </div>
                                             </div>
                                         </td>
@@ -151,7 +157,10 @@
                                                     @csrf
                                                     <input type="hidden" name="status" value="tolak">
                                                     <input type="hidden" name="id_usulMahasiswa" id="id">
-                                                    <button class="btn btn-danger">
+                                                    <input type="hidden" name="id_kelompokProyek" id="kelompokid">
+                                                    <input type="hidden" name="judulPrioritas" id="judulprio">
+
+                                                    <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin ?')">
                                                     Tolak
                                                         <i class="fa fa-fw fa-lg fa-times">
                                                         </i>
@@ -172,7 +181,7 @@
                                                 <input type="hidden" name="kelasProyek_id" id="kelasid">
                                                 <input type="hidden" name="judulPrioritas" id="judulprio">
                                                 <input type="hidden" name="periode_id" id="periodeid">
-                                                <button type="submit" class="btn btn-primary">
+                                                <button type="submit" class="btn btn-primary" onclick="return confirm('Apakah anda yakin ?')">
                                                 Terima
                                                     <i class="fa fa-fw fa-lg fa-check">
                                                     </i>

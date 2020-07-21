@@ -2,162 +2,76 @@
 
 @section('content')
 
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard | Laporan</h1>
-    <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
-</div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
+        <h1 class="h3 mb-0 text-gray-800">Laporan</h1>
+    </div>
 
-<!-- Content Row -->
+    <div>
+        <div class="row list">
 
-<!-- Content Row -->
-<div class="row">
+            <div class="col-10 offset-1">
+                <div class="row">
 
-    <div class="col-2"></div>
+                @php $i=1;  @endphp
+                @if(count($kelasperiode) > 0)
+                @foreach($kelasperiode as $kelper)
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
 
-    <div class="col-lg-8 mb-4">
+                            <div class="card-header py-3">
+                                <div class="row">
+                                    <div class="col-md-8 my-auto">
+                                        <h6 class="font-weight-bold text-primary m-0">{{$kelper->namaKelasProyek}}</h6>
+                                    </div>
+                                    <div class="col-md-4 text-primary text-right">
+                                        <a type="button" class="btn btn-primary" href="/dosen/laporan/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}">
+                                            Detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
-        <!-- Approach -->
+                            <div class="card-body">
+                                <div class="row">
 
-        <div class="col-md-12">
+                                    <div class="col-4 text-left">
+                                        Semester
+                                    </div>
 
-            <div class="card shadow mb-4">
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->semester}}
+                                    </div>
 
+                                    <div class="col-4 text-left">
+                                        Tahun Ajaran
+                                    </div>
 
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->tahunAjaran}}
+                                    </div>
+                                  
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                @php $i++; @endphp
+                
+                @endforeach
+                @else
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Nama Proyek</th>
-                                <th>Kelas Proyek</th>
-                                <th>Periode</th>
-                                <th>Tanggal Kirim</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="detailProject">Sistem Informasi Kelas Proyek</a></td>
-                                <td>SIM</td>
-                                <td>2019</td>
-                                <td>14-09-2019</td>
-                                <td>
-                                    <div class="text-center">
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="laporan/lihat">
-                                                <i class="fa fa-lg fa-eye">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-edit">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-trash">
-                                                </i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="detailProject"> Sistem Informasi Apotek </a></td>
-                                <td>SIM</td>
-                                <td>2019</td>
-                                <td>21-09-2019</td>
-                                <td>
-                                    <div class="text-center">
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="laporan/lihat">
-                                                <i class="fa fa-lg fa-eye">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-edit">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-trash">
-                                                </i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="detailProject">Sistem Informasi Damkar</td>
-                                <td>Proyek Aplikasi</td>
-                                <td>2019</td>
-                                <td>28-09-2019</td>
-                                <td>
-                                    <div class="text-center">
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="laporan/lihat">
-                                                <i class="fa fa-lg fa-eye">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-edit">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-trash">
-                                                </i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="detailProject">Sistem Informasi Laundry Asik</td>
-                                <td>Proyek Aplikasi</td>
-                                <td>2019</td>
-                                <td>05-10-2019</td>
-\                                <td>
-                                    <div class="text-center">
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="laporan/lihat">
-                                                <i class="fa fa-lg fa-eye">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-edit">
-                                                </i>
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" href="#">
-                                                <i class="fa fa-lg fa-trash">
-                                                </i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
+                    <div class="col-12 text-center">
+                        <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
+                            <h5>Belum ada Laporan Proyek</h5>
+                        </div>
                     </div>
                 </div>
+                @endif
 
-
-
+                </div>
             </div>
-
         </div>
-        @endsection
+    </div>
+
+@endsection

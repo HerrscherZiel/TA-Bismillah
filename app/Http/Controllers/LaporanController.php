@@ -31,8 +31,98 @@ class LaporanController extends Controller
 
     public  function indexDosen()
     {
-        return view('dosen.laporan.index');
+        if(Auth::guard('dosen')->check()) {
+
+            
+            // dd($kelasperiode);
+            $id = Auth::guard('dosen')->user()->id_dosen;
+
+            $kelasperiode = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                                ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
+                                                ->join('periode', 'periode_id', '=', 'id_periode')
+                                                ->where('statusKelompok', '=', 'Aktif')
+                                                ->where('dosen_id', '=', $id)
+                                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 'kelasproyek.status as statusKelasProyek'
+                                                        , 'periode.id_periode', 'periode.tahunAjaran', 'periode.semester')
+                                                ->distinct()
+                                                ->orderBy('id_kelasProyek', 'desc')
+                                                ->getQuery()
+                                                ->get();
+            
+            // dd($kelompokBimbingan);
+
+            return view('dosen.laporan.index')->with('kelasperiode', $kelasperiode);
+
+        }
+
+        else{
+
+            return view('errors.403');
+
+        }
     }
+
+    public function indexLaporanDosen($idkel, $idper){
+        if(Auth::guard('dosen')->check()) {
+
+            // dd($idkel);
+            $id = Auth::guard('dosen')->user()->id_dosen;
+
+            $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                    ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                    ->join('periode', 'periode_id', '=', 'id_periode')
+                                    ->where('kelasProyek_id', '=', $idkel)
+                                    ->where('periode_id', '=', $idper)
+                                    ->where('dosen_id', '=', $id)
+                                    ->select('kelompokproyek.*','kelasproyek.namaKelasProyek'
+                                            ,'periode.tahunAjaran', 'periode.semester')
+                                    ->getQuery()
+                                    ->get();
+            
+            // dd($kelompok);
+
+            $dosen = Dosen::all();
+
+            return view('dosen.laporan.indexLaporan')->with('dosen', $dosen)
+                                                        ->with('kelompok', $kelompok);
+
+        }
+
+        else{
+
+            return view('errors.403');
+
+        }
+    }
+
+    public function indexLaporanKelompokDosen($idkel){
+
+        if(Auth::guard('dosen')->check()) {
+
+            // dd($idkel);
+            $id = Auth::guard('dosen')->user()->id_dosen;
+
+            $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                            ->where('kelompokProyek_id', '=', $idkel)
+                            ->where('dosen_id', '=', $id)
+                            ->select('kelompokproyek.*', 'laporan.*')
+                            ->orderBy('id_laporan', 'desc')
+                            ->getQuery()
+                            ->get();
+
+        // dd($laporan);
+
+        return view('dosen.laporan.indexLaporanKelompok')->with('laporan', $laporan);
+
+        }
+
+        else{
+
+            return view('errors.403');
+
+        }
+    }
+
 
     public function indexMahasiswa()
     {
@@ -42,7 +132,7 @@ class LaporanController extends Controller
         //ambil id mahasiswa ke mhsproyek
         $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
 
-//        dd($id);
+            //    dd($id);
 
         $laporan = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
@@ -69,7 +159,7 @@ class LaporanController extends Controller
         //        dd($id);
         //ambil id mahasiswa ke mhsproyek
 
-//        dd($id);
+        //        dd($id);
 
         $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                             ->where('kelompokProyek_id', '=', $id)
@@ -94,7 +184,6 @@ class LaporanController extends Controller
     public function create()
     {
         //
-        return view('mahasiswa.laporan.create');
     }
 
     /**
@@ -117,7 +206,7 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(/*$id*/)
+    public function showDosen($id)
     {
         //
 
@@ -128,13 +217,61 @@ class LaporanController extends Controller
                             ->orderBy('id_laporan', 'desc')
                             ->getQuery()
                             ->get();
-        dd($laporan);
 
         $dosen = Dosen::all();
 
+        $pencapaian = Pencapaian::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                 ->where('id_laporan', '=', $id)
+                                 ->select('laporan.id_laporan', 'pencapaian.*')
+                                 ->getQuery()
+                                 ->get();
 
-        return view('mahasiswa.laporan.show')->with('laporan', $laporan)
-                                             ->with('dosen', $dosen);
+        // dd($pencapaian);
+
+        $agenda = AgendaSelanjutnya::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                    ->where('id_laporan', '=', $id)
+                                    ->select('laporan.id_laporan', 'agendaselanjutnya.*')
+                                    ->getQuery()
+                                    ->get();
+
+
+        $kelid = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                            ->where('id_laporan', '=', $id)
+                            // ->whereIn('id_mahasiswaProyek', $b)
+                            ->select('id_kelompokProyek')
+                            ->getQuery()
+                            ->get();   
+                            
+        //ambil id kel pro
+        foreach($kelid as $ikel){
+            $idke = $ikel->id_kelompokProyek;
+        }
+
+        // dd($idke);
+
+        $milestone = Milestone::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                ->where('id_kelompokProyek', '=', $idke)
+                                ->select('laporan.id_laporan', 'milestone.*')
+                                ->getQuery()
+                                ->get();
+
+        // dd($milestone);
+
+        $lampiran = Lampiran::join('laporan', 'id_laporan', '=', 'laporan_id')
+                            ->where('id_laporan', '=', $id)
+                            ->select('laporan.id_laporan', 'lampiran.*')
+                            ->getQuery()
+                            ->get();
+
+        // dd($lampiran);
+
+        return view('dosen.laporan.detailLaporanProyek')->with('laporan', $laporan)
+                                             ->with('dosen', $dosen)
+                                             ->with('pencapaian', $pencapaian)
+                                             ->with('agenda', $agenda)
+                                             ->with('milestone', $milestone)
+                                             ->with('lampiran', $lampiran);
 
     }
 
@@ -205,10 +342,7 @@ class LaporanController extends Controller
                                              ->with('lampiran', $lampiran);
 
     }
-//    public function  showDosen(/*$id*/)
-//    {
-//        return view('dosen.laporan.show');
-//    }
+
 
     /**
      * Show the form for editing the specified resource.

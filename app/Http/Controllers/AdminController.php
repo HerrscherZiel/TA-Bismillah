@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
+
 
 class AdminController extends Controller
 {
@@ -15,8 +19,16 @@ class AdminController extends Controller
     public function index()
     {
         //
-        $admin = Admin::all();
-        return view('admin.admin.index')->with('admin', $admin);
+        if(Auth::guard('admin')->check()) {
+
+            $admin = Admin::all();
+            return view('admin.admin.index')->with('admin', $admin);
+        
+        }
+
+        else {
+            return view('errors.403');
+        }
 
     }
 
@@ -40,9 +52,26 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
-        Admin::create($request->all());
 
-        return back();
+        $this->validate($request, [
+            'nip' => 'required',
+            'namaAdmin' => 'required',
+            'email' => 'required | email | unique :admin,email'
+        ]);
+
+        $admin = new Admin([
+            'nip'               => $request->nip,
+            'namaAdmin'         => $request->namaAdmin,
+            'email'             => $request->email,
+            'statusUser'        => 'Admin',
+            'password'          => bcrypt("admin123"),
+            'passwordBackup'    => "admin123"
+        ]);
+        $admin->save();
+
+        // Admin::create($request->all());
+
+        return back()->with('success','Berhasil menambah admin');
     }
 
     /**
@@ -77,14 +106,39 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         //
-//        $admin = Proyek::findOrFail($request->id_admin);
-//        $admin->update($request->all());
+
+        $this->validate($request, [
+            'nip' => 'required',
+            'namaAdmin' => 'required',
+            'email' => ['required',
+                        Rule::unique('admin', 'email')->ignore($request->id_admin, 'id_admin'),
+                        ],
+        ]);
 
         $admin = Admin::findOrFail($request->id_admin);
         $admin->update($request->all());
 
 
-        return back();
+        return back()->with('update','Berhasil merubah admin');
+    }
+
+    public function reset(Request $request)
+    {
+        //
+        // dd($request);
+
+        $passwordBackup = Admin::where('id_admin', '=', $request->id_admin)->select('passwordBackup')->getQuery()->get();
+
+        foreach($passwordBackup as $pasbc){
+            $backup = $pasbc->passwordBackup;
+        }
+
+        // dd($backup);
+        $admin = Admin::findOrFail($request->id_admin);
+        $admin->password           = bcrypt($backup);
+        $admin->save();
+
+        return back()->with('update','Berhasil mereset password admin');
     }
 
     /**
@@ -99,6 +153,6 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($id);
         $admin->delete();
 
-        return back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Data berhasil dihapus');
     }
 }

@@ -2,12 +2,27 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Proyek</h1>
+        <div class="btn-group">
+            <button type="button" class="btn btn-success text-center" ><a href="/dosen/proyek-aktif" style="color: white;">Aktif</a></button>
+            <button type="button" class="btn btn-secondary text-center" ><a href="/dosen/proyek-selesai" style="color: white;">Selesai</a></button>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-10 offset-1 mb-4">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-sm-12 mb-4">
             <div class="col-md-12">
                 <div class="card shadow mb-4">
 
@@ -49,7 +64,7 @@
                                                             data-id="{{$pro->id_proyek}}"
                                                             data-kelas="{{$pro->id_kelasProyek}}"
                                                             data-periode="{{$pro->id_periode}}"
-                                                            data-deskripsi="{{$pro->deskripsi}}"
+                                                            data-deskripsi="{{$pro->desPro}}"
                                                             data-judul="{{$pro->judul}}"
                                                             data-status="{{$pro->statusProyek}}"
                                                             data-toggle="modal" data-target="#showProyekDosen">
@@ -60,7 +75,7 @@
                                                             data-id="{{$pro->id_proyek}}"
                                                             data-kelas="{{$pro->id_kelasProyek}}"
                                                             data-periode="{{$pro->id_periode}}"
-                                                            data-deskripsi="{{$pro->deskripsi}}"
+                                                            data-deskripsi="{{$pro->desPro}}"
                                                             data-judul="{{$pro->judul}}"
                                                             data-toggle="modal" data-target="#updateProyekDosen">
                                                         <i class="fa fa-lg fa-edit">

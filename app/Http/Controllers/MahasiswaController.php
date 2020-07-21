@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 
 class MahasiswaController extends Controller
 {
@@ -20,11 +23,17 @@ class MahasiswaController extends Controller
     public function index()
     {
         //
-//        return view('admin.mahasiswa.index');
+        if(Auth::guard('admin')->check()) {
 
-        $mahasiswa = Mahasiswa::latest()->get();
+            $mahasiswa = Mahasiswa::latest()->get();
 
-        return view('admin.mahasiswa.index')->with('mahasiswa', $mahasiswa);
+            return view('admin.mahasiswa.index')->with('mahasiswa', $mahasiswa);
+
+        }
+
+        else {
+            return view('errors.403');
+        }
 
 
 
@@ -35,8 +44,10 @@ class MahasiswaController extends Controller
     public function import(Request $request)
     {
         // validasi
+        // dd($files);
+        // dd($request->file->getMimeType());
         $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
+            'file' => 'required|mimes:xls,xlsx'
         ]);
 
         // menangkap file excel
@@ -57,7 +68,7 @@ class MahasiswaController extends Controller
 
 
         // alihkan halaman kembali
-        return redirect('/mahasiswa');
+        return redirect('/mahasiswa')->with('success','Berhasil mengimpor data mahasiswa');
 
     }
 
@@ -80,32 +91,34 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         //
-//        Mahasiswa::create($request->all());
+        $this->validate($request, [
+            'nim' => 'required  | unique:mahasiswa,nim',
+            'namaMahasiswa' => 'required',
+            'statusUser' => 'required'
+        ]);
 
         preg_match('~/(.*?)/SV~', $request->nim, $output);
-        $a = strval($output[1]);
-
-//        dd($a);
+        $uname = strval($output[1]);
 
         $mhs = new Mahasiswa([
             'nim'   => $request->get('nim'),
-            'username'          => $a,
+            'username'          => $uname,
             'namaMahasiswa'     => $request->get('namaMahasiswa'),
             'statusUser'        => $request->get('statusUser'),
-            'password'          => bcrypt($a),
-            'passwordBackup'    => bcrypt($a)
+            'password'          => bcrypt($uname),
+            'passwordBackup'    => $uname
 
         ]);
         $mhs->save();
 
         $profMhs = new ProfilMahasiswa([
             'mahasiswa_id'   => $mhs->id_mahasiswa,
-            'email'          => 'email',
+            'email'          => strtok($request->namaMahasiswa, " ") . '@email' ,
             'pengalaman'     => '-'
         ]);
         $profMhs->save();
 
-        return back();
+        return back()->with('success','Berhasil menambah data');
     }
 
     /**
@@ -140,10 +153,35 @@ class MahasiswaController extends Controller
     public function update(Request $request)
     {
         //
+        $this->validate($request, [
+            'nim' => ['required',
+                        Rule::unique('mahasiswa', 'nim')->ignore($request->id_mahasiswa, 'id_mahasiswa'),
+                        ],
+            'namaMahasiswa' => 'required',
+            'username' => 'required'
+        ]);
         $mahasiswa = Mahasiswa::findOrFail($request->id_mahasiswa);
         $mahasiswa->update($request->all());
 
-        return back();
+        return back()->with('success','Berhasil mengubah data');;
+    }
+
+    public function reset(Request $request)
+    {
+        //
+        // dd($request);
+
+        $passwordBackup = Mahasiswa::where('id_mahasiswa', '=', $request->id_mahasiswa)->select('passwordBackup')->getQuery()->get();
+
+        foreach($passwordBackup as $pasbc){
+            $backup = $pasbc->passwordBackup;
+        }
+
+        $mahasiswa = Mahasiswa::findOrFail($request->id_mahasiswa);
+        $mahasiswa->password           = bcrypt($backup);
+        $mahasiswa->save();
+
+        return back()->with('update','Berhasil mereset password mahasiswa');
     }
 
     /**
@@ -158,6 +196,6 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus data');
     }
 }

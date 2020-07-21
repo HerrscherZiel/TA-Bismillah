@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\KelasProyek;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class KelasProyekController extends Controller
 {
@@ -15,8 +17,48 @@ class KelasProyekController extends Controller
     public function index()
     {
         //
-        $klsPro = KelasProyek::latest()->paginate(5);
+        if(Auth::guard('admin')->check()) {
+
+        $klsPro = KelasProyek::where('status', '=', 'Pendaftaran')->get();
         return view('admin.kelasproyek.index')->with('kelasproyek', $klsPro);
+
+        }
+
+        else {
+            return view('errors.403');
+        }
+
+    }
+
+    public function indexAktif()
+    {
+        //
+        if(Auth::guard('admin')->check()) {
+
+        $klsPro = KelasProyek::where('status', '=', 'Aktif')->get();
+        return view('admin.kelasproyek.indexAktif')->with('kelasproyek', $klsPro);
+
+        }
+
+        else {
+            return view('errors.403');
+        }
+
+    }
+
+    public function indexNonAktif()
+    {
+        //
+        if(Auth::guard('admin')->check()) {
+
+        $klsPro = KelasProyek::where('status', '=', 'Non Aktif')->get();
+        return view('admin.kelasproyek.indexNonAktif')->with('kelasproyek', $klsPro);
+
+        }
+
+        else {
+            return view('errors.403');
+        }
 
     }
 
@@ -39,9 +81,16 @@ class KelasProyekController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'namaKelasProyek' => 'required',
+            'deskripsi' => 'required',
+            'maksAnggota' => 'required | unique_with:kelasproyek,namaKelasProyek,maksAnggota',
+            'status' => 'required',
+        ]);
+
         KelasProyek::create($request->all());
 
-        return back();
+        return back()->with('success','Berhasil menambah data');
     }
 
     /**
@@ -76,10 +125,16 @@ class KelasProyekController extends Controller
     public function update(Request $request)
     {
         //
+        $this->validate($request, [
+            'namaKelasProyek' => 'required',
+            'deskripsi' => 'required',
+            'maksAnggota' => 'required',
+            'status' => 'required',
+        ]);
         $klsPro = KelasProyek::findOrFail($request->id_kelasProyek);
         $klsPro->update($request->all());
 
-        return back();
+        return back()->with('success','Berhasil mengubah data');;
     }
 
     /**
@@ -94,6 +149,6 @@ class KelasProyekController extends Controller
         $klsPro = KelasProyek::findOrFail($id);
         $klsPro->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus data');
     }
 }

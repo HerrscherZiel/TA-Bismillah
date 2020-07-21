@@ -15,13 +15,14 @@
 
                             <div class="col-md-8">
                                 <h6 class="m-0 font-weight-bold text-primary">Kelompok
-                            @foreach($kelompok as $kel)
-                                @if($kel->judulPrioritas == null)
-                                    Proyek
-                                @else
-                                    {{$kel->judulPrioritas}}
-                                @endif
-                            @endforeach</h6>
+                                @foreach($kelompok as $kel)
+                                    @if($kel->judulPrioritas == "Belum ada judul")
+                                        Proyek
+                                    @else
+                                        {{$kel->judulPrioritas}}
+                                    @endif
+                                @endforeach
+                                </h6>
                             </div>
 
                         </div>
@@ -191,7 +192,7 @@
                                                         </tr>
                                                         @else
                                                         <tr>
-                                                            <td colspan="5">Belum ada judul pilihan</td>                                                       
+                                                            <td colspan="5">Belum ada laporan</td>                                                       
                                                         </tr>
                                                         @endif
                                                         @endforeach

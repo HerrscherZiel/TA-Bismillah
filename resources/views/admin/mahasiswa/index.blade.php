@@ -2,15 +2,23 @@
 
 @section('content')
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard | Mahasiswa</h1>
-        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
-    </div>
-    <!-- Content Row -->
-    <div class="row">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        <div class="col-10 offset-1 mb-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
+        <h1 class="h3 mb-0 text-gray-800">Mahasiswa</h1>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-md-12">
                 <div class="card shadow mb-4">
 
@@ -65,7 +73,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -76,9 +84,14 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-warning">
-                                                        <i class="fa fa-lg fa-key"></i>
-                                                    </button>
+                                                <form class="delete" action="{{ route('mahasiswa.reset', 'edit')}}" method="post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="hidden" name="id_mahasiswa" value="{{$mhs->id_mahasiswa}}">
+                                                <button class="btn btn-warning" onclick="return confirm('Apakah anda yakin ?')">
+                                                    <i class="fa fa-lg fa-key"></i>
+                                                </button>
+                                                </form>
                                                 </div>
                                             </div>
                                         </td>
@@ -119,7 +132,6 @@
         </div>
     </div>
 
-
     <!-- Modal Tambah -->
     <div class="modal fade bd-modal-lg" id="tambahMahasiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -142,14 +154,14 @@
                             <div class="row">
                                 <div class="col-md-12"><b>NIM :</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="nim" placeholder="NIM Mahasiswa">
+                                        <input class="form-control" type="text" name="nim" placeholder="NIM Mahasiswa" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Nama Mahasiswa :</b>
                                     <div class="form-group">
-                                        <input class="form-control"  type="text" name="namaMahasiswa" placeholder="Nama Mahasiswa">
+                                        <input class="form-control"  type="text" name="namaMahasiswa" placeholder="Nama Mahasiswa" required>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +186,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Dosen</h5>
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Mahasiswa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -209,9 +221,6 @@
                                     </div>
                                 </div>
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                                <input class="form-control" type="hidden" name="statusUser" value="Mahasiswa">--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="modal-footer">

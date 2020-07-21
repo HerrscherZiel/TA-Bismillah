@@ -131,14 +131,29 @@ Route::resources([
 
 ]);
 
-Route::get('/profileDosen', 'ProfileController@indexDosen')->name('profilDosen.index');
-Route::get('/proyekDosen', 'ProyekController@indexDosen')->name('proyekDosen.index');
-Route::get('/laporanDosen', 'Laporan\LaporanController@indexDosen')->name('laporanDosen.index');
-Route::get('/laporan/detail','Laporan\LaporanController@show')->name('laporan.show');
-//Route::match(array('PUT', 'PATCH'), "/profilDosen/{edit}", array(
-//    'uses' => 'ProfileController@update',
-//    'as' => 'profilDosen.update'
-//));
+Route::prefix('dosen')->group(function (){
+
+    //profil
+    Route::get('/profil', 'ProfileController@indexDosen')->name('profilDosen.index');
+
+    //proyek
+    Route::get('/proyek', 'ProyekController@indexDosen')->name('proyekDosen.index');
+    Route::get('/proyek-aktif', 'ProyekController@indexDosenAktif')->name('proyekDosenAktif.index');
+    Route::get('/proyek-selesai', 'ProyekController@indexDosenSelesai')->name('proyekDosenSelesai.index');
+
+    //kelompok-bimbingan
+    Route::get('/kelompok-bimbingan', 'KelompokProyekController@indexDosen')->name('kelompokBimbingan.index');
+    Route::get('/kelompok-bimbingan/{idkel}/{idper}', 'KelompokProyekController@indexKelompokDosen')->name('kelompokBimbingan.index.kelompok');
+    Route::get('/kelompok-bimbingan/detail/kelompok/{idkel}', 'KelompokProyekController@showKelompokDosen')->name('kelompokBimbingan.show.kelompok');
+
+    //laporan
+    Route::get('/laporan', 'LaporanController@indexDosen')->name('laporanDosen.index');
+    Route::get('/laporan/{idkel}/{idper}', 'LaporanController@indexLaporanDosen')->name('indexLaporan.index');
+    Route::get('/laporan/kelompok/index-laporan/{idkel}', 'LaporanController@indexLaporanKelompokDosen')->name('indexLaporanKelompok.index');
+    Route::get('/laporan/kelompok/detail-laporan/{idkel}','LaporanController@showDosen')->name('laporan.show.dosen');
+
+});
+
 
 
 // ADMIN
@@ -155,20 +170,48 @@ Route::resources([
     'mahasiswaproyek'   =>  'MahasiswaProyekController',
     'kelompokproyek'    =>  'KelompokProyekController',
 
-]);
+]); 
+
+    //kelasproyek
+    Route::get('/kelasproyek/aktif/index', 'KelasProyekController@indexAktif')->name('kelasproyek.aktif.index');
+    Route::get('/kelasproyek/non-aktif/index', 'KelasProyekController@indexNonAktif')->name('kelasproyek.nonaktif.index');
+
 
     //kelompokproyek
     Route::get('/kelompok/index/{idkel}/{idper}', 'KelompokProyekController@indexKelompok')->name('index.kelompok.proyek');
+    Route::get('/kelompok/index-aktif/{idkel}/{idper}', 'KelompokProyekController@indexKelompokAktif')->name('index.kelompok.proyek.aktif');
+    Route::get('/kelompok/index-nonaktif/{idkel}/{idper}', 'KelompokProyekController@indexKelompokNonAktif')->name('index.kelompok.proyek.nonaktif');
     Route::get('/kelompok/detail/{idkel}', 'KelompokProyekController@showAdmin')->name('admin.detail.kelompok.proyek');
     Route::match(['put', 'patch'], '/kelompok-proyek/update/{id}','KelompokProyekController@update')->name('admin.kelompok.proyek.update');
 
+    //proyek
+    Route::get('/proyek/belum-diambil/{idkel}/{idper}', 'ProyekController@indexBelumDiambil')->name('proyek.belumdiambil.index');
+    Route::get('/proyek/aktif/{idkel}/{idper}', 'ProyekController@indexAktif')->name('proyek.aktif.index');
+    Route::get('/proyek/selesai/{idkel}/{idper}', 'ProyekController@indexSelesai')->name('proyek.selesai.index');
 
     //detailusul
     Route::get('/usul/detail/{idkel}/{idper}', 'UsulMahasiswaController@detail')->name('usul.mahasiswa.detail');
+    Route::get('/usul/detail-diterima/{idkel}/{idper}', 'UsulMahasiswaController@detailDiterima')->name('usul.mahasiswa.detail');
+    Route::get('/usul/detail-ditolak/{idkel}/{idper}', 'UsulMahasiswaController@detailDitolak')->name('usul.mahasiswa.detail');
     Route::match(['put', 'patch'], '/usul-mahasiswa/update/{id}','UsulMahasiswaController@update')->name('usul.mahasiswa.update');
 
-Route::post('/dosen/import', 'DosenController@import')->name('dosen.import');
-Route::post('/mahasiswa/import', 'MahasiswaController@import')->name('mahasiswa.import');
+    //import
+    Route::post('/dosen/import', 'DosenController@import')->name('dosen.import');
+    Route::post('/mahasiswa/import', 'MahasiswaController@import')->name('mahasiswa.import');
+    Route::post('/mahasiswaProyek/import', 'MahasiswaProyekController@import')->name('mahasiswa.proyek.import');
+
+    //gantipassword
+    Route::get('/ganti-password', 'HomeController@changePassword')->name('change.password');
+    Route::post('/ganti-password', 'HomeController@SaveNewPassword')->name('save.new.password');
+
+    //reset
+    Route::match(['put', 'patch'], '/admin/reset/{id}','AdminController@reset')->name('admin.reset');
+    Route::match(['put', 'patch'], '/dosen/reset/{id}','DosenController@reset')->name('dosen.reset');
+    Route::match(['put', 'patch'], '/mahasiswa/reset/{id}','MahasiswaController@reset')->name('mahasiswa.reset');
+
+
+
+
 //Route::post('/dosen/update', 'DosenController@import')->name('dosen.import');
 
 

@@ -17,7 +17,7 @@ class Admin extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->increments('id_admin');
             $table->string('nip');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('namaAdmin');
             $table->string('password');
             $table->string('passwordBackup');

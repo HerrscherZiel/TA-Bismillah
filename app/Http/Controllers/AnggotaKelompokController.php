@@ -82,8 +82,8 @@ class AnggotaKelompokController extends Controller
     public function update(Request $request, $id)
     {
         //
-        dd($request);
-        dd($request->id_anggotaKelompok);
+        // dd($request);
+        // dd($request->id_anggotaKelompok);
         if($request->id_anggotaKelompok == NULL){
             $anggota                    = AnggotaProyek::findOrFail($id);
             $anggota->statusAnggota = "Aktif";
@@ -100,7 +100,7 @@ class AnggotaKelompokController extends Controller
     public function reject($id)
     {
         //
-        dd($id);
+        // dd($id);
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 
@@ -116,7 +116,7 @@ class AnggotaKelompokController extends Controller
     public function destroy($id)
     {
         //
-        dd($id);
+        // dd($id);
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 

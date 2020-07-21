@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
+
 
 
         /*

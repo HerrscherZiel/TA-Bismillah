@@ -29,7 +29,11 @@
                                                 <div class="text-center">
                                                     <div class="card-body">
                                                     @foreach($profil as $prof)
-                                                        <img class="img-fluid" src="{{asset('data_profilmhs/'.$prof->fileFoto)}}" style="height: auto; height: 200px" alt="Responsive image">
+                                                        @if($prof->fileFoto != NULL)
+                                                        <img class="img-fluid" src="{{asset('data_profilmhs/'.$prof->fileFoto)}}" style="width: auto; height: 200px" alt="Responsive image">
+                                                        @else
+                                                        <img class="img-fluid" src="{{url('/')}}/asset/img/user.svg" style="width: auto; height: 200px" alt="Responsive image">
+                                                        @endif
                                                     @endforeach
                                                         <br><span class="mr-2 d-none d-lg-inline text-gray-600 small">Ukuran foto maks AxA</span>
                                                     </div>

@@ -7,11 +7,8 @@
     </div>
 
     <div>
-        <div class="row list">
-            <div class="col-10 offset-1 text-right">
-            Search
-            </div>
-            <div class="col-10 offset-1">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10 col-md-12 col-sm-12">
                 <div class="row">
 
                 @php $i=1;  @endphp
@@ -22,14 +19,14 @@
 
                             <div class="card-header py-3">
                                 <div class="row">
-                                    <div class="col-md-8 my-auto">
+                                    <div class="col-lg-8 col-sm-4 my-auto">
                                         <h6 class="font-weight-bold text-primary m-0">{{$kelper->namaKelasProyek}}</h6>
                                     </div>
-                                    <div class="col-md-4 text-primary text-right">
-                                        <a type="button" class="btn btn-primary" href="/kelompok/index/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}">
-                                            Detail
-                                        </a>
-                                    </div>
+                                    <div class="col-lg-4 col-sm-4 my-auto text-right">
+                                            <button type="button" class="btn btn-primary text-center" ><a href="/kelompok/index/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}" style="color: white;">
+                                                Detail
+                                            </a></button>
+                                    </div>  
                                 </div>
                             </div>
 
@@ -65,7 +62,7 @@
                 <div class="card-body">
                     <div class="col-12 text-center">
                         <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
-                            <h5>Belum ada undangan kelompok proyek</h5>
+                            <h5>Belum ada ajuan kelompok proyek</h5>
                         </div>
                     </div>
                 </div>
