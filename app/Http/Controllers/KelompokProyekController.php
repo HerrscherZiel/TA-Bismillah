@@ -51,16 +51,12 @@ class KelompokProyekController extends Controller
             return view('errors.403');
 
         }
-    }
-
-    
+    } 
 
     public function indexDosen()
     {
         //
-        if(Auth::guard('dosen')->check()) {
-
-            
+        if(Auth::guard('dosen')->check()) {        
             // dd($kelasperiode);
             $id = Auth::guard('dosen')->user()->id_dosen;
 
@@ -94,6 +90,9 @@ class KelompokProyekController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
+
             $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
@@ -105,16 +104,15 @@ class KelompokProyekController extends Controller
                                     ->getQuery()
                                     ->get();
             
-            // dd($kelompok);
 
-            $dosen = Dosen::all();
-            $id_kls = $idkel;
-            $id_per = $idper;
+                $dosen = Dosen::all();
+                $id_kls = $idkel;
+                $id_per = $idper;
 
-            return view('admin.kelompok.indexKelompok')->with('kelompok', $kelompok)
-                                                        ->with('id_kls', $id_kls)
-                                                        ->with('id_per', $idper)
-                                                        ->with('dosen', $dosen);
+                return view('admin.kelompok.indexKelompok')->with('kelompok', $kelompok)
+                                                            ->with('id_kls', $id_kls)
+                                                            ->with('id_per', $idper)
+                                                            ->with('dosen', $dosen);
 
         }
 
@@ -130,6 +128,9 @@ class KelompokProyekController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
+
             $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
@@ -140,16 +141,16 @@ class KelompokProyekController extends Controller
                                             ,'periode.tahunAjaran', 'periode.semester')
                                     ->getQuery()
                                     ->get();
-            
-            $dosen = Dosen::all();
-            $id_kls = $idkel;
-            $id_per = $idper;
+                                    
+                $dosen = Dosen::all();
+                $id_kls = $idkel;
+                $id_per = $idper;
 
 
-            return view('admin.kelompok.indexKelompokAktif')->with('kelompok', $kelompok)
-                                                        ->with('id_kls', $id_kls)
-                                                        ->with('id_per', $idper)
-                                                        ->with('dosen', $dosen);
+                return view('admin.kelompok.indexKelompokAktif')->with('kelompok', $kelompok)
+                                                            ->with('id_kls', $id_kls)
+                                                            ->with('id_per', $idper)
+                                                            ->with('dosen', $dosen);
 
         }
 
@@ -165,6 +166,9 @@ class KelompokProyekController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
+
             $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
@@ -175,16 +179,15 @@ class KelompokProyekController extends Controller
                                             ,'periode.tahunAjaran', 'periode.semester')
                                     ->getQuery()
                                     ->get();
-            
 
-            $dosen = Dosen::all();
-            $id_kls = $idkel;
-            $id_per = $idper;
+                $dosen = Dosen::all();
+                $id_kls = $idkel;
+                $id_per = $idper;
 
-            return view('admin.kelompok.indexKelompokNonAktif')->with('kelompok', $kelompok)
-                                                        ->with('id_kls', $id_kls)
-                                                        ->with('id_per', $idper)
-                                                        ->with('dosen', $dosen);
+                return view('admin.kelompok.indexKelompokNonAktif')->with('kelompok', $kelompok)
+                                                            ->with('id_kls', $id_kls)
+                                                            ->with('id_per', $idper)
+                                                            ->with('dosen', $dosen);
 
         }
 
@@ -199,8 +202,6 @@ class KelompokProyekController extends Controller
     {
         //
         if(Auth::guard('dosen')->check()) {
-
-            // dd($idkel);
             $id = Auth::guard('dosen')->user()->id_dosen;
 
             $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
@@ -214,106 +215,110 @@ class KelompokProyekController extends Controller
                                     ->getQuery()
                                     ->get();
             
-            // dd($kelompok);
-
-            $dosen = Dosen::all();
-
-            return view('dosen.kelompokbimbingan.indexKelompok')->with('dosen', $dosen)
+            if(count($kelompok) < 1){
+                return view('errors.404');
+            }
+            else{
+                $dosen = Dosen::all();
+                return view('dosen.kelompokbimbingan.indexKelompok')->with('dosen', $dosen)
                                                                 ->with('kelompok', $kelompok);
+            }
 
         }
 
         else{
-
             return view('errors.403');
-
         }
     }
 
     public function indexMahasiswa()
-    {
-        $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
+    {   
+        if(Auth::guard('mahasiswa')->check()) {
 
-        //ambil id mahasiswa ke mhsproyek
-        $idMpro = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                 ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-                                 ->where('mahasiswa_id', '=', $id)
-                                 ->select('mahasiswaproyek.id_mahasiswaProyek', 'mahasiswaproyek.kelasProyek_id', 'kelasproyek.namaKelasProyek')
-                                 ->getQuery()
-                                 ->get();
+            $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
 
-        $b = array();
-
-        foreach ($idMpro as $a)
-            $b[] = $a->id_mahasiswaProyek;
-
-        //semua id mpro user
-        //    dd($b); 
-
-        //mencari mpro yang sudah ada pada kelompok
-        $exc = AnggotaProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                                    ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
-                                    ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+            //ambil id mahasiswa ke mhsproyek
+            $Mpro = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                    ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->where('mahasiswa_id', '=', $id)
-                                    ->where('statusAnggota', '=', 'Aktif')
-                                    ->select('mahasiswaproyek.id_mahasiswaProyek')
+                                    ->select('mahasiswaproyek.id_mahasiswaProyek', 'mahasiswaproyek.kelasProyek_id', 'kelasproyek.namaKelasProyek')
                                     ->getQuery()
                                     ->get();
-        // dd($exc);
+            
+            $idMpro = array();
 
-        // $cek = 
+            foreach ($Mpro as $mpro)
+                $idMpro[] = $mpro->id_mahasiswaProyek;
 
-        $z = array();
+            //mencari mpro yang sudah ada pada kelompok
+            $mProKelompok = AnggotaProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                        ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
+                                        ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->where('mahasiswa_id', '=', $id)
+                                        ->where('statusAnggota', '=', 'Aktif')
+                                        ->select('mahasiswaproyek.id_mahasiswaProyek')
+                                        ->getQuery()
+                                        ->get();
+            // dd($exc);
+            $idMproKelompok = array();
 
-        foreach ($exc as $x)
-            $z[] = $x->id_mahasiswaProyek;
+            foreach ($mProKelompok as $mProKel)
+                $idMproKelompok[] = $mProKel->id_mahasiswaProyek;
 
-            // dd($z);
+                // dd($mProKelompok);
 
-        //ambil yang berbeda dari b dikurang z
-        $result = array_diff($b, $z);
+            //ambil yang berbeda dari b dikurang z
+            $mpro_diff = array_diff($idMpro, $idMproKelompok);
 
 
-        if($result != null){
-        $excs = MahasiswaProyek::join('kelasProyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-                                ->whereIn('id_mahasiswaProyek',  $result )
-                                ->where('kelasproyek.status', '=', 'Pendaftaran')
-                                ->select('kelasproyek.namaKelasProyek','kelasproyek.status', 'mahasiswaproyek.id_mahasiswaProyek')
-                                ->getQuery()
-                                ->get();
-                                // dd($excs);
+            if($mpro_diff != null){
+            $kelpro = MahasiswaProyek::join('kelasProyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                    ->whereIn('id_mahasiswaProyek',  $mpro_diff )
+                                    ->where('kelasproyek.status', '=', 'Pendaftaran')
+                                    ->select('kelasproyek.namaKelasProyek','kelasproyek.status', 'mahasiswaproyek.id_mahasiswaProyek')
+                                    ->getQuery()
+                                    ->get();
+                                    // dd($excs);
+
+            }
+
+            else{
+                $kelpro = null;
+            }
+
+            // dd($b);
+
+            //query for all
+            $kelompok = AnggotaProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                        ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
+                                        ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->where('mahasiswa_id', '=', $id)
+                                        ->where('anggotakelompok.statusAnggota', '=', 'Aktif')
+                                        // ->whereIn('id_mahasiswaProyek', $b)
+                                        ->select('kelompokproyek.*', 'mahasiswaproyek.*','anggotakelompok.*')
+                                        ->getQuery()
+                                        ->get();
+
+
+            $kelasproyek = KelasProyek::all();
+            $periode = Periode::all();
+            $dosen = Dosen::all();
+            $mahasiswa = Mahasiswa::all();
+
+
+            return view('mahasiswa.proyek.index') ->with('kelompok', $kelompok)
+                                                        // ->with('kelompokMember', $kelompokMember)
+                                                        ->with('kelasproyek', $kelasproyek)
+                                                        ->with('periode', $periode)
+                                                        ->with('dosen', $dosen)
+                                                        ->with('kelpro', $kelpro)
+                                                        ->with('mahasiswa', $mahasiswa);
 
         }
 
         else{
-            $excs = null;
+            return view('errors.403');
         }
-
-        //query for all
-        $kelompok = AnggotaProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                                    ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
-                                    ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                    ->where('mahasiswa_id', '=', $id)
-                                    ->where('anggotakelompok.statusAnggota', '=', 'Aktif')
-                                    // ->whereIn('id_mahasiswaProyek', $b)
-                                    ->select('kelompokproyek.*', 'mahasiswaproyek.*','anggotakelompok.*')
-                                    ->getQuery()
-                                    ->get();
-
-
-        $kelasproyek = KelasProyek::all();
-        $periode = Periode::all();
-        $dosen = Dosen::all();
-        $mahasiswa = Mahasiswa::all();
-
-
-        return view('mahasiswa.proyek.index') ->with('kelompok', $kelompok)
-                                                    // ->with('kelompokMember', $kelompokMember)
-                                                    ->with('kelasproyek', $kelasproyek)
-                                                    ->with('periode', $periode)
-                                                    ->with('dosen', $dosen)
-                                                    ->with('excs', $excs)
-                                                    ->with('mahasiswa', $mahasiswa);
 
     }
 
@@ -338,6 +343,14 @@ class KelompokProyekController extends Controller
         //
         if(Auth::guard('mahasiswa')->check()) {
             // dd($request);
+
+            $this->validate($request, [
+
+                'mahasiswaProyek_id' => 'required',
+                'pm' => 'required',
+                'judulPrioritas' => 'required',
+                'statusKelompok' => 'required',
+            ]);
             
             $kelompok = new KelompokProyek([
                 'mahasiswaProyek_id'    => $request->get('mahasiswaProyek_id'),
@@ -354,7 +367,7 @@ class KelompokProyekController extends Controller
             ]);
             $anggota->save();
 
-            return back()->with('success', 'Berhasil membentuk kelompok');;
+            return back()->with('success', 'Berhasil membentuk kelompok');
 
         }
 
@@ -368,6 +381,9 @@ class KelompokProyekController extends Controller
     {
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelompokProyek::findOrFail($id);
+
+
         $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
@@ -376,77 +392,75 @@ class KelompokProyekController extends Controller
                                     ->where('kelompokproyek.id_kelompokProyek', '=', $id )
                                     ->getQuery()
                                     ->get();
-        // dd($kelompok);
 
-        $anggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                  ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                                  ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                  ->where('kelompokProyek_id', '=', $id)
-                                  ->select('namaMahasiswa', 'nim' ,'id_kelompokProyek', 'id_mahasiswaProyek', 'id_anggotaKelompok', 'statusAnggota')
-                                  ->getQuery()
-                                  ->get();
+                $anggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                        ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                        ->where('kelompokProyek_id', '=', $id)
+                                        ->select('namaMahasiswa', 'nim' ,'id_kelompokProyek', 'id_mahasiswaProyek', 'id_anggotaKelompok', 'statusAnggota')
+                                        ->getQuery()
+                                        ->get();
 
-        // dd($anggota);
 
-        $judulPilihan = ProyekPilihan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                       ->join('proyek', 'proyek_id', '=', 'id_proyek')
-                                       ->where('kelompokProyek_id', '=', $id)
-                                       ->select('judul', 'deskripsi', 'prioritas', 'id_proyek', 'id_proyekPilihan', 'id_kelompokProyek', 'judulPrioritas', 'statusProyek')
-                                       ->orderBy('prioritas')
-                                       ->getQuery()
-                                       ->get();
+                $judulPilihan = ProyekPilihan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                            ->join('proyek', 'proyek_id', '=', 'id_proyek')
+                                            ->where('kelompokProyek_id', '=', $id)
+                                            ->select('judul', 'deskripsi', 'prioritas', 'id_proyek', 'id_proyekPilihan', 'id_kelompokProyek', 'judulPrioritas', 'statusProyek')
+                                            ->orderBy('prioritas')
+                                            ->getQuery()
+                                            ->get();
 
-        // dd($judulPilihan);
+                // dd($judulPilihan);
 
-        $usul = UsulMahasiswa::join('kelompokproyek', 'id_kelompokProyek', '=', 'kelompokProyek_id')
-                               ->join('mahasiswaproyek', 'mahasiswaproyek_id', '=', 'id_mahasiswaproyek')
-                               ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-                               ->join('periode', 'periode_id', '=', 'id_periode')
-                               ->where('kelompokProyek_id', '=', $id)
-                               ->select('id_kelompokProyek', 'id_usulMahasiswa', 'judulUsul', 'usulmahasiswa.deskripsi as usDesk', 
-                                        'statusUsul', 'judulPrioritas', 'id_periode', 'id_kelasProyek')
-                               ->getQuery()
-                               ->get();
+                $usul = UsulMahasiswa::join('kelompokproyek', 'id_kelompokProyek', '=', 'kelompokProyek_id')
+                                    ->join('mahasiswaproyek', 'mahasiswaproyek_id', '=', 'id_mahasiswaproyek')
+                                    ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                    ->join('periode', 'periode_id', '=', 'id_periode')
+                                    ->where('kelompokProyek_id', '=', $id)
+                                    ->select('id_kelompokProyek', 'id_usulMahasiswa', 'judulUsul', 'usulmahasiswa.deskripsi as usDesk', 
+                                                'statusUsul', 'judulPrioritas', 'id_periode', 'id_kelasProyek')
+                                    ->getQuery()
+                                    ->get();
 
-        // dd($usul);
+                // dd($usul);
 
-        $ambiljudul = KelompokProyek::where('id_kelompokProyek', '=', $id)
-                                      ->select('judulPrioritas')
-                                      ->getQuery()
-                                      ->get();
+                $ambiljudul = KelompokProyek::where('id_kelompokProyek', '=', $id)
+                                            ->select('judulPrioritas')
+                                            ->getQuery()
+                                            ->get();
 
-        // dd($ambiljudul);
+                // dd($ambiljudul);
 
-        foreach($kelompok as $kel){
-            $kelpro = $kel->id_kelasProyek;
-        }
+                foreach($kelompok as $kel){
+                    $kelpro = $kel->id_kelasProyek;
+                }
 
-        foreach($kelompok as $kel){
-            $per = $kel->id_periode;
-        }
+                foreach($kelompok as $kel){
+                    $per = $kel->id_periode;
+                }
 
-        // dd($kelpro);
+                // dd($kelpro);
 
-        $judulProyek = Proyek::where('statusProyek', '!=', "Aktif")
-                                ->where('statusProyek', '!=', "Selesai")
-                                ->where('kelasProyek_id', '=', $kelpro)
-                                ->where('periode_id', '=', $per)
-                                ->select('id_proyek', 'judul')
-                                ->getQuery()
-                                ->get();
+                $judulProyek = Proyek::where('statusProyek', '!=', "Aktif")
+                                        ->where('statusProyek', '!=', "Selesai")
+                                        ->where('kelasProyek_id', '=', $kelpro)
+                                        ->where('periode_id', '=', $per)
+                                        ->select('id_proyek', 'judul')
+                                        ->getQuery()
+                                        ->get();
 
-        // dd($judulProyek);
+                // dd($judulProyek);
 
-        $dosen = Dosen::all();
+                $dosen = Dosen::all();
 
-        return view('admin.kelompok.show')->with('kelompok', $kelompok)
-                                          ->with('anggota', $anggota)
-                                          ->with('usul', $usul)
-                                          ->with('dosen', $dosen)
-                                          ->with('judulProyek', $judulProyek)
-                                          ->with('ambiljudul', $ambiljudul)
-                                          ->with('judulPilihan', $judulPilihan);
-
+                return view('admin.kelompok.show')->with('kelompok', $kelompok)
+                                                ->with('anggota', $anggota)
+                                                ->with('usul', $usul)
+                                                ->with('dosen', $dosen)
+                                                ->with('judulProyek', $judulProyek)
+                                                ->with('ambiljudul', $ambiljudul)
+                                                ->with('judulPilihan', $judulPilihan);
+            
         }
         else{
 
@@ -464,85 +478,98 @@ class KelompokProyekController extends Controller
      */
     public function showKelompokDosen($id)
     {
-        $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+        
+        if(Auth::guard('dosen')->check()) {
+
+            $ids = Auth::guard('dosen')->user()->id_dosen;
+
+
+            $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                        ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                        ->join('periode', 'periode_id', '=', 'id_periode')
+                                        ->join('dosen', 'dosen_id', 'id_dosen')
+                                        ->select('kelompokproyek.*', 'kelasproyek.namaKelasProyek', 'kelasproyek.id_kelasProyek',
+                                                'periode.tahunAjaran', 'periode.semester', 'periode.id_periode')
+                                        ->where('kelompokproyek.id_kelompokProyek', '=', $id )
+                                        ->where('dosen_id', '=', $ids)
+                                        ->getQuery()
+                                        ->get();
+
+            if(count($kelompok) < 1){
+                return view('errors.404');
+            }
+
+            else{
+                $anggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                        ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                        ->where('kelompokProyek_id', '=', $id)
+                                        ->select('namaMahasiswa', 'nim' ,'id_kelompokProyek', 'id_mahasiswaProyek', 'id_anggotaKelompok', 'statusAnggota')
+                                        ->getQuery()
+                                        ->get();
+
+                // dd($anggota);
+
+                $judulPilihan = ProyekPilihan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                            ->join('proyek', 'proyek_id', '=', 'id_proyek')
+                                            ->where('kelompokProyek_id', '=', $id)
+                                            ->select('judul', 'deskripsi', 'prioritas', 'id_proyek', 'id_proyekPilihan', 'id_kelompokProyek', 'judulPrioritas')
+                                            ->orderBy('prioritas')
+                                            ->getQuery()
+                                            ->get();
+
+                // dd($judulPilihan);
+
+                $usul = UsulMahasiswa::join('kelompokproyek', 'id_kelompokProyek', '=', 'kelompokProyek_id')
+                                    ->join('mahasiswaproyek', 'mahasiswaproyek_id', '=', 'id_mahasiswaproyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
-                                    ->select('kelompokproyek.*', 'kelasproyek.namaKelasProyek', 'kelasproyek.id_kelasProyek',
-                                            'periode.tahunAjaran', 'periode.semester', 'periode.id_periode')
-                                    ->where('kelompokproyek.id_kelompokProyek', '=', $id )
+                                    ->where('kelompokProyek_id', '=', $id)
+                                    ->select('id_kelompokProyek', 'id_usulMahasiswa', 'judulUsul', 'usulmahasiswa.deskripsi as usDesk', 
+                                                'statusUsul', 'judulPrioritas', 'id_periode', 'id_kelasProyek')
                                     ->getQuery()
                                     ->get();
-        // dd($kelompok);
 
-        $anggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                  ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                                  ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                  ->where('kelompokProyek_id', '=', $id)
-                                  ->select('namaMahasiswa', 'nim' ,'id_kelompokProyek', 'id_mahasiswaProyek', 'id_anggotaKelompok', 'statusAnggota')
-                                  ->getQuery()
-                                  ->get();
+                // dd($usul);
 
-        // dd($anggota);
+                $ambiljudul = KelompokProyek::where('id_kelompokProyek', '=', $id)
+                                            ->select('judulPrioritas')
+                                            ->getQuery()
+                                            ->get();
 
-        $judulPilihan = ProyekPilihan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                       ->join('proyek', 'proyek_id', '=', 'id_proyek')
-                                       ->where('kelompokProyek_id', '=', $id)
-                                       ->select('judul', 'deskripsi', 'prioritas', 'id_proyek', 'id_proyekPilihan', 'id_kelompokProyek', 'judulPrioritas')
-                                       ->orderBy('prioritas')
-                                       ->getQuery()
-                                       ->get();
+                // dd($ambiljudul);
+                $kelpro = array();
+                foreach($kelompok as $kel){
+                    $kelpro = $kel->id_kelasProyek;
+                }
 
-        // dd($judulPilihan);
+                $per = array();
+                foreach($kelompok as $kel){
+                    $per = $kel->id_periode;
+                }
 
-        $usul = UsulMahasiswa::join('kelompokproyek', 'id_kelompokProyek', '=', 'kelompokProyek_id')
-                               ->join('mahasiswaproyek', 'mahasiswaproyek_id', '=', 'id_mahasiswaproyek')
-                               ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-                               ->join('periode', 'periode_id', '=', 'id_periode')
-                               ->where('kelompokProyek_id', '=', $id)
-                               ->select('id_kelompokProyek', 'id_usulMahasiswa', 'judulUsul', 'usulmahasiswa.deskripsi as usDesk', 
-                                        'statusUsul', 'judulPrioritas', 'id_periode', 'id_kelasProyek')
-                               ->getQuery()
-                               ->get();
+                // dd($kelpro);
 
-        // dd($usul);
+                $judulProyek = Proyek::where('statusProyek', '!=', "Aktif")
+                                        ->where('kelasProyek_id', '=', $kelpro)
+                                        ->where('periode_id', '=', $per)
+                                        ->select('id_proyek', 'judul')
+                                        ->getQuery()
+                                        ->get();
 
-        $ambiljudul = KelompokProyek::where('id_kelompokProyek', '=', $id)
-                                      ->select('judulPrioritas')
-                                      ->getQuery()
-                                      ->get();
+                // dd($judulProyek);
 
-        // dd($ambiljudul);
+                $dosen = Dosen::all();
 
-        foreach($kelompok as $kel){
-            $kelpro = $kel->id_kelasProyek;
-        }
+                $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->where('kelompokProyek_id', '=', $id)
+                                    ->select('laporan.*')
+                                    ->limit(3)
+                                    ->orderBy('id_laporan', 'desc')
+                                    ->getQuery()
+                                    ->get();
 
-        foreach($kelompok as $kel){
-            $per = $kel->id_periode;
-        }
-
-        // dd($kelpro);
-
-        $judulProyek = Proyek::where('statusProyek', '!=', "Aktif")
-                                ->where('kelasProyek_id', '=', $kelpro)
-                                ->where('periode_id', '=', $per)
-                                ->select('id_proyek', 'judul')
-                                ->getQuery()
-                                ->get();
-
-        // dd($judulProyek);
-
-        $dosen = Dosen::all();
-
-        $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('kelompokProyek_id', '=', $id)
-                            ->select('laporan.*')
-                            ->limit(3)
-                            ->orderBy('id_laporan', 'desc')
-                            ->getQuery()
-                            ->get();
-
-        return view('dosen.kelompokbimbingan.detailKelompok')->with('kelompok', $kelompok)
+                return view('dosen.kelompokbimbingan.detailKelompok')->with('kelompok', $kelompok)
                                           ->with('anggota', $anggota)
                                           ->with('usul', $usul)
                                           ->with('dosen', $dosen)
@@ -551,11 +578,23 @@ class KelompokProyekController extends Controller
                                           ->with('judulPilihan', $judulPilihan)
                                           ->with('laporan', $laporan);
 
+
+            }
+        }
+
+        else{
+
+            return view('errors.403');
+
+        }
     }
 
     public function showMahasiswa($id)
     {
         //
+
+        if(Auth::guard('mahasiswa')->check()) {
+
         $ids = Auth::guard('mahasiswa')->user()->id_mahasiswa;
 
         //show for all
@@ -570,119 +609,127 @@ class KelompokProyekController extends Controller
                                             , 'kelasproyek.namaKelasProyek')
                                     ->getQuery()
                                     ->get();
-        
 
+            if(count($kelompok) < 1){
+                return view('errors.404');
+            }
+            else{
+                $kelasproyek = KelasProyek::all();
+                $periode = Periode::all();
+                $dosen = Dosen::all();
+                $mahasiswa = Mahasiswa::all();
 
-        $kelasproyek = KelasProyek::all();
-        $periode = Periode::all();
-        $dosen = Dosen::all();
-        $mahasiswa = Mahasiswa::all();
+                // $mhsproyek = 
+                $klsproid = array();
+                $proid    = array();
 
-        // $mhsproyek = 
-        $klsproid = array();
-        $proid    = array();
+                foreach ($kelompok as $kelompoks)
+                    $klsproid[] = $kelompoks->kelasProyek_id;
 
-        foreach ($kelompok as $a)
-            $klsproid[] = $a->kelasProyek_id;
+                foreach ($kelompok as $periodes)
+                    $proid[] = $periodes->periode_id;
 
-        foreach ($kelompok as $a)
-            $proid[] = $a->periode_id;
+                    // dd($klsproid);
 
-            // dd($klsproid);
+                $anggota = MahasiswaProyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                ->join('periode', 'periode_id', '=', 'id_periode')
+                ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
+                ->where('kelasProyek_id', '=', $klsproid)
+                ->where('periode_id', '=', $proid)
+                ->select('mahasiswaproyek.*', 'mahasiswa.namaMahasiswa', 'mahasiswa.nim')
+                ->getQuery()
+                ->get();
 
-        $anggota = MahasiswaProyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-        ->join('periode', 'periode_id', '=', 'id_periode')
-        ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
-        ->where('kelasProyek_id', '=', $klsproid)
-        ->where('periode_id', '=', $proid)
-        ->select('mahasiswaproyek.*', 'mahasiswa.namaMahasiswa', 'mahasiswa.nim')
-        ->getQuery()
-        ->get();
+                $anggotaKelompok = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'mahasiswaproyek.id_mahasiswaProyek')
+                ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
+                ->where('kelompokProyek_id', '=', $id)
+                ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'anggotakelompok.statusAnggota', 'anggotakelompok.id_anggotaKelompok')
+                ->getQuery()
+                ->get();
 
-        $anggotaKelompok = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-        ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'mahasiswaproyek.id_mahasiswaProyek')
-        ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
-        ->where('kelompokProyek_id', '=', $id)
-        ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'anggotakelompok.statusAnggota', 'anggotakelompok.id_anggotaKelompok')
-        ->getQuery()
-        ->get();
+                $jumAnggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                            ->where('kelompokProyek_id', '=', $id)
+                                            ->count('anggotakelompok.id_anggotaKelompok');
 
-        $jumAnggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                    ->where('kelompokProyek_id', '=', $id)
-                                    ->count('anggotakelompok.id_anggotaKelompok');
+                $maksAnggota = KelasProyek::where('id_kelasProyek', '=', $klsproid)
+                                            ->select('kelasproyek.maksAnggota')
+                                            ->getQuery()
+                                            ->get();
 
-        $maksAnggota = KelasProyek::where('id_kelasProyek', '=', $klsproid)
-                                    ->select('kelasproyek.maksAnggota')
-                                    ->getQuery()
-                                    ->get();
+                // dd($maksAnggota);
 
-        // dd($maksAnggota);
+                $judul = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                ->join('periode', 'periode_id', '=', 'id_periode')
+                ->where('kelasProyek_id', '=', $klsproid)
+                ->where('periode_id', '=', $proid)
+                ->where('proyek.statusProyek', '=', 'Belum Diambil')
+                ->select('proyek.*')
+                ->getQuery()
+                ->get();
 
-        $judul = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-        ->join('periode', 'periode_id', '=', 'id_periode')
-        ->where('kelasProyek_id', '=', $klsproid)
-        ->where('periode_id', '=', $proid)
-        ->where('proyek.statusProyek', '=', 'Belum Diambil')
-        ->select('proyek.*')
-        ->getQuery()
-        ->get();
+                // dd($judul);
 
-        // dd($judul);
+                $judulPilihan = ProyekPilihan::join('kelompokProyek', 'kelompokProyek_id' ,'=', 'id_kelompokProyek')
+                                                ->join('proyek', 'proyek_id', '=', 'id_proyek')
+                                                ->where('kelompokProyek_id', '=', $id)
+                                                ->select('kelompokProyek.*', 'proyek.*', 'proyekpilihan.*')
+                                                ->getQuery()
+                                                ->get();
 
-        $judulPilihan = ProyekPilihan::join('kelompokProyek', 'kelompokProyek_id' ,'=', 'id_kelompokProyek')
-                                        ->join('proyek', 'proyek_id', '=', 'id_proyek')
+                // dd($judulPilihan);
+                
+                $jumlahPilihan = ProyekPilihan::join('kelompokProyek', 'kelompokProyek_id' ,'=', 'id_kelompokProyek')
+                                                ->join('proyek', 'proyek_id', '=', 'id_proyek')
+                                                ->where('kelompokProyek_id', '=', $id)
+                                                ->count();
+                
+                // dd($jumlahPilihan);
+
+                $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                         ->where('kelompokProyek_id', '=', $id)
-                                        ->select('kelompokProyek.*', 'proyek.*', 'proyekpilihan.*')
                                         ->getQuery()
                                         ->get();
 
-        // dd($judulPilihan);
-        
-        $jumlahPilihan = ProyekPilihan::join('kelompokProyek', 'kelompokProyek_id' ,'=', 'id_kelompokProyek')
-                                        ->join('proyek', 'proyek_id', '=', 'id_proyek')
-                                        ->where('kelompokProyek_id', '=', $id)
-                                        ->count();
-        
-        // dd($jumlahPilihan);
+                //  dd($usul);
+                
+                $jumUsul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                    ->where('kelompokProyek_id', '=', $id)
+                                    ->count();
 
-        $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                                ->where('kelompokProyek_id', '=', $id)
-                                ->getQuery()
-                                ->get();
+                $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->where('kelompokProyek_id', '=', $id)
+                                    ->select('laporan.*')
+                                    ->limit(3)
+                                    ->orderBy('id_laporan', 'desc')
+                                    ->getQuery()
+                                    ->get();
 
-        //  dd($usul);
-        
-        $jumUsul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                            ->where('kelompokProyek_id', '=', $id)
-                            ->count();
+                // dd($laporan);
 
-        $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('kelompokProyek_id', '=', $id)
-                            ->select('laporan.*')
-                            ->limit(3)
-                            ->orderBy('id_laporan', 'desc')
-                            ->getQuery()
-                            ->get();
+                return view('mahasiswa.proyek.show') ->with('kelompok', $kelompok)
+                                                        ->with('kelasproyek', $kelasproyek)
+                                                        ->with('periode', $periode)
+                                                        ->with('dosen', $dosen)
+                                                        ->with('anggota', $anggota)
+                                                        ->with('mahasiswa', $mahasiswa)
+                                                        ->with('jumAnggota', $jumAnggota)
+                                                        ->with('maksAnggota', $maksAnggota)
+                                                        ->with('anggotaKelompok', $anggotaKelompok)
+                                                        ->with('judul', $judul)
+                                                        ->with('judulPilihan', $judulPilihan)
+                                                        ->with('jumlahPilihan', $jumlahPilihan)
+                                                        ->with('usul', $usul)
+                                                        ->with('laporan', $laporan)
+                                                        ->with('jumUsul', $jumUsul);
+            }
+        }
 
-        // dd($laporan);
-
-        return view('mahasiswa.proyek.show') ->with('kelompok', $kelompok)
-                                                ->with('kelasproyek', $kelasproyek)
-                                                ->with('periode', $periode)
-                                                ->with('dosen', $dosen)
-                                                ->with('anggota', $anggota)
-                                                ->with('mahasiswa', $mahasiswa)
-                                                ->with('jumAnggota', $jumAnggota)
-                                                ->with('maksAnggota', $maksAnggota)
-                                                ->with('anggotaKelompok', $anggotaKelompok)
-                                                ->with('judul', $judul)
-                                                ->with('judulPilihan', $judulPilihan)
-                                                ->with('jumlahPilihan', $jumlahPilihan)
-                                                ->with('usul', $usul)
-                                                ->with('laporan', $laporan)
-                                                ->with('jumUsul', $jumUsul);
+        else{
+            return view('errors.403');
+        }
     }
 
     /**
@@ -706,20 +753,28 @@ class KelompokProyekController extends Controller
     public function update(Request $request)
     {
         //
-
         $judulprio = Proyek::where('judul', '=', $request->judulPrioritas)
                                 ->select('id_proyek', 'judul')
                                 ->getQuery()
                                 ->get();
 
-        foreach ($judulprio as $jupil)
-            $judprio[] = $jupil->id_proyek;
+                                // dd(count($judulprio));
+        if(count($judulprio) > 0){
+            $judprio = array();
+            foreach ($judulprio as $jupil)
+                $judprio[] = $jupil->id_proyek;
+        }
+        else{
+            $judprio = 0;
+        }
         
+    
         $judulusul = Proyek::where('judul', '=', $request->judulUsul)
             ->select('id_proyek', 'judul')
             ->getQuery()
             ->get();
 
+        $judusul = array();
         foreach ($judulusul as $jupil2)
             $judusul[] = $jupil2->id_proyek;
 
@@ -729,6 +784,7 @@ class KelompokProyekController extends Controller
             ->getQuery()
             ->get();
 
+        $judulpriobaru = array();
         foreach ($judulpil as $jupil3)
             $judulpriobaru[] = $jupil3->judul;
 
@@ -739,9 +795,11 @@ class KelompokProyekController extends Controller
             $usul->statusUsul        = "Diterima";
             $usul->save();
 
+            if($judprio != 0){
             $proyeklama              = Proyek::findOrFail($judprio[0]);
                 $proyeklama->statusProyek      = "Belum Diambil";
                 $proyeklama->save();
+            }
 
             $pro = new Proyek([
                 'usulMahasiswa_id'      => $request->id_usulMahasiswa,
@@ -762,9 +820,11 @@ class KelompokProyekController extends Controller
         elseif($request->pilihlain == "ya"){
 
             // dd($ju);
+            if($judprio != 0){
             $proyeklama              = Proyek::findOrFail($judprio[0]);
             $proyeklama->statusProyek      = "Belum Diambil";
             $proyeklama->save();
+            }
 
             $proyekbaru              = Proyek::findOrFail($request->id_proyek);
             $proyekbaru->statusProyek      = "Aktif";
@@ -786,9 +846,11 @@ class KelompokProyekController extends Controller
         else{
             if($request->id_proyek != NULL){
 
+                if($judprio != 0){
                 $proyeklama              = Proyek::findOrFail($judprio[0]);
                 $proyeklama->statusProyek      = "Belum Diambil";
                 $proyeklama->save();
+                }
     
                 $proyekbaru              = Proyek::findOrFail($request->id_proyek);
                 $proyekbaru->statusProyek      = "Aktif";
@@ -801,9 +863,11 @@ class KelompokProyekController extends Controller
     
             elseif($request->id_usulMahasiswa != NULL){
 
+                if($judprio != 0){
                 $proyeklama                    = Proyek::findOrFail($judprio[0]);
                 $proyeklama->statusProyek      = "Belum Diambil";
                 $proyeklama->save();
+                }
                 
                 $proyekbaru                    = Proyek::findOrFail($judusul[0]);
                 $proyekbaru->statusProyek      = "Aktif";

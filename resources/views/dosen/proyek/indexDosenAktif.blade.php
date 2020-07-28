@@ -15,6 +15,9 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Proyek</h1>
+    </div>
+
+    <div class="col-lg-11 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
         <div class="btn-group">
             <button type="button" class="btn btn-primary text-center" ><a href="/dosen/proyek" style="color: white;">Belum Diambil</a></button>
             <button type="button" class="btn btn-secondary text-center" ><a href="/dosen/proyek-selesai" style="color: white;">Selesai</a></button>

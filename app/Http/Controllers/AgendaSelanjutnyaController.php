@@ -40,9 +40,13 @@ class AgendaSelanjutnyaController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'agendaSelanjutnya' => 'required',
+            'deskripsi' => 'required',
+        ]);
         AgendaSelanjutnya::create($request->all());
 
-        return back();
+        return back()->with('success', 'Berhasil menambah agenda selanjutnya');
     }
 
     /**
@@ -78,12 +82,16 @@ class AgendaSelanjutnyaController extends Controller
     {
         //
         // dd($request);
+        $this->validate($request, [
+            'agendaSelanjutnya' => 'required',
+            'deskripsi' => 'required',
+        ]);
         $agenda                   = AgendaSelanjutnya::findOrFail($request->id_agendaSelanjutnya);
         $agenda->agendaSelanjutnya             = $request->agendaSelanjutnya;
         $agenda->deskripsi           = $request->deskripsi;
         $agenda->save();
 
-        return back();
+        return back()->with('success', 'Berhasil mengubah agenda selanjutnya');;
     }
 
     /**
@@ -98,6 +106,6 @@ class AgendaSelanjutnyaController extends Controller
         $agenda = AgendaSelanjutnya::findOrFail($id);
         $agenda->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus agenda selanjutnya');
     }
 }

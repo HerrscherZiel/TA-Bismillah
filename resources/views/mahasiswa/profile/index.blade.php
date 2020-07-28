@@ -2,8 +2,19 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Profile Mahasiswa</h1>
+        <h1 class="h3 mb-0 text-gray-800">Profil Mahasiswa</h1>
     </div>
 
     <div class="col-12">
@@ -35,7 +46,7 @@
                                                         <img class="img-fluid" src="{{url('/')}}/asset/img/user.svg" style="width: auto; height: 200px" alt="Responsive image">
                                                         @endif
                                                     @endforeach
-                                                        <br><span class="mr-2 d-none d-lg-inline text-gray-600 small">Ukuran foto maks AxA</span>
+                                                        <br><span class="mr-2 d-none d-lg-inline text-gray-600 small">Ukuran foto maks 2000 Kb</span>
                                                     </div>
                                                     <form class="form-horizontal" action="{{ route('profile.update', 'edit')}}"
                                                             method="post"
@@ -51,7 +62,7 @@
                                                             <div class="row">
                                                                 <div class="col-12 my-auto">
                                                                     <div class="form-group">
-                                                                        <input class="form-control" type="file" name="fileFoto" placeholder="Pilih Gambar">
+                                                                        <input class="form-control" type="file" name="fileFoto" placeholder="Pilih Gambar" required>
                                                                     </div>
                                                                 </div>
 
@@ -60,6 +71,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </form>
                                                 </div>
 

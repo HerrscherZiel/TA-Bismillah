@@ -2,6 +2,18 @@
 
 @section('content')
 
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
     </div>
@@ -86,7 +98,7 @@
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                             <i class="fa fa-lg fa-trash">
                                                             </i>
                                                         </button>
@@ -124,7 +136,6 @@
                 <div class="modal-body">
                     <div class="tile-body">
                         <p><b>*Dengan membentuk kelompok anda akan otomatis terdaftar sebagai Project Manager dalam kelompok<br>
-                                *Project Manager dapat diganti dilain waktu</b>
                         <br>
                         <br>
                         </p>
@@ -132,10 +143,10 @@
                             <div class="col-md-12"><b>Pilih Kelas Proyek</b>
                                 <div class="form-group">
                                     <select class="form-control selectbox" name="mahasiswaProyek_id" style="width: 100%" required>
-                                        @if($excs != null)
-                                        @foreach($excs as $exc)
-                                            <option value="{{$exc -> id_mahasiswaProyek}}">
-                                                {{$exc -> namaKelasProyek}}
+                                        @if($kelpro != null)
+                                        @foreach($kelpro as $kelpros)
+                                            <option value="{{$kelpros -> id_mahasiswaProyek}}">
+                                                {{$kelpros -> namaKelasProyek}}
                                             </option>
                                         @endforeach
                                         @else

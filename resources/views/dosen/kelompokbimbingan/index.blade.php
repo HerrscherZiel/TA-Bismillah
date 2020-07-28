@@ -7,9 +7,9 @@
     </div>
 
     <div>
-        <div class="row list">
+        <div class="row justify-content-md-center">
 
-            <div class="col-10 offset-1">
+            <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
                 <div class="row">
 
                 @php $i=1;  @endphp

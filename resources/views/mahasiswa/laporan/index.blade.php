@@ -8,9 +8,6 @@
 
     <div>
         <div class="row list">
-            <div class="col-10 offset-1 text-right">
-            Search
-            </div>
             <div class="col-10 offset-1">
                 <div class="row">
 
@@ -65,7 +62,7 @@
                 <div class="card-body">
                     <div class="col-12 text-center">
                         <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
-                            <h5>Belum ada kelompok aktif</h5>
+                            <h5>Belum ada kelompok proyek aktif</h5>
                         </div>
                     </div>
                 </div>

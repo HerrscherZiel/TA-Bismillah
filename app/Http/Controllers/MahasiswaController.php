@@ -36,9 +36,6 @@ class MahasiswaController extends Controller
         }
 
 
-
-//        return view('admin.dosen.index');
-
     }
 
     public function import(Request $request)
@@ -68,7 +65,7 @@ class MahasiswaController extends Controller
 
 
         // alihkan halaman kembali
-        return redirect('/mahasiswa')->with('success','Berhasil mengimpor data mahasiswa');
+        return redirect('admin/mahasiswa')->with('success','Berhasil mengimpor data mahasiswa');
 
     }
 

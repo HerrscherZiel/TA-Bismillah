@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\ProyekPilihan;
 use App\UsulMahasiswa;
 use App\Proyek;
+use App\KelasProyek;
+use App\Periode;
 use App\KelompokProyek;
 
 
@@ -78,6 +80,9 @@ class UsulMahasiswaController extends Controller
 
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
+
         $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                                 ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                 ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
@@ -112,6 +117,9 @@ class UsulMahasiswaController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
+
         $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                                 ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                 ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
@@ -145,6 +153,9 @@ class UsulMahasiswaController extends Controller
     {
         //
         if(Auth::guard('admin')->check()) {
+
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
 
         $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                                 ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
@@ -196,10 +207,6 @@ class UsulMahasiswaController extends Controller
      */
     public function update(Request $request)
     {   
-        // dd($request->judulUsul);
-
-
-        // dd($proyek);
 
         $judulpilihan = Proyek::where('judul', '=', $request->judulPrioritas)
                                 ->select('id_proyek', 'judul')
@@ -209,7 +216,6 @@ class UsulMahasiswaController extends Controller
 
         if($request->status == "tolak"){
             // dd($request->status);
-            // dd($request);
             $cekJudul = KelompokProyek::where('id_kelompokProyek', '=', $request->id_kelompokProyek)
                                         ->select('kelompokproyek.*')
                                         ->getQuery()
@@ -222,7 +228,7 @@ class UsulMahasiswaController extends Controller
             if($judul == $request->judulPrioritas) {
 
                 $judulprio = KelompokProyek::findOrFail($request->id_kelompokProyek);
-                $judulprio->judulPrioritas        = "Belum ada Judul";
+                $judulprio->judulPrioritas        = "Belum ada judul";
                 $judulprio->save();
             }
             // dd($request->judulPrioritas);
@@ -230,10 +236,6 @@ class UsulMahasiswaController extends Controller
             $usul                    = UsulMahasiswa::findOrFail($request->id_usulMahasiswa);
             $usul->statusUsul        = "Ditolak";
             $usul->save();
-
-            // if()
-            
-
             
         }
 

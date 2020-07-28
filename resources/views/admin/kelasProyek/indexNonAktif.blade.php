@@ -19,8 +19,8 @@
 
     <div class="col-lg-11 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary text-center" ><a href="/kelasproyek" style="color: white;">Pendaftaran</a></button>
-            <button type="button" class="btn btn-success text-center" ><a href="/kelasproyek/aktif/index" style="color: white;">Aktif</a></button>
+            <button type="button" class="btn btn-primary text-center" ><a href="/admin/kelasproyek" style="color: white;">Pendaftaran</a></button>
+            <button type="button" class="btn btn-success text-center" ><a href="/admin/kelasproyek/aktif/index" style="color: white;">Aktif</a></button>
         </div>
     </div>
 

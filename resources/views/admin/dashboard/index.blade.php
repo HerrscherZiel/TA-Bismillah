@@ -171,7 +171,7 @@
                                 <h6 class="font-weight-bold text-primary m-0">Usul Proyek</h6>
                             </div>
                             <div class="col-md-4 text-right">
-                                <a type="button" class="btn btn-primary" href="/usulmahasiwa/">
+                                <a type="button" class="btn btn-primary" href="/admin/usulmahasiswa">
                                     Lebih Lengkap
                                 </a>
                             </div>
@@ -250,7 +250,7 @@
                                 <h6 class="font-weight-bold text-primary m-0">Kelompok Proyek</h6>
                             </div>
                             <div class="col-md-4 text-right">
-                                <a type="button" class="btn btn-primary" href="/kelompokproyek/">
+                                <a type="button" class="btn btn-primary" href="/admin/kelompokproyek/">
                                     Lebih Lengkap
                                 </a>
                             </div>
@@ -296,7 +296,7 @@
                                             <td>
                                                 <div class="text-center">
                                                     <div class="btn-group">
-                                                        <a class="btn btn-info" href="/kelompok/detail/{{$kel->id_kelompokProyek}}">
+                                                        <a class="btn btn-info" href="/admin/kelompok/detail/{{$kel->id_kelompokProyek}}">
                                                             <i class="fa fa-lg fa-eye">
                                                             </i>
                                                         </a>

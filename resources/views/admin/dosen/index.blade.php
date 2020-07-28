@@ -146,21 +146,21 @@
                             <div class="row">
                                 <div class="col-md-12"><b>NIP</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="number" name="nip" placeholder="nip dosen" required>
+                                        <input class="form-control" type="number" name="nip" placeholder="NIP dosen" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Nama</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="namaDosen" placeholder="nama dosen" required>
+                                        <input class="form-control" type="text" name="namaDosen" placeholder="Nama dosen" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Email</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="email" name="email" placeholder="email" required>
+                                        <input class="form-control" type="email" name="email" placeholder="Email dosen" required>
                                     </div>
                                 </div>
                             </div>

@@ -17,12 +17,22 @@
         <h1 class="h3 mb-0 text-gray-800">Proyek</h1>
     </div>
 
-    <div class="col-lg-11 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary text-center" ><a href="/proyek/belum-diambil/{{$id_kls}}/{{$id_per}}" style="color: white;">Belum Diambil</a></button>
-            <button type="button" class="btn btn-success text-center" ><a href="/proyek/aktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Aktif</a></button>
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-1">
+                <a href="/admin/proyek">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
+                <br>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary text-center" ><a href="/admin/proyek/belum-diambil/{{$id_kls}}/{{$id_per}}" style="color: white;">Belum Diambil</a></button>
+                    <button type="button" class="btn btn-success text-center" ><a href="/admin/proyek/aktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Aktif</a></button>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-10 offset-1 mb-4">

@@ -36,24 +36,6 @@ class DosenImport implements ToCollection
 
 }
 
-//    public function model(array $row)
-//    {
-//        //
-//
-//        return new Dosen([
-//            'nip' => $row[0],
-//            'email' => $row[1],
-//            'password' => bcrypt(12345678),
-//            'passwordBackup' => bcrypt(12345678),
-//            'namaDosen' => $row[2],
-//            'statusUser' => $row[3],
-//        ]),
-//
-//        new ProfilDosen([
-//
-//        ]);
-//
-//    }
 
 
 

@@ -60,7 +60,7 @@
                                                         <div class="row">
                                                             <div class="col-12 my-auto">
                                                                 <div class="form-group">
-                                                                    <input class="form-control" type="file" name="fileFoto" placeholder="Pilih Gambar">
+                                                                    <input class="form-control" type="file" name="fileFoto" placeholder="Pilih Gambar" required>
                                                                 </div>
                                                             </div>
 

@@ -5,6 +5,17 @@
         <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Bimbingan</h1>
     </div>
 
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-1">
+                <a href="javascript:window.history.back();">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-10 offset-1 mb-4">
             <div class="card shadow mb-4">

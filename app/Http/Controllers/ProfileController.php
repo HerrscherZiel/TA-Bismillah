@@ -125,10 +125,27 @@ class ProfileController extends Controller
             $proMhs = ProfilMahasiswa::findOrFail($request->id_profilMahasiswa);
 
             if($request->fileFoto == NULL){
+
+                $this->validate($request, [
+                    'email' => ['required',
+                                Rule::unique('profilmahasiswa', 'email')->ignore($request->id_profilMahasiswa, 'id_profilmahasiswa'),
+                                ],
+                    'hpMahasiswa' => 'required',
+                    'ipk' => 'required | max:4',
+                    'sks' => 'required | max:3',
+                    'keahlian' => 'required',
+                    'pengalaman' => 'required',
+
+                ]);
+                
                 $proMhs->update($request->all());
             }
 
             else{
+
+                $this->validate($request, [
+                    'fileFoto' => 'required | image | mimes:jpeg,png,jpg | max:2000',
+                ]);
 
                 $file = $request->file('fileFoto');
 
@@ -141,7 +158,7 @@ class ProfileController extends Controller
             
             }
 
-            return back();
+            return back()->with('success', 'Berhasil mengubah profil');
         }
 
         if(Auth::guard('dosen')->check()){

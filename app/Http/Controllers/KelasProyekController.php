@@ -81,12 +81,18 @@ class KelasProyekController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
+        $rules = [
             'namaKelasProyek' => 'required',
             'deskripsi' => 'required',
             'maksAnggota' => 'required | unique_with:kelasproyek,namaKelasProyek,maksAnggota',
             'status' => 'required',
-        ]);
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang ditambah sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
 
         KelasProyek::create($request->all());
 
@@ -125,12 +131,18 @@ class KelasProyekController extends Controller
     public function update(Request $request)
     {
         //
-        $this->validate($request, [
+        $rules = [
             'namaKelasProyek' => 'required',
             'deskripsi' => 'required',
             'maksAnggota' => 'required',
             'status' => 'required',
-        ]);
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang diubah sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
         $klsPro = KelasProyek::findOrFail($request->id_kelasProyek);
         $klsPro->update($request->all());
 

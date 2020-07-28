@@ -38,11 +38,23 @@ class AnggotaKelompokController extends Controller
     public function store(Request $request)
     {
         //
+
+        $rules = [
+            'kelompokProyek_id' => 'required',
+            'mahasiswaProyek_id' => 'required | unique_with :anggotakelompok,kelompokProyek_id',
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang ditambahkan sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
+
         if(Auth::guard('mahasiswa')->check()) {
 
             AnggotaProyek::create($request->all());
 
-            return back();
+            return back()->with('success', 'Berhasil mengundang anggota');;
         }
 
         else{
@@ -83,7 +95,6 @@ class AnggotaKelompokController extends Controller
     {
         //
         // dd($request);
-        // dd($request->id_anggotaKelompok);
         if($request->id_anggotaKelompok == NULL){
             $anggota                    = AnggotaProyek::findOrFail($id);
             $anggota->statusAnggota = "Aktif";
@@ -94,7 +105,7 @@ class AnggotaKelompokController extends Controller
             $anggota->statusAnggota = "Aktif";
             $anggota->save();
         }
-        return back();
+        return back()->with('success', 'Berhasil bergabung dengan kelompok');;
     }
 
     public function reject($id)
@@ -104,7 +115,7 @@ class AnggotaKelompokController extends Controller
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menolak undangan kelompok');
     }
 
     /**
@@ -120,6 +131,6 @@ class AnggotaKelompokController extends Controller
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus data anggota');
     }
 }

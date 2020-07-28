@@ -37,7 +37,7 @@
                                         <h6 class="font-weight-bold text-primary m-0">{{$kelper->namaKelasProyek}}</h6>
                                     </div>
                                     <div class="col-md-4 text-primary text-right">
-                                        <a type="button" class="btn btn-primary" href="/proyek/belum-diambil/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}">
+                                        <a type="button" class="btn btn-primary" href="/admin/proyek/belum-diambil/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}">
                                             Detail
                                         </a>
                                     </div>

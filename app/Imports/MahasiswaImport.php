@@ -25,7 +25,6 @@ class MahasiswaImport implements ToCollection
             'namaMahasiswa' => $row[2],
 
             preg_match('~/(.*?)/SV~', $nim6, $output),
-
             'username' => strval($output[1]),
             'password' => bcrypt(strval($output[1])),
             'passwordBackup' => bcrypt(strval($output[1])),

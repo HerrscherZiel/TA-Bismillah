@@ -31,11 +31,12 @@ class DashboardController extends Controller
 
         // dd($idMpro);
 
-        if(count($idMpro) > 0){
+            $idm = array();
 
             foreach ($idMpro as $mpro){
             $idm[] = $mpro->id_mahasiswaProyek;
             }
+        
 
         $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('anggotakelompok', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
@@ -46,9 +47,15 @@ class DashboardController extends Controller
                                     ->select('kelompokproyek.*', 'namaKelasProyek', 'tahunAjaran', 'semester')
                                     ->getQuery()
                                     ->get();
+                                    
+
+        if(count($kelompok) > 0){
+            $dashboard = 1;
+
         }
         else{
-            $kelompok[] = NULL;
+            $dashboard = 0;
+
         }
 
         // dd($kelompok);
@@ -58,7 +65,8 @@ class DashboardController extends Controller
         // dd($kelompok);
 
         return view('mahasiswa.dashboard.index')->with('kelompok', $kelompok)
-                                                ->with('dosen', $dosen);
+                                                ->with('dosen', $dosen)
+                                                ->with('dashboard', $dashboard);
 
         }
 
@@ -159,7 +167,7 @@ class DashboardController extends Controller
 
         $namaDosen = Dosen::select('namaDosen', 'id_dosen')->getQuery()->get();
 
-                                // dd($usul);
+        // dd($usul);
 
         // dd($proyek);
 

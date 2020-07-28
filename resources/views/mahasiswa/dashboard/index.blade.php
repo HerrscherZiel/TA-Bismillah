@@ -5,7 +5,7 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
 
-    @if(count($kelompok) == 1 & $kelompok[0] == NULL)
+    @if($dashboard == 0)
 
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-4 mx-auto">
@@ -22,9 +22,16 @@
         </div>
     </div>
 
+                <div class="card-body">
+                    <div class="col-12 text-center">
+                        <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
+                            <h5>Belum ada kelompok proyek</h5>
+                        </div>
+                    </div>
+                </div>
+
     @else
         <div class="row list">
-
         @foreach($kelompok as $kel)
             <div class="col-md-6">
                 <div class="card shadow mb-4">
@@ -34,7 +41,7 @@
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">
                                 @if($kel->judulPrioritas == 'Belum ada judul')
-                                    Kelompok Proyek
+                                    Kelompok Proyek {{$kel->namaKelasProyek}}
                                 @else
                                     {{$kel->judulPrioritas}}
                                 @endif

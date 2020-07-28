@@ -42,9 +42,15 @@ class MilestoneController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'milestone' => 'required',
+            'statusMilestone' => 'required',
+            'tglTarget' => 'required',
+            'tglPerkiraan' => 'required',
+        ]);
         Milestone::create($request->all());
 
-        return back();
+        return back()->with('success', 'Berhasil menambah milestone');
     }
 
     /**
@@ -79,6 +85,12 @@ class MilestoneController extends Controller
     public function update(Request $request)
     {
         //
+        $this->validate($request, [
+            'milestone' => 'required',
+            'statusMilestone' => 'required',
+            'tglTarget' => 'required',
+            'tglPerkiraan' => 'required',
+        ]);
         $milestone                    = Milestone::findOrFail($request->id_milestone);
         $milestone->milestone             = $request->milestone;
         $milestone->statusMilestone           = $request->statusMilestone;
@@ -87,7 +99,7 @@ class MilestoneController extends Controller
 
         $milestone->save();
 
-        return back();
+        return back()->with('success', 'Berhasil mengubah milestone');
     }
 
     /**
@@ -102,6 +114,6 @@ class MilestoneController extends Controller
         $milestone = Milestone::findOrFail($id);
         $milestone->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus milestone');
     }
 }

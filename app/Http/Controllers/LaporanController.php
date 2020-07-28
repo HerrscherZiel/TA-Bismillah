@@ -13,6 +13,8 @@ use App\Pencapaian;
 use App\AgendaSelanjutnya;
 use App\Milestone;
 use App\Lampiran;
+use Carbon\Carbon;
+
 
 
 class LaporanController extends Controller
@@ -22,12 +24,6 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        return view('mahasiswa.laporan.index');
-
-    }
 
     public  function indexDosen()
     {
@@ -49,7 +45,6 @@ class LaporanController extends Controller
                                                 ->getQuery()
                                                 ->get();
             
-            // dd($kelompokBimbingan);
 
             return view('dosen.laporan.index')->with('kelasperiode', $kelasperiode);
 
@@ -63,9 +58,9 @@ class LaporanController extends Controller
     }
 
     public function indexLaporanDosen($idkel, $idper){
+
         if(Auth::guard('dosen')->check()) {
 
-            // dd($idkel);
             $id = Auth::guard('dosen')->user()->id_dosen;
 
             $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
@@ -79,12 +74,16 @@ class LaporanController extends Controller
                                     ->getQuery()
                                     ->get();
             
-            // dd($kelompok);
+            if(count($kelompok) < 1){
+                return view('errors.404');
+            }
 
-            $dosen = Dosen::all();
+            else{
+                $dosen = Dosen::all();
 
-            return view('dosen.laporan.indexLaporan')->with('dosen', $dosen)
-                                                        ->with('kelompok', $kelompok);
+                return view('dosen.laporan.indexLaporan')->with('dosen', $dosen)
+                                                            ->with('kelompok', $kelompok);
+            }
 
         }
 
@@ -110,10 +109,12 @@ class LaporanController extends Controller
                             ->getQuery()
                             ->get();
 
-        // dd($laporan);
-
-        return view('dosen.laporan.indexLaporanKelompok')->with('laporan', $laporan);
-
+            if(count($laporan) < 1){
+                return view('errors.404');
+            }
+            else{
+                return view('dosen.laporan.indexLaporanKelompok')->with('laporan', $laporan);
+            }
         }
 
         else{
@@ -123,32 +124,49 @@ class LaporanController extends Controller
         }
     }
 
-
     public function indexMahasiswa()
     {
         //
 
-        //        dd($id);
-        //ambil id mahasiswa ke mhsproyek
+        if(Auth::guard('mahasiswa')->check()) {
+
         $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
 
-            //    dd($id);
+        
+        $idMpro = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                ->where('mahasiswa_id', '=', $id)
+                                ->select('mahasiswaproyek.id_mahasiswaProyek', 'mahasiswaproyek.kelasProyek_id', 'kelasproyek.namaKelasProyek', 'mahasiswa.namaMahasiswa')
+                                ->getQuery()
+                                ->get();
 
-        $laporan = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                                    ->join('mahasiswa', 'mahasiswa_id', '=' ,'id_mahasiswa')
+        // dd($Mpro);
+        $idmp = array();
+        foreach ($idMpro as $idm)
+            $idmp[] = $idm->id_mahasiswaProyek;
+            
+            // dd($idmp);
+
+        $laporan = KelompokProyek::join('anggotakelompok','kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
-                                    ->where('mahasiswa_id', '=', $id)
+                                    ->whereIn('anggotaKelompok.mahasiswaProyek_id',  $idmp)
                                     ->where('statusKelompok', '=', 'Aktif')
-                                    // ->whereIn('id_mahasiswaProyek', $b)
                                     ->select('kelompokproyek.*', 'mahasiswaproyek.*','kelasproyek.*', 'periode.*')
                                     ->getQuery()
                                     ->get();
 
-        // dd($kelasperiode);
+        // dd($laporan);
         
 
         return view('mahasiswa.laporan.index')->with('laporan', $laporan);
+
+        }
+
+        else{
+            return view('errors.403');
+        }
 
     }
 
@@ -156,23 +174,47 @@ class LaporanController extends Controller
     {
         //
 
-        //        dd($id);
-        //ambil id mahasiswa ke mhsproyek
+        if(Auth::guard('mahasiswa')->check()) {
 
-        //        dd($id);
+        $ids = Auth::guard('mahasiswa')->user()->id_mahasiswa;
+
+        $idMpro = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                ->where('mahasiswa_id', '=', $ids)
+                                ->select('mahasiswaproyek.id_mahasiswaProyek', 'mahasiswaproyek.kelasProyek_id', 'kelasproyek.namaKelasProyek', 'mahasiswa.namaMahasiswa')
+                                ->getQuery()
+                                ->get();
+
+        // dd($Mpro);
+        $idmp = array();
+        foreach ($idMpro as $idm)
+            $idmp[] = $idm->id_mahasiswaProyek;
 
         $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('kelompokProyek_id', '=', $id)
-                            // ->whereIn('id_mahasiswaProyek', $b)
+                            ->join('mahasiswaproyek', 'kelompokproyek.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                            ->join('anggotakelompok', 'anggotakelompok.kelompokProyek_id', '=', 'id_kelompokProyek')
+                            ->where('id_kelompokProyek', '=', $id)
+                            ->whereIn('anggotaKelompok.mahasiswaProyek_id', $idmp)
                             ->select('kelompokproyek.*', 'laporan.*')
                             ->orderBy('id_laporan', 'desc')
                             ->getQuery()
-                            ->get();
+                            ->get();      
+                            
+            if(count($laporan) < 1){
+                return view('errors.404');
+            }
+            else{
+                $idkel = $id;
 
-        // dd($laporan);
-        
+                return view('mahasiswa.laporan.indexLaporan')->with('laporan', $laporan)
+                                                                ->with('idkel', $idkel);
+            }
 
-        return view('mahasiswa.laporan.indexLaporan')->with('laporan', $laporan);
+        }
+
+        else{
+            return view('errors.403');
+        }
 
     }
 
@@ -195,9 +237,18 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         //
+
+        // dd($request);
+        $this->validate($request, [
+            'kelompokProyek_id' => 'required',
+            'tglMulai' => 'required',
+            'tglSelesai' => 'required | after_or_equal:tglMulai',
+            'tglKirim' => 'required | after_or_equal:tglSelesai'
+        ]);
+
         Laporan::create($request->all());
 
-        return back();
+        return back()->with('success', 'Berhasil menambah laporan');
     }
 
     /**
@@ -209,137 +260,176 @@ class LaporanController extends Controller
     public function showDosen($id)
     {
         //
+        if(Auth::guard('dosen')->check()) {
 
-        $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('id_laporan', '=', $id)
-                            // ->whereIn('id_mahasiswaProyek', $b)
-                            ->select('kelompokproyek.*', 'laporan.*')
-                            ->orderBy('id_laporan', 'desc')
-                            ->getQuery()
-                            ->get();
+            $ids = Auth::guard('dosen')->user()->id_dosen;
 
-        $dosen = Dosen::all();
+            $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                ->where('id_laporan', '=', $id)
+                                ->select('kelompokproyek.*', 'laporan.*')
+                                ->orderBy('id_laporan', 'desc')
+                                ->getQuery()
+                                ->get();
+            // dd(count($laporan));
 
-        $pencapaian = Pencapaian::join('laporan', 'id_laporan', '=', 'laporan_id')
-                                 ->where('id_laporan', '=', $id)
-                                 ->select('laporan.id_laporan', 'pencapaian.*')
-                                 ->getQuery()
-                                 ->get();
+            if(count($laporan) < 1){
+                return view('errors.404');
+            }
+            elseif($laporan[0]->dosen_id != $ids){
+                return view('errors.403');
+            }
+            else{
+                $dosen = Dosen::all();
 
-        // dd($pencapaian);
+                $pencapaian = Pencapaian::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                        ->where('id_laporan', '=', $id)
+                                        ->select('laporan.id_laporan', 'pencapaian.*')
+                                        ->getQuery()
+                                        ->get();
 
-        $agenda = AgendaSelanjutnya::join('laporan', 'id_laporan', '=', 'laporan_id')
+                // dd($pencapaian);
+
+                $agenda = AgendaSelanjutnya::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                            ->where('id_laporan', '=', $id)
+                                            ->select('laporan.id_laporan', 'agendaselanjutnya.*')
+                                            ->getQuery()
+                                            ->get();
+
+
+                $kelid = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                                     ->where('id_laporan', '=', $id)
-                                    ->select('laporan.id_laporan', 'agendaselanjutnya.*')
+                                    // ->whereIn('id_mahasiswaProyek', $b)
+                                    ->select('id_kelompokProyek')
+                                    ->getQuery()
+                                    ->get();   
+                                    
+                //ambil id kel pro
+                foreach($kelid as $ikel){
+                    $idke = $ikel->id_kelompokProyek;
+                }
+
+                // dd($idke);
+
+                $milestone = Milestone::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                        ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->where('id_kelompokProyek', '=', $idke)
+                                        ->select('laporan.id_laporan', 'milestone.*')
+                                        ->getQuery()
+                                        ->get();
+
+                // dd($milestone);
+
+                $lampiran = Lampiran::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                    ->where('id_laporan', '=', $id)
+                                    ->select('laporan.id_laporan', 'lampiran.*')
                                     ->getQuery()
                                     ->get();
 
+                // dd($lampiran);
 
-        $kelid = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('id_laporan', '=', $id)
-                            // ->whereIn('id_mahasiswaProyek', $b)
-                            ->select('id_kelompokProyek')
-                            ->getQuery()
-                            ->get();   
-                            
-        //ambil id kel pro
-        foreach($kelid as $ikel){
-            $idke = $ikel->id_kelompokProyek;
+                return view('dosen.laporan.detailLaporanProyek')->with('laporan', $laporan)
+                                                    ->with('dosen', $dosen)
+                                                    ->with('pencapaian', $pencapaian)
+                                                    ->with('agenda', $agenda)
+                                                    ->with('milestone', $milestone)
+                                                    ->with('lampiran', $lampiran);
+            
+            }
         }
-
-        // dd($idke);
-
-        $milestone = Milestone::join('laporan', 'id_laporan', '=', 'laporan_id')
-                                ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                ->where('id_kelompokProyek', '=', $idke)
-                                ->select('laporan.id_laporan', 'milestone.*')
-                                ->getQuery()
-                                ->get();
-
-        // dd($milestone);
-
-        $lampiran = Lampiran::join('laporan', 'id_laporan', '=', 'laporan_id')
-                            ->where('id_laporan', '=', $id)
-                            ->select('laporan.id_laporan', 'lampiran.*')
-                            ->getQuery()
-                            ->get();
-
-        // dd($lampiran);
-
-        return view('dosen.laporan.detailLaporanProyek')->with('laporan', $laporan)
-                                             ->with('dosen', $dosen)
-                                             ->with('pencapaian', $pencapaian)
-                                             ->with('agenda', $agenda)
-                                             ->with('milestone', $milestone)
-                                             ->with('lampiran', $lampiran);
+        else{
+            return view('errors.403');
+        }
 
     }
 
     public function showMahasiswa($id)
     {
         //
-        $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('id_laporan', '=', $id)
-                            // ->whereIn('id_mahasiswaProyek', $b)
-                            ->select('kelompokproyek.*', 'laporan.*')
-                            ->orderBy('id_laporan', 'desc')
-                            ->getQuery()
-                            ->get();
 
-        $dosen = Dosen::all();
+        if(Auth::guard('mahasiswa')->check()) {
 
-        $pencapaian = Pencapaian::join('laporan', 'id_laporan', '=', 'laporan_id')
-                                 ->where('id_laporan', '=', $id)
-                                 ->select('laporan.id_laporan', 'pencapaian.*')
-                                 ->getQuery()
-                                 ->get();
+            $ids = Auth::guard('mahasiswa')->user()->id_mahasiswa;
 
-        // dd($pencapaian);
-
-        $agenda = AgendaSelanjutnya::join('laporan', 'id_laporan', '=', 'laporan_id')
-                                    ->where('id_laporan', '=', $id)
-                                    ->select('laporan.id_laporan', 'agendaselanjutnya.*')
+            $idMpro = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                    ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                                    ->where('mahasiswa_id', '=', $ids)
+                                    ->select('mahasiswaproyek.id_mahasiswaProyek', 'mahasiswaproyek.kelasProyek_id', 'kelasproyek.namaKelasProyek', 'mahasiswa.namaMahasiswa')
                                     ->getQuery()
                                     ->get();
+    
+            // dd($Mpro);
+            $idmp = array();
+            foreach ($idMpro as $idm)
+                $idmp[] = $idm->id_mahasiswaProyek;
 
-
-        $kelid = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->where('id_laporan', '=', $id)
-                            // ->whereIn('id_mahasiswaProyek', $b)
-                            ->select('id_kelompokProyek')
-                            ->getQuery()
-                            ->get();   
-                            
-        //ambil id kel pro
-        foreach($kelid as $ikel){
-            $idke = $ikel->id_kelompokProyek;
-        }
-
-        // dd($idke);
-
-        $milestone = Milestone::join('laporan', 'id_laporan', '=', 'laporan_id')
-                                ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                ->where('id_kelompokProyek', '=', $idke)
-                                ->select('laporan.id_laporan', 'milestone.*')
+            $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                ->join('mahasiswaproyek', 'kelompokproyek.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                ->join('anggotakelompok', 'anggotakelompok.kelompokProyek_id', '=', 'id_kelompokProyek')
+                                ->whereIn('anggotakelompok.mahasiswaProyek_id', $idmp)
+                                ->where('id_laporan', '=', $id)
+                                ->select('kelompokproyek.*', 'laporan.*')
+                                ->orderBy('id_laporan', 'desc')
                                 ->getQuery()
                                 ->get();
 
-        // dd($milestone);
+            if(count($laporan) < 1){
+                return view('errors.404');
+            }
+            else{
+                $dosen = Dosen::all();
 
-        $lampiran = Lampiran::join('laporan', 'id_laporan', '=', 'laporan_id')
-                            ->where('id_laporan', '=', $id)
-                            ->select('laporan.id_laporan', 'lampiran.*')
-                            ->getQuery()
-                            ->get();
+                $pencapaian = Pencapaian::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                        ->where('id_laporan', '=', $id)
+                                        ->select('laporan.id_laporan', 'pencapaian.*')
+                                        ->getQuery()
+                                        ->get();
 
-        // dd($lampiran);
+                // dd($pencapaian);
 
-        return view('mahasiswa.laporan.show')->with('laporan', $laporan)
-                                             ->with('dosen', $dosen)
-                                             ->with('pencapaian', $pencapaian)
-                                             ->with('agenda', $agenda)
-                                             ->with('milestone', $milestone)
-                                             ->with('lampiran', $lampiran);
+                $agenda = AgendaSelanjutnya::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                            ->where('id_laporan', '=', $id)
+                                            ->select('laporan.id_laporan', 'agendaselanjutnya.*')
+                                            ->getQuery()
+                                            ->get();
+
+
+                $kelid = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->where('id_laporan', '=', $id)
+                                    // ->whereIn('id_mahasiswaProyek', $b)
+                                    ->select('id_kelompokProyek')
+                                    ->getQuery()
+                                    ->get();   
+                                    
+                //ambil id kel pro
+                foreach($kelid as $ikel){
+                    $idke = $ikel->id_kelompokProyek;
+                }
+
+                $milestone = Milestone::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                        ->join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->where('id_kelompokProyek', '=', $idke)
+                                        ->select('laporan.id_laporan', 'milestone.*')
+                                        ->getQuery()
+                                        ->get();
+
+                $lampiran = Lampiran::join('laporan', 'id_laporan', '=', 'laporan_id')
+                                    ->where('id_laporan', '=', $id)
+                                    ->select('laporan.id_laporan', 'lampiran.*')
+                                    ->getQuery()
+                                    ->get();
+
+                return view('mahasiswa.laporan.show')->with('laporan', $laporan)
+                                                    ->with('dosen', $dosen)
+                                                    ->with('pencapaian', $pencapaian)
+                                                    ->with('agenda', $agenda)
+                                                    ->with('milestone', $milestone)
+                                                    ->with('lampiran', $lampiran);
+            }
+        }                
+        
+        else{
+            return view('errors.403');
+        }
 
     }
 
@@ -366,7 +456,11 @@ class LaporanController extends Controller
     {
         //
         // dd($request);
-
+        $this->validate($request, [
+            'tglMulai' => 'required',
+            'tglSelesai' => 'required | after_or_equal:tglMulai',
+            'tglKirim' => 'required | after_or_equal:tglSelesai'
+        ]);
             $laporan                    = Laporan::findOrFail($request->id_laporan);
             $laporan->tglMulai             = $request->tglMulai;
             $laporan->tglSelesai           = $request->tglSelesai;
@@ -374,7 +468,7 @@ class LaporanController extends Controller
 
             $laporan->save();
 
-            return back();
+            return back()->with('success', 'Berhasil mengubah laporan');
 
     }
 
@@ -390,6 +484,6 @@ class LaporanController extends Controller
         $laporan = Laporan::findOrFail($id);
         $laporan->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus laporan');
     }
 }

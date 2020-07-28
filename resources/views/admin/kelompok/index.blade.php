@@ -23,7 +23,7 @@
                                         <h6 class="font-weight-bold text-primary m-0">{{$kelper->namaKelasProyek}}</h6>
                                     </div>
                                     <div class="col-lg-4 col-sm-4 my-auto text-right">
-                                            <button type="button" class="btn btn-primary text-center" ><a href="/kelompok/index/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}" style="color: white;">
+                                            <button type="button" class="btn btn-primary text-center" ><a href="/admin/kelompok/index/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}" style="color: white;">
                                                 Detail
                                             </a></button>
                                     </div>  

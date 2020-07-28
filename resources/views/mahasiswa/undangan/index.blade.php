@@ -8,9 +8,6 @@
 
     <div>
         <div class="row list">
-            <div class="col-10 offset-1 text-right">
-            Search
-            </div>
             <div class="col-10 offset-1">
                 <div class="row">
 
@@ -29,16 +26,6 @@
                                         <a type="button" class="btn btn-primary" href="/mahasiswa/undangan/detail/{{$und->id_kelompokProyek}}">
                                                                                 Detail
                                         </a>
-                                        
-                                        <!-- <button type="button" class="btn btn-primary" 
-                                            data-id="{{$und->id_kelompokProyek}}"
-                                            data-kelas="{{$und->id_kelasProyek}}"
-                                            data-periode="{{$und->id_periode}}"
-                                            data-idang="{{$und->id_anggotaKelompok}}"
-                                            data-pm="{{$und->pm}}"
-                                            data-statuskel="{{$und->statusKelompok}}"
-                                            data-toggle="modal" data-target="#detailUndangan">
-                                        Detail</button> -->
 
                                     </div>
                                 </div>

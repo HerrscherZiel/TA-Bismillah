@@ -18,10 +18,19 @@
 
     </div>
 
-    <div class="col-lg-11 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary text-center" ><a href="/proyek/belum-diambil/{{$id_kls}}/{{$id_per}}" style="color: white;">Belum Diambil</a></button>
-            <button type="button" class="btn btn-secondary text-center" ><a href="/proyek/selesai/{{$id_kls}}/{{$id_per}}" style="color: white;">Selesai</a></button>
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-1">
+                <a href="/admin/proyek">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
+                <br>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary text-center" ><a href="/admin/proyek/belum-diambil/{{$id_kls}}/{{$id_per}}" style="color: white;">Belum Diambil</a></button>
+                    <button type="button" class="btn btn-secondary text-center" ><a href="/admin/proyek/selesai/{{$id_kls}}/{{$id_per}}" style="color: white;">Selesai</a></button>
+                </div>
+            </div>
         </div>
     </div>
 

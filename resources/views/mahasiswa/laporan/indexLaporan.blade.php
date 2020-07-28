@@ -2,8 +2,30 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Laporan</h1>
+    </div>
+
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-1">
+                <a href="/mahasiswa/laporan">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
+                <br>
+                <br>
+            </div>
+        </div>
     </div>
 
     <div class="row justify-content-md-center">
@@ -45,12 +67,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
                                 @foreach($laporan as $lap)
                                     <tr>
-                                        <td>{{date('d-m-Y', strtotime($lap->tglMulai))}}</td>
-                                        <td>{{date('d-m-Y', strtotime($lap->tglSelesai))}}</td>
-                                        <td>{{date('d-m-Y', strtotime($lap->tglKirim))}}</td>
+                                        <td>{{date('d-F-Y', strtotime($lap->tglMulai))}}</td>
+                                        <td>{{date('d-F-Y', strtotime($lap->tglSelesai))}}</td>
+                                        <td>{{date('d-F-Y', strtotime($lap->tglKirim))}}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-info" href="/mahasiswa/laporan/detail/{{$lap->id_laporan}}">
@@ -70,7 +91,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -132,9 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @foreach($laporan as $lap)
-                                <input type="hidden"  type="text" name="kelompokProyek_id" value="{{$lap->id_kelompokProyek}}">
-                            @endforeach
+                                <input type="hidden"  type="text" name="kelompokProyek_id" value={{$idkel}}>
                         </div>
                     </div>
 
@@ -215,6 +234,7 @@
                 var button = $(event.relatedTarget)
 
                 var idlap = button.data('idlap')
+                var idkel = button.data('idkel')
                 var mulai = button.data('mulai')
                 var selesai = button.data('selesai')
                 var kirim = button.data('kirim')
@@ -222,6 +242,7 @@
 
                 var modal = $(this)
                 modal.find('.modal-body #idlap').val(idlap)
+                modal.find('.modal-body #idkel').val(idkel)
                 modal.find('.modal-body #mulai').val(mulai)
                 modal.find('.modal-body #selesai').val(selesai)
                 modal.find('.modal-body #kirim').val(kirim)

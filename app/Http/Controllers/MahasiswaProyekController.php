@@ -96,11 +96,19 @@ class MahasiswaProyekController extends Controller
      */
     public function store(Request $request)
     {   
-        $this->validate($request, [
+
+        $rules = [
             'mahasiswa_id' => 'required',
             'kelasProyek_id' => 'required',
             'periode_id' => 'required | unique_with:mahasiswaproyek,mahasiswa_id,kelasProyek_id',
-        ]);
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang ditambahkan sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
+
 
         MahasiswaProyek::create($request->all());
 
@@ -139,11 +147,18 @@ class MahasiswaProyekController extends Controller
     public function update(Request $request)
     {
         //
-        $this->validate($request, [
+
+        $rules = [
             'mahasiswa_id' => 'required',
             'kelasProyek_id' => 'required',
             'periode_id' => 'required | unique_with:mahasiswaproyek,mahasiswa_id,kelasProyek_id',
-        ]);
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang diubah sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
 
         $mhsPro = MahasiswaProyek::findOrFail($request->id_mahasiswaProyek);
         $mhsPro->update($request->all());

@@ -41,6 +41,10 @@ class LampiranController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'lampiran' => 'required',
+            'fileLampiran' => 'required | mimes:jpeg,png,jpg | max:5000',
+            ]);
         $lamp = new Lampiran;
 
         $file = $request->file('fileLampiran');
@@ -52,7 +56,7 @@ class LampiranController extends Controller
         $lamp->lampiran = $request->lampiran;
         $lamp->laporan_id = $request->laporan_id;
         $lamp->save();
-        return redirect()->back()->with('success', 'Lampiran berhasil ditambah');
+        return back()->with('success', 'Berhasil menambah lampiran');
     }
 
     /**
@@ -101,6 +105,6 @@ class LampiranController extends Controller
         $lamp = Lampiran::findOrFail($id);
         $lamp->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus lampiran');
     }
 }

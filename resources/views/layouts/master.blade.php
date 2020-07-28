@@ -30,11 +30,15 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <!--      <a class="sidebar-brand d-flex align-items-center justify-content-center mt-2" href="index2.html">-->
-
-        <!--      </a>-->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index2.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center"
+         href="
+            @if(Auth::guard('mahasiswa')->check())
+                /mahasiswa/dashboard
+            @elseif(Auth::guard('dosen')->check())
+                /dosen/dashboard
+            @elseif(Auth::guard('admin')->check())
+                /admin/dashboard
+            @endif">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-sitemap"></i>
             </div>
@@ -64,62 +68,62 @@
         <!-- Nav Item - Dashboard -->
 
         @if(Auth::guard('admin')->check())
-        <li class="nav-item active">
+        <li class="nav-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
             <a class="nav-link" href="/admin/dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/admin">
+        <li class="nav-item {{ (request()->is('admin/admin')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/admin">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Admin</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/dosen">
+        <li class="nav-item {{ (request()->is('admin/dosen')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/dosen">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Dosen</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/mahasiswa">
+        <li class="nav-item {{ (request()->is('admin/mahasiswa')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/mahasiswa">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Mahasiswa</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/periode">
+        <li class="nav-item {{ (request()->is('admin/periode')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/periode">
                 <i class="fas fa-fw fa-clock"></i>
                 <span>Periode</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/kelasproyek">
+        <li class="nav-item {{ (request()->is('admin/kelasproyek', 'admin/kelasproyek*')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/kelasproyek">
                 <i class="fas fa-fw fa-chalkboard-teacher"></i>
                 <span>Kelas Proyek</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/mahasiswaproyek">
+        <li class="nav-item {{ (request()->is('admin/mahasiswaproyek')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/mahasiswaproyek">
                 <i class="fas fa-fw fa-book-reader"></i>
                 <span>Mahasiswa Proyek</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/proyek">
+        <li class="nav-item {{ (request()->is('admin/proyek', 'admin/proyek/*')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/proyek">
                 <i class="fas fa-fw fa-tasks"></i>
                 <span>Proyek</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/usulmahasiswa">
+        <li class="nav-item {{ (request()->is('admin/usulmahasiswa', 'admin/usul/*')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/usulmahasiswa">
                 <i class="fas fa-fw fa-sticky-note"></i>
                 <span>Usul Proyek</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/kelompokproyek">
+        <li class="nav-item {{ (request()->is('admin/kelompokproyek', 'admin/kelompok/*')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/kelompokproyek">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Kelompok Proyek</span></a>
         </li>
@@ -128,78 +132,79 @@
 
         <!-- Divider -->
 
-        @if(Auth::guard('dosen')->check())
-            <li class="nav-item active">
-                <a class="nav-link" href="/dosen/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+    @if(Auth::guard('dosen')->check())
+        <li class="nav-item {{ (request()->is('dosen/dashboard')) ? 'active' : '' }}">
+            <a class="nav-link" href="/dosen/dashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('dosen/profil')) ? 'active' : '' }}">
             <a class="nav-link" href="/dosen/profil">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Profile</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('dosen/proyek', 'dosen/proyek-aktif', 'dosen/proyek-selesai')) ? 'active' : '' }}">
             <a class="nav-link" href="/dosen/proyek">
                 <i class="fas fa-fw fa-tasks"></i>
                 <span>Proyek</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('dosen/kelompok-bimbingan', 'dosen/kelompok-bimbingan/*/*')) ? 'active' : '' }}">
             <a class="nav-link" href="/dosen/kelompok-bimbingan">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Kelompok Bimbingan</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('dosen/laporan', 'dosen/laporan/*/*')) ? 'active' : '' }}">
             <a class="nav-link" href="/dosen/laporan">
                 <i class="fas fa-fw fa-copy"></i>
                 <span>Laporan</span>
             </a>
         </li>
-        @endif
+    @endif
 
-        @if(Auth::guard('mahasiswa')->check())
-            <li class="nav-item active">
-                <a class="nav-link" href="/mahasiswa/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+    @if(Auth::guard('mahasiswa')->check())
+        <li class="nav-item {{ (request()->is('mahasiswa/dashboard')) ? 'active' : '' }}">
+            <a class="nav-link " href="/mahasiswa/dashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <li class="nav-item {{ (request()->is('mahasiswa/profileMahasiswa')) ? 'active' : '' }}">
             <a class="nav-link" href="/mahasiswa/profileMahasiswa">
                 <i class="fas fa-fw fa-user"></i>
-                <span>Profile</span>
+                <span>Profil</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('mahasiswa/proyek/kelompok', 'mahasiswa/proyek/kelompok/show/*')) ? 'active' : '' }}">
             <a class="nav-link" href="/mahasiswa/proyek/kelompok">
                 <i class="fas fa-fw fa-tasks"></i>
                 <span>Proyek</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('mahasiswa/undangan', 'mahasiswa/undangan/detail/*')) ? 'active' : '' }}">
             <a class="nav-link" href="/mahasiswa/undangan">
                 <i class="fas fa-fw fa-inbox"></i>
                 <span>Undangan</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('mahasiswa/laporan', 'mahasiswa/laporan/index/*', 'mahasiswa/laporan/detail/*')) ? 'active' : '' }}">
             <a class="nav-link" href="/mahasiswa/laporan">
                 <i class="fas fa-fw fa-copy"></i>
                 <span>Laporan</span>
             </a>
         </li>
     @endif
+
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>

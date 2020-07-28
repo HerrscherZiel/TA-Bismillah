@@ -123,21 +123,21 @@
                             <div class="row">
                                 <div class="col-md-12"><b>NIP</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="number" name="nip" placeholder="NIP administrator" required>
+                                        <input class="form-control" type="number" name="nip" placeholder="NIP admin" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Nama</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="namaAdmin" placeholder="Nama" required>
+                                        <input class="form-control" type="text" name="namaAdmin" placeholder="Nama admin" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"><b>Email</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="email" placeholder="email" required>
+                                        <input class="form-control" type="text" name="email" placeholder="email admin" required>
                                     </div>
                                 </div>
                             </div>

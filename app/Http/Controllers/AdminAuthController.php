@@ -31,9 +31,9 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
-//        dd(request()->all());
+
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required | exists:admin,email',
             'password' => 'required'
         ]);
 
@@ -45,7 +45,9 @@ class AdminAuthController extends Controller
         }
 
 //        dd("test");
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
+            'approve' => 'Wrong password or this account not approved yet.',
+        ]);
 
     }
 

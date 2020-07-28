@@ -49,10 +49,16 @@ class PeriodeController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
+        $rules = [
             'tahunAjaran' => 'required',
             'semester' => 'required | unique_with:periode,tahunAjaran,semester',
-        ]);
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang ditambahkan sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
 
         Periode::create($request->all());
 
@@ -91,10 +97,17 @@ class PeriodeController extends Controller
     public function update(Request $request)
     {
         //
-        $this->validate($request, [
+        $rules = [
             'tahunAjaran' => 'required',
-            'semester' => 'required',
-        ]);
+            'semester' => 'required | unique_with:periode,tahunAjaran,semester',
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang diubah sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
+
         $periode = Periode::findOrFail($request->id_periode);
         $periode->update($request->all());
 

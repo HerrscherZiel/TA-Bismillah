@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
 
 class Laporan extends Model
 {
@@ -45,6 +47,11 @@ class Laporan extends Model
 
     public function pencapaian(){
         return $this->hasMany('App\Pencapaian', 'laporan_id');
+    }
+
+    public function getTglMulaiAttribute(){
+    return \Carbon\Carbon::parse($this->attributes['tglMulai'])
+       ->format('D M Y');
     }
 
 }

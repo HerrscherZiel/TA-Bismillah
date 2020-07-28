@@ -9,6 +9,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 
 
 class DosenController extends Controller
@@ -58,13 +60,13 @@ class DosenController extends Controller
         Excel::import(new DosenImport,$file);
 
         // notifikasi dengan session
-        Session::flash('sukses','Data Siswa Berhasil Diimport!');
+        // Session::flash('sukses','Data Siswa Berhasil Diimport!');
 
         $file->move('import_dosen',$nama_file);
 
 
         // alihkan halaman kembali
-        return redirect('/dosen')->with('success','Berhasil mengimpor data dosen');
+        return redirect('admin/dosen')->with('success','Berhasil mengimpor data dosen');
 
     }
 
@@ -153,7 +155,7 @@ class DosenController extends Controller
         $dosen = Dosen::findOrFail($request->id_dosen);
         $dosen->update($request->all());
 
-        return back()->with('success', 'Data Berhasil Diubah');;
+        return back()->with('success', 'Berhasil mengubah data dosen');;
     }
 
     public function reset(Request $request)

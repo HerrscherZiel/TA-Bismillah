@@ -53,6 +53,9 @@ class ProyekController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
+
         $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
             ->where('kelasProyek_id', '=', $idkel)
@@ -62,30 +65,30 @@ class ProyekController extends Controller
             ->getQuery()
             ->get();
 
-        $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                    ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
-                                    ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                    ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
-                                    ->getQuery()
-                                    ->get();
+            $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
+                                        ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                        ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
+                                        ->getQuery()
+                                        ->get();
 
-        // dd($penambah);
-        $id_kls = $idkel;
-        $id_per = $idper;    
+            // dd($penambah);
+            $id_kls = $idkel;
+            $id_per = $idper;    
 
-        // $usulMhs = UsulMahasiswa::all();
-        $dosen   = Dosen::all();
-        $kelasproyek = KelasProyek::all();
-        $periode = Periode::all();
+            // $usulMhs = UsulMahasiswa::all();
+            $dosen   = Dosen::all();
+            $kelasproyek = KelasProyek::all();
+            $periode = Periode::all();
 
-        return view('admin.proyek.indexBelumDiambil') ->with('proyek', $proyek)
-                                                ->with('penambah', $penambah)
-                                                ->with('id_kls', $id_kls)
-                                                ->with('id_per', $id_per)
-                                                ->with('dosen', $dosen)
-                                                ->with('kelasproyek', $kelasproyek)
-                                                ->with('periode', $periode);
-
+            return view('admin.proyek.indexBelumDiambil') ->with('proyek', $proyek)
+                                                    ->with('penambah', $penambah)
+                                                    ->with('id_kls', $id_kls)
+                                                    ->with('id_per', $id_per)
+                                                    ->with('dosen', $dosen)
+                                                    ->with('kelasproyek', $kelasproyek)
+                                                    ->with('periode', $periode);
+            
         }
 
         else{
@@ -99,41 +102,45 @@ class ProyekController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
-        $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-            ->join('periode', 'periode_id', '=', 'id_periode')
-            ->where('kelasProyek_id', '=', $idkel)
-            ->where('periode_id', '=', $idper)
-            ->where('statusProyek', '=', 'Aktif')
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
-            ->getQuery()
-            ->get();
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
 
-        $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                    ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
-                                    ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                    ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
-                                    ->getQuery()
-                                    ->get();
+                $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                    ->join('periode', 'periode_id', '=', 'id_periode')
+                    ->where('kelasProyek_id', '=', $idkel)
+                    ->where('periode_id', '=', $idper)
+                    ->where('statusProyek', '=', 'Aktif')
+                    ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
+                    ->getQuery()
+                    ->get();
+                    
 
-        // dd($penambah);    
+                $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                            ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
+                                            ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                            ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
+                                            ->getQuery()
+                                            ->get();
 
-        $id_kls = $idkel;
-        $id_per = $idper;  
+                // dd($penambah);    
 
-        // $usulMhs = UsulMahasiswa::all();
-        $dosen   = Dosen::all();
-        $kelasproyek = KelasProyek::all();
-        $periode = Periode::all();
+                $id_kls = $idkel;
+                $id_per = $idper;  
+
+                // $usulMhs = UsulMahasiswa::all();
+                $dosen   = Dosen::all();
+                $kelasproyek = KelasProyek::all();
+                $periode = Periode::all();
 
 
-        return view('admin.proyek.indexAktif') ->with('proyek', $proyek)
-                                                ->with('penambah', $penambah)
-                                                ->with('id_kls', $id_kls)
-                                                ->with('id_per', $id_per)                                                
-                                                ->with('dosen', $dosen)
-                                                ->with('kelasproyek', $kelasproyek)
-                                                ->with('periode', $periode);
-
+                return view('admin.proyek.indexAktif') ->with('proyek', $proyek)
+                                                        ->with('penambah', $penambah)
+                                                        ->with('id_kls', $id_kls)
+                                                        ->with('id_per', $id_per)                                                
+                                                        ->with('dosen', $dosen)
+                                                        ->with('kelasproyek', $kelasproyek)
+                                                        ->with('periode', $periode);
+            
         }
 
         else{
@@ -147,6 +154,9 @@ class ProyekController extends Controller
         //
 
         if(Auth::guard('admin')->check()) {
+
+            $exist = KelasProyek::findOrFail($idkel);
+            $exist2 = Periode::findOrFail($idper);
 
         $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
@@ -281,12 +291,18 @@ class ProyekController extends Controller
     {
         //
 
-        $this->validate($request, [
+        $rules = [
             'kelasProyek_id' => 'required',
             'periode_id' => 'required',
             'judul' => 'required | unique_with :proyek,kelasProyek_id,periode_id',
             'statusProyek' => 'required'
-        ]);
+        ];
+
+        $customMessages = [
+            'unique_with' => 'Data yang ditambahkan sudah memiliki data yang sama'
+        ];
+
+        $this->validate($request,$rules, $customMessages);
         
         Proyek::create($request->all());
 
@@ -326,11 +342,13 @@ class ProyekController extends Controller
     {
         //
         // dd($request);
-        $this->validate($request, [
+        $rules = [
             'kelasProyek_id' => 'required',
             'periode_id' => 'required',
-            'judul' => 'required | unique_with :proyek,kelasProyek_id,periode_id, ignore:' .$request->id_proyek . ' = id_proyek',
-        ]);
+            'judul' => 'required',
+        ];
+
+        $this->validate($request,$rules);
 
         $pro = Proyek::findOrFail($request->id_proyek);
         $pro->update($request->all());

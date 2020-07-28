@@ -48,9 +48,13 @@ class PencapaianController extends Controller
         //
 
         // dd($request);
+        $this->validate($request, [
+            'pencapaian' => 'required',
+            'deskripsi' => 'required',
+        ]);
         Pencapaian::create($request->all());
 
-        return back();
+        return back()->with('success', 'Berhasil menambah pencapaian');
     }
 
     /**
@@ -86,12 +90,16 @@ class PencapaianController extends Controller
     {
         //
         // dd($request);
+        $this->validate($request, [
+            'pencapaian' => 'required',
+            'deskripsi' => 'required',
+        ]);
             $pencapaian                    = Pencapaian::findOrFail($request->id_pencapaian);
             $pencapaian->pencapaian             = $request->pencapaian;
             $pencapaian->deskripsi           = $request->deskripsi;
             $pencapaian->save();
 
-            return back();
+            return back()->with('success', 'Berhasil mengubah pencapaian');;
     }
 
     /**
@@ -106,6 +114,6 @@ class PencapaianController extends Controller
         $pencapaian = Pencapaian::findOrFail($id);
         $pencapaian->delete();
 
-        return redirect()->back()->with('success', 'job has been deleted Successfully');
+        return back()->with('success', 'Berhasil menghapus pencapaian');
     }
 }

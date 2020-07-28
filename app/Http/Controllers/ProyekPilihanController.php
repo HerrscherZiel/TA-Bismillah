@@ -66,40 +66,8 @@ class ProyekPilihanController extends Controller
         $usul->save();
         }
 
-        // // dd($request);
-        // $data = $request->all();
-        // $finalArray = array();
-        // // dd($data);
-
-        // foreach($data as $key=>$value){
-        // array_push($finalArray, array(
-        //             'kelompokProyek_id'=>$value['kelompokProyek_id'],
-        //             'proyek_id'=>$value['proyek_id'],
-        //             'prioritas'=>$value['prioritas'])
-        // );
-        // };
-        // dd($finalArray);
-        // ProyekPilihan::insert($finalArray);
-
-        // $head = ProyekPilihan::findorNew($request->id);
-
-        // $head->kelasProyek_id=$request->kelasProyek_id;
-        // dd($head->kelasProyek_id);
-
-        // $head->proyek_id=$request->proyek_id;
-        // $head->prioritas=$request->prioritas;
-        // if ($head->save()){
-        //     $id = $head->id;
-        //     foreach($request->kelasProyek_id as $key =>$kelasProyek_id){
-        //         $data = array(
-        //                         'id_proyekPilihan'=>$id,
-        //                         'kelasProyek_id'=>$request->kelasProyek_id [$key],
-        //                         'proyek_id'=>$request->proyek_id [$key],
-        //                         'prioritas'=>$request->prioritas [$key],
-        //             );
-        //         ProyekPilihan::insert($data);
-        // }
-        return back();
+        
+        return back()->with('success', 'Berhasil memilih proyek');
 
     }
 
@@ -138,6 +106,10 @@ class ProyekPilihanController extends Controller
 
         // dd($request);
         if(Auth::guard('mahasiswa')->check()) {
+
+            $this->validate($request, [
+                'kelompokProyek_id' => 'required',
+            ]);
         
             $propil = $request->id_proyekPilihan;
             // dd($propil);
@@ -253,7 +225,7 @@ class ProyekPilihanController extends Controller
                 $usulJudul->save();
 
             }
-            return back();
+            return back()->with('success', 'Berhasil mengubah pilihan proyek');
         }
         
 

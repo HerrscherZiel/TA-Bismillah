@@ -6,6 +6,8 @@
 
     //dd(Auth::guard('mahasiswa')->user());
     @endphp
+
+    
     <div class="container">
         <div class="row justify-content-center">
         <!-- <i class="fas fa-arrow-left fa-2x mt-3" style="transform: scale(1.3,1);"></i> -->

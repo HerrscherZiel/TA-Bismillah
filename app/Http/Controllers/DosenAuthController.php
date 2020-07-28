@@ -34,7 +34,7 @@ class DosenAuthController extends Controller
     {
 //        dd(request()->all());
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required | exists:dosen,email',
             'password' => 'required'
         ]);
 
@@ -45,7 +45,10 @@ class DosenAuthController extends Controller
         }
 
 //        dd("test");
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        // return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
+            'approve' => 'Wrong password or this account not approved yet.',
+        ]);
 
     }
 
@@ -62,6 +65,5 @@ class DosenAuthController extends Controller
             ->route('login');
         }
 
-//            ->route('mahasiswa.login')
     }
 }

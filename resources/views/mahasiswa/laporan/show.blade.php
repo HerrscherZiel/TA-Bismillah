@@ -1,10 +1,32 @@
 @extends('layouts.master')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Detail Laporan Proyek</h1>
     </div>
 
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-1">
+                <a href="javascript:window.history.back();">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-10 offset-1 mb-4">
@@ -133,6 +155,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @if(count($pencapaian) > 0)
                                                     @foreach($pencapaian as $pen)
                                                         <tr>
                                                             <td>{{$pen->pencapaian}}</td>
@@ -153,7 +176,7 @@
                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                                             <i class="fa fa-lg fa-trash">
                                                                             </i>
                                                                         </button>
@@ -161,8 +184,12 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-
                                                     @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan=3> Belum ada pencapaian </td>
+                                                        </tr>
+                                                    @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -202,6 +229,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @if(count($agenda) > 0)
                                                     @foreach($agenda as $agen)
                                                     <tr>
                                                         <td>{{$agen->agendaSelanjutnya}}</td>
@@ -222,7 +250,7 @@
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                                         <i class="fa fa-lg fa-trash">
                                                                         </i>
                                                                     </button>
@@ -231,6 +259,11 @@
                                                         </td>
                                                     </tr>
                                                     @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan=3> Belum ada agenda selanjutnya </td>
+                                                        </tr>
+                                                    @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -272,6 +305,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @if(count($milestone) > 0)
                                                     @foreach($milestone as $mi)
                                                     <tr>
                                                         <td>{{$mi->milestone}}</td>
@@ -294,7 +328,7 @@
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                                         <i class="fa fa-lg fa-trash">
                                                                         </i>
                                                                     </button>
@@ -303,6 +337,11 @@
                                                         </td>
                                                     </tr>
                                                     @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan=5> Belum ada milestone </td>
+                                                        </tr>
+                                                    @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -339,10 +378,10 @@
                                                         <th>Nama Lampiran</th>
                                                         <th>Foto</th>
                                                         <th>Action</th>
-
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @if(count($lampiran) > 0)
                                                     @foreach($lampiran as $lamp)
                                                     <tr>
                                                         <td>{{$lamp->lampiran}}</td>
@@ -355,7 +394,7 @@
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                                         <i class="fa fa-lg fa-trash">
                                                                         </i>
                                                                     </button>
@@ -364,6 +403,11 @@
                                                         </td>
                                                     </tr>
                                                     @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan=3> Belum ada lampiran </td>
+                                                        </tr>
+                                                    @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -504,7 +548,7 @@
                         <div class="row">
                             <div class="col-md-12"><b>Deskripsi :</b>
                                 <div class="form-group">
-                                    <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Pencapaian"></textarea>
+                                    <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi agenda selanjutnya"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -585,7 +629,7 @@
                         <div class="row">
                             <div class="col-md-12"><b>Milestone :</b>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="milestone" placeholder="Wireframe">
+                                    <input class="form-control" type="text" name="milestone" placeholder="Wireframe, Desain dll....">
                                 </div>
                             </div>
                         </div>
@@ -709,14 +753,14 @@
                             <input type="hidden" name="laporan_id" value="{{$lap->id_laporan}}">
                         @endforeach
                             <div class="row">
-                                <div class="col-md-12"><b>Pencapaian :</b>
+                                <div class="col-md-12"><b>Nama Lampiran :</b>
                                     <div class="form-group">
                                         <input class="form-control" type="text" name="lampiran" placeholder="Membuat...">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12"><b>Pencapaian :</b>
+                                <div class="col-md-12"><b>Lampiran :</b>
                                     <div class="form-group">
                                         <input class="form-control" type="file" name="fileLampiran" lang="ina">
                                     </div>
@@ -740,10 +784,6 @@
     @push('scripts')
          <script>
 
-            $custom-file-text: (
-            en: "Browse",
-            ina: "Pilih file"
-            );
 
             $('#editPencapaian').on('show.bs.modal', function (event) {
 

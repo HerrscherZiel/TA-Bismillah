@@ -1,8 +1,31 @@
 @extends('layouts.master')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
         <h1 class="h3 mb-0 text-gray-800">Informasi Kelompok</h1>
+    </div>
+
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-1">
+                <a href="/mahasiswa/proyek/kelompok">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
+                <br>
+                <br>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -17,7 +40,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Kelompok
                                 @foreach($kelompok as $kel)
                                     @if($kel->judulPrioritas == "Belum ada judul")
-                                        Proyek
+                                        Proyek {{$kel->namaKelasProyek}}
                                     @else
                                         {{$kel->judulPrioritas}}
                                     @endif
@@ -115,8 +138,6 @@
 
                                     @foreach($kelompok as $kel)
                                         @if($kel->statusKelompok != "Menunggu Persetujuan")
-
-
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-3 text-left">
@@ -157,8 +178,8 @@
                                                         </thead>
                                                         <tbody>
 
-                                                        @foreach($laporan as $lap)
                                                         @if(count($laporan) > 0)
+                                                        @foreach($laporan as $lap)
                                                         <tr>
                                                             <td>{{date('d-m-Y', strtotime($lap->tglMulai))}}</td>
                                                             <td>{{date('d-m-Y', strtotime($lap->tglSelesai))}}</td>
@@ -182,7 +203,7 @@
                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                                             <i class="fa fa-lg fa-trash">
                                                                             </i>
                                                                         </button>
@@ -190,12 +211,12 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                         @else
                                                         <tr>
-                                                            <td colspan="5">Belum ada laporan</td>                                                       
+                                                            <td colspan="4">Belum ada laporan</td>                                                       
                                                         </tr>
                                                         @endif
-                                                        @endforeach
 
                                                         </tbody>
                                                     </table>
@@ -217,8 +238,10 @@
                                             <div class="row">
                                                 <div class="col-md-8 my-auto">
                                                     <h6 class="font-weight-bold text-primary m-0">Anggota
-                                                    ( {{$jumAnggota}} / @foreach($maksAnggota as $maks) 
-                                                    {{$maks->maksAnggota}} )
+                                                    ( {{$jumAnggota}} 
+                                                    / 
+                                                    @foreach($maksAnggota as $maks) 
+                                                        {{$maks->maksAnggota}} )
                                                     @endforeach
                                                     </h6>
                                                 </div>
@@ -268,21 +291,25 @@
                                                         @if($kel->statusKelasProyek == "Pendaftaran")
                                                             @foreach($kelompok as $idPm)
                                                                 @if($idPm->mProKelompok == $idPm->id_mahasiswaProyek)
-                                                                <td>
-                                                                    <div class="text-center">
-                                                                        <div class="btn-group">
-                                                                            <form class="delete" action="{{ route('anggota.kelompok.destroy', $angkel->id_anggotaKelompok)}}" method="post">
-                                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
-                                                                                    <i class="fa fa-lg fa-trash">
-                                                                                    </i>
-                                                                                </button>
-                                                                            </form>
+                                                                    @if($idPm->pm != $angkel->namaMahasiswa)
+                                                                    <td>
+                                                                        <div class="text-center">
+                                                                            <div class="btn-group">
+                                                                                <form class="delete" action="{{ route('anggota.kelompok.destroy', $angkel->id_anggotaKelompok)}}" method="post">
+                                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                                                        <i class="fa fa-lg fa-trash">
+                                                                                        </i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </td>
+                                                                    </td>
+                                                                    @else
+                                                                    <td> - </td>
+                                                                    @endif
                                                                 @endif
                                                             @endforeach
                                                         @endif
@@ -404,9 +431,12 @@
     <!-- Modal Create Anggota -->
     <div class="modal fade bd-modal-lg" id="tambahAnggota" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
+        
+        @foreach($maksAnggota as $maks) 
+          @php $max = $maks->maksAnggota @endphp;
+        @endforeach
 
-
-        @if($jumAnggota == 3)
+        @if($jumAnggota == $max)
             <div class="modal-content">
 
                 <div class="modal-body">
