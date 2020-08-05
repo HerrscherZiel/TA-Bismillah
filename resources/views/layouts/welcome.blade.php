@@ -36,8 +36,17 @@
 
 <body class="bg-gradient-primary">
 
+
 <div style="min-height: 100%; min-height: 100vh;display: flex; align-items: center;">
     <div class="container-fluid" style="padding: 0 0;">
+    @if(request()->is('login'))
+    @else
+            <div class="col-1 text-center pb-2">
+                <a href="/login">
+                <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5); color:white;"></i></a>
+                <br>
+            </div>
+    @endif
         <div class="row text-center" style="padding: 0; background-color:white; margin: 0;">
                 <div class="col-lg-6" style="padding:0px;  margin:auto;">
                 <img class="img-fluid float-center" src="{{url('/')}}/asset/img/logos.jpg" style="width: 70%; height: auto; padding:0px; " alt="Responsive image">

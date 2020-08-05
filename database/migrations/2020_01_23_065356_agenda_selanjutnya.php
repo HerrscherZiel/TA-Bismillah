@@ -19,7 +19,8 @@ class AgendaSelanjutnya extends Migration
             $table->string('agendaSelanjutnya');
             $table->string('deskripsi');
             $table->integer('laporan_id')->unsigned()->nullable();
-            $table->foreign('laporan_id')->references('id_laporan')->on('laporan')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('laporan_id')->references('id_laporan')
+                    ->on('laporan')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

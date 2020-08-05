@@ -16,6 +16,8 @@
 Auth::routes();
 
 Route::get('/login', 'HomeController@index')->name('login');
+Route::get('/', 'HomeController@index');
+
 
 //gantipassword
 Route::get('/ganti-password', 'HomeController@changePassword')->name('change.password');

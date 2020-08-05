@@ -22,8 +22,6 @@ class Admin extends Migration
             $table->string('password');
             $table->string('passwordBackup');
             $table->string('statusUser')->default("Admin");
-//            $table->integer('userStatus_id')->unsigned()->nullable();
-//            $table->foreign('userStatus_id')->references('id_userStatus')->on('userStatus')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -34,7 +32,6 @@ class Admin extends Migration
                 'namaAdmin' => 'admin',
                 'password' => bcrypt('admin123'),
                 'passwordBackup' => bcrypt('admin123'),
-//                'verified' => true
             )
         );
 

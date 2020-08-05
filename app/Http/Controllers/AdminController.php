@@ -69,9 +69,8 @@ class AdminController extends Controller
         ]);
         $admin->save();
 
-        // Admin::create($request->all());
-
         return back()->with('success','Berhasil menambah admin');
+
     }
 
     /**
@@ -120,6 +119,7 @@ class AdminController extends Controller
 
 
         return back()->with('update','Berhasil merubah admin');
+
     }
 
     public function reset(Request $request)
@@ -127,7 +127,8 @@ class AdminController extends Controller
         //
         // dd($request);
 
-        $passwordBackup = Admin::where('id_admin', '=', $request->id_admin)->select('passwordBackup')->getQuery()->get();
+        $passwordBackup = Admin::where('id_admin', '=', $request->id_admin)
+                                ->select('passwordBackup')->getQuery()->get();
 
         foreach($passwordBackup as $pasbc){
             $backup = $pasbc->passwordBackup;
@@ -139,6 +140,7 @@ class AdminController extends Controller
         $admin->save();
 
         return back()->with('update','Berhasil mereset password admin');
+        
     }
 
     /**

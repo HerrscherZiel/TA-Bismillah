@@ -21,7 +21,8 @@ class Milestone extends Migration
             $table->date('tglTarget');
             $table->date('tglPerkiraan');
             $table->integer('laporan_id')->unsigned()->nullable();
-            $table->foreign('laporan_id')->references('id_laporan')->on('laporan')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('laporan_id')->references('id_laporan')
+                    ->on('laporan')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
