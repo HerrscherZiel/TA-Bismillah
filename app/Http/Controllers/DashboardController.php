@@ -12,6 +12,7 @@ use App\Admin;
 use App\Proyek;
 use App\Laporan;
 use App\UsulMahasiswa;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -21,23 +22,15 @@ class DashboardController extends Controller
         if(Auth::guard('mahasiswa')->check()) {
 
         $id = Auth::guard('mahasiswa')->user()->id_mahasiswa;
-
-        //ambil id mahasiswa ke mhsproyek
         $idMpro = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
                                  ->where('mahasiswa_id', '=', $id)
                                  ->select('mahasiswaproyek.id_mahasiswaProyek')
                                  ->getQuery()
                                  ->get();
-
-        // dd($idMpro);
-
             $idm = array();
-
             foreach ($idMpro as $mpro){
             $idm[] = $mpro->id_mahasiswaProyek;
             }
-        
-
         $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('anggotakelompok', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
@@ -47,23 +40,13 @@ class DashboardController extends Controller
                                     ->select('kelompokproyek.*', 'namaKelasProyek', 'tahunAjaran', 'semester')
                                     ->getQuery()
                                     ->get();
-                                    
-
         if(count($kelompok) > 0){
             $dashboard = 1;
-
         }
         else{
             $dashboard = 0;
-
         }
-
-        // dd($kelompok);
-
         $dosen = Dosen::all();
-
-        // dd($kelompok);
-
         return view('mahasiswa.dashboard.index')->with('kelompok', $kelompok)
                                                 ->with('dosen', $dosen)
                                                 ->with('dashboard', $dashboard);
@@ -82,7 +65,6 @@ class DashboardController extends Controller
         if(Auth::guard('dosen')->check()) {
 
         $id = Auth::guard('dosen')->user()->id_dosen;
-
         $proyek = Proyek::where('dosen_id', '=', $id)->count();
 
         $kelompokbim = KelompokProyek::where('dosen_id', '=', $id)
@@ -104,8 +86,6 @@ class DashboardController extends Controller
                             ->orderBy('id_laporan', 'desc')
                             ->getQuery()
                             ->get();
-
-        // dd($proyek);
 
         return view('dosen.dashboard.index')->with('proyek', $proyek)
                                             ->with('kelompokbim', $kelompokbim)

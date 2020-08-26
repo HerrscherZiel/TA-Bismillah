@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswaProyek">Import</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswaProyek">Impor</button>
                             </div>
                         </div>
                     </div>
@@ -227,40 +227,30 @@
             <form method="post" action="{{ route('mahasiswa.proyek.import')}}" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header">
+                    <h5>Impor Mahasiswa Proyek</h5>
                     </div>
                     <div class="modal-body">
+                    <h4> Perlu diperhatikan! </h4>
+                    <figure class="figure">
+                    <img class="img-fluid rounded" src="{{url('/')}}/import_mahasiswaProyek/ContohImporMahasiswaProyek.PNG">
+                    <figcaption class="figure-caption">Gambar contoh format file impor</figcaption>
+                    </figure>
+
+                    <p><i style="color:red">Baris 1</i> Header harus sesuai seperti gambar contoh di atas <br>
+                    <i style="color:blue">Baris 2</i> Kolom tidak perlu diberi format khusus <br>
+                    <i style="color:green">Baris 3</i> Data kolom <b> Kelas Proyek </b>, <b> Semester </b>, dan 
+                                            <b> Tahun Ajaran </b>harus sudah ada pada sistem
+                    </p>
+                    <hr>
                         @csrf
                         <label>Pilih file excel</label>
                         <div class="form-group">
                             <input type="file" name="file" required="required">
                         </div>
-                        <div class="row">
-                            <div class="col-md-12"><b>Pilih Kelas Proyek</b>
-                                <div class="form-group">
-                                    <select class="form-control selectbox" name="kelasProyek_id" required="" style="width: 100%">
-                                        @foreach($kelasProyek as $kelPro)
-                                            <option value="{{$kelPro->id_kelasProyek}}">{{$kelPro->namaKelasProyek}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12"><b>Pilih Periode</b>
-                                <div class="form-group">
-                                    <select class="form-control selectbox" name="periode_id" required="" style="width: 100%">
-                                        @foreach($periode as $per)
-                                            <option value="{{$per->id_periode}}">{{$per->tahunAjaran}} | {{$per->semester}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Import</button>
+                        <button type="submit" class="btn btn-primary">Impor</button>
                     </div>
                 </div>
             </form>

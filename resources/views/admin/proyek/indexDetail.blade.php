@@ -12,9 +12,9 @@
             </ul>
         </div>
     @endif
-
+    
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Proyek</h1>
     </div>
 
     <div class="col-12">
@@ -24,15 +24,8 @@
                 <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
                 <br>
             </div>
-            <div class="col-lg-10 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary text-center" ><a href="/admin/proyek/belum-diambil/{{$id_kls}}/{{$id_per}}" style="color: white;">Belum Diambil</a></button>
-                    <button type="button" class="btn btn-success text-center" ><a href="/admin/proyek/aktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Aktif</a></button>
-                </div>
-            </div>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-10 offset-1 mb-4">
@@ -71,7 +64,6 @@
                                         <td>{{$pro -> tahunAjaran}} | {{$pro -> semester}}</td>
                                         <td>{{$pro -> judul}}</td>
                                         <td>@if($pro -> dosen_id == null && $pro -> usulMahasiswa_id == null)
-                                        <!-- $pro->dosen_id = 1; -->
                                                 Admin
                                             @elseif($pro -> dosen_id == null)
                                                 @foreach($penambah as $pnm)
@@ -87,7 +79,15 @@
                                                 @endforeach
                                             @endif
                                         </td>
-                                        <td>{{$pro -> statusProyek}}</td>
+                                        <td>
+                                            @if ($pro -> statusProyek === "Belum Diambil" )
+                                                <span class="badge badge-pill badge-primary">{{$pro -> statusProyek}}</span>
+                                            @elseif($pro -> statusProyek === "Selesai" )
+                                                <span class="badge badge-pill badge-secondary">{{$pro -> statusProyek}}</span>
+                                            @elseif($pro -> statusProyek === "Aktif" )
+                                                <span class="badge badge-pill badge-success">{{$pro -> statusProyek}}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
@@ -118,7 +118,7 @@
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
                                                             <i class="fa fa-lg fa-trash">
                                                             </i>
                                                         </button>
@@ -341,13 +341,6 @@
                                         <div class="col-md-12"><b>Deskripsi Proyek</b>
                                             <div class="form-group">
                                                 <textarea class="form-control" rows="4" name="deskripsi" id="desproyek" disabled></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Penambah Proyek</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="penambah" id="penambah" disabled>
                                             </div>
                                         </div>
                                     </div>

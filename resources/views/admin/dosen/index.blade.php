@@ -109,10 +109,20 @@
             <form method="post" action="{{ route('dosen.import')}}" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header">
+                    <h5>Impor Dosen</h5>
                     </div>
                     <div class="modal-body">
+                    <h4> Perlu diperhatikan! </h4>
+                    <figure class="figure">
+                    <img class="img-fluid rounded" src="{{url('/')}}/import_dosen/ContohImporDosen.PNG">
+                    <figcaption class="figure-caption">Gambar contoh format file impor</figcaption>
+                    </figure>
+
+                    <p><i style="color:red">Baris 1</i> Header harus sesuai seperti gambar contoh di atas <br>
+                    <i style="color:blue">Baris 2</i> Kolom tidak perlu diberi format khusus</p>
+                    <hr>
                         @csrf
-                        <label>Pilih file excel</label>
+                        <label>Pilih file .excel</label>
                         <div class="form-group">
                             <input type="file" name="file" required="required">
                         </div>

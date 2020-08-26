@@ -97,6 +97,7 @@ class PeriodeController extends Controller
     public function update(Request $request)
     {
         //
+        
         $rules = [
             'tahunAjaran' => 'required',
             'semester' => 'required | unique_with:periode,tahunAjaran,semester',

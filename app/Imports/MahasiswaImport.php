@@ -7,8 +7,15 @@ use App\ProfilMahasiswa;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+use Illuminate\Support\Facades\Validator;
 
-class MahasiswaImport implements ToCollection
+
+HeadingRowFormatter::default('none');
+
+
+class MahasiswaImport implements ToCollection, WithHeadingRow
 {
     /**
     * @param array $row
@@ -17,23 +24,31 @@ class MahasiswaImport implements ToCollection
     */
 
     public function collection(Collection $rows)
-    {
+    {   
+        Validator::make($rows->toArray(), [
+            '*.NIM' => 'required',
+            '*.Nama' => 'required',
+            '*.Email' => 'required | email | unique :profilmahasiswa,email',
+        ],
+        [ 'unique' => 'Data ke :attribute  sudah memiliki data email yang sama.']
+        )->validate();
+
         foreach ($rows as $row) {
             $mahasiswa = Mahasiswa::create([
-            'nim' => $row[1],
-            $nim6 = $row[1],
-            'namaMahasiswa' => $row[2],
+            'nim' => $row['NIM'],
+            $nim6 = $row['NIM'],
+            'namaMahasiswa' => $row['Nama'],
 
             preg_match('~/(.*?)/SV~', $nim6, $output),
             'username' => strval($output[1]),
             'password' => bcrypt(strval($output[1])),
-            'passwordBackup' => bcrypt(strval($output[1])),
+            'passwordBackup' => strval($output[1]),
             'statusUser' => "Mahasiswa",
             ]);
 
             ProfilMahasiswa::create([
                 'mahasiswa_id'   => $mahasiswa->id_mahasiswa,
-                'email'          => strtok($row[2], " ") . '@email',
+                'email'          => $row['Email'],
                 'pengalaman'     => '-'
             ]);
         }

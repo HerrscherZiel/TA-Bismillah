@@ -26,7 +26,6 @@ class DosenController extends Controller
         if(Auth::guard('admin')->check()) {
 
             $dosen = Dosen::all();
-
             return view('admin.dosen.index')->with('dosen', $dosen);
         
         }
@@ -48,24 +47,14 @@ class DosenController extends Controller
             'file' => 'required|mimes:xls,xlsx'
         ]);
 
-        // menangkap file excel
         $file = $request->file('file');
 
-        // membuat nama file unik
         $nama_file = rand().$file->getClientOriginalName();
 
-        // upload ke folder file_siswa di dalam folder public
-
-        // import data
         Excel::import(new DosenImport,$file);
-
-        // notifikasi dengan session
-        // Session::flash('sukses','Data Siswa Berhasil Diimport!');
 
         $file->move('import_dosen',$nama_file);
 
-
-        // alihkan halaman kembali
         return redirect('admin/dosen')->with('success','Berhasil mengimpor data dosen');
 
     }
@@ -96,17 +85,21 @@ class DosenController extends Controller
             'email' => 'required | email | unique :dosen,email'
         ]);
 
+        preg_match('~(.*?)@~', $request->email, $output);
+        $pw = strval($output[1]);
+
         $dosen = new Dosen([
             'nip'               => $request->nip,
             'namaDosen'         => $request->namaDosen,
             'email'             => $request->email,
             'statusUser'        => 'Dosen',
-            'password'          => bcrypt("12345678"),
-            'passwordBackup'    => "12345678"
+            'password'          => bcrypt($pw),
+            'passwordBackup'    => $pw
         ]);
         $dosen->save();
 
         return back()->with('success','Berhasil menambah dosen');
+
     }
 
     /**
@@ -155,7 +148,8 @@ class DosenController extends Controller
         $dosen = Dosen::findOrFail($request->id_dosen);
         $dosen->update($request->all());
 
-        return back()->with('success', 'Berhasil mengubah data dosen');;
+        return back()->with('success', 'Berhasil mengubah data dosen');
+
     }
 
     public function reset(Request $request)
@@ -174,6 +168,7 @@ class DosenController extends Controller
         $dosen->save();
 
         return back()->with('update','Berhasil mereset password dosen');
+
     }
 
     /**
@@ -185,9 +180,11 @@ class DosenController extends Controller
     public function destroy($id)
     {
         //
+
         $dosen = Dosen::findOrFail($id);
         $dosen->delete();
 
         return back()->with('success', 'Data berhasil dihapus');
+        
     }
 }

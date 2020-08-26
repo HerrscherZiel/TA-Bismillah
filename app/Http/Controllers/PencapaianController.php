@@ -47,13 +47,11 @@ class PencapaianController extends Controller
     {
         //
 
-        // dd($request);
         $this->validate($request, [
             'pencapaian' => 'required',
             'deskripsi' => 'required',
         ]);
         Pencapaian::create($request->all());
-
         return back()->with('success', 'Berhasil menambah pencapaian');
     }
 
@@ -99,7 +97,7 @@ class PencapaianController extends Controller
             $pencapaian->deskripsi           = $request->deskripsi;
             $pencapaian->save();
 
-            return back()->with('success', 'Berhasil mengubah pencapaian');;
+            return back()->with('success', 'Berhasil mengubah pencapaian');
     }
 
     /**

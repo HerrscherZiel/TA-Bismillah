@@ -44,7 +44,6 @@ class ProyekPilihanController extends Controller
         $pros = $request->proyek_id;
         $prio = $request->prioritas;
 
-        // dd($prio);
         $i =0;
         foreach($pros as $pro) {
             ProyekPilihan::create([
@@ -52,7 +51,6 @@ class ProyekPilihanController extends Controller
                 'proyek_id' => $pro,
                 'prioritas' => $prio[$i]
             ]);
-            // dd($i);
             $i++;
         }
 
@@ -65,8 +63,6 @@ class ProyekPilihanController extends Controller
         ]);
         $usul->save();
         }
-
-        
         return back()->with('success', 'Berhasil memilih proyek');
 
     }
@@ -112,24 +108,16 @@ class ProyekPilihanController extends Controller
             ]);
         
             $propil = $request->id_proyekPilihan;
-            // dd($propil);
             $kelpro = $request->kelompokProyek_id;
-            // dd($kelpro);
             $pro    = $request->proyek_id;
-            // dd($pro);
             $prio   = $request->prioritas;
-            // dd($prio);
             $idUsul = $request->id_usulMahasiswa;
-            // dd($idUsul);
 
             $i =0;
-
-            // dd(count($propil));
 
             $jumProPil = count($propil);
             $jumPro    = count($pro); 
 
-            //Jika jumlah propil lebih sedikit, tambah propil hapus usul
             if($jumProPil < $jumPro){
                 $loop = array(1, 2);
                 foreach($loop as $for) {
@@ -150,16 +138,11 @@ class ProyekPilihanController extends Controller
                 $usulJudul                = UsulMahasiswa::findOrFail($idUsul);
                 $usulJudul->delete();
                 
-            // dd($i);
             }
 
-            //Jika jumlah propil sama dengan jumlah proyek dan ada id usul, tambah usul hapus propil
-            //Save 2 propil atas, hapus propil 3, save usul
-            elseif($jumProPil == 3 && $request->judulUsul != NULL){
-                // $x="salah";
-                // dd($x);
 
-                //save 2 atas
+            elseif($jumProPil == 3 && $request->judulUsul != NULL){
+
                 $loop = array(1, 2);
                 foreach($loop as $for) {
                     $proyekpilihan                    = ProyekPilihan::findOrFail($propil[$i]);
@@ -171,7 +154,6 @@ class ProyekPilihanController extends Controller
                     $i++;                
                 }
                 
-                //hapus pilihan 3
                 $pilihan3             = ProyekPilihan::findOrFail($propil[2]);
                 $pilihan3->delete();
 
@@ -184,13 +166,8 @@ class ProyekPilihanController extends Controller
                 ]);
 
             }
-            //Jika jumlah propil sama dengan jumlah proyek dan id usul null, edit propil full
-            //clear
+
             elseif($jumProPil == 3 && $idUsul == NULL){
-
-                // $x="yes";
-                // dd($x);
-
                 foreach($propil as $pros) {
 
                     $proyekpilihan                    = ProyekPilihan::findOrFail($pros);
@@ -201,11 +178,7 @@ class ProyekPilihanController extends Controller
 
                     $i++;
                 }
-                
             }
-            // $proyekpilihan->update($request->all());
-            //Jika jumlah propil sama dengan 2 dan id usul tidak null, edit 2 propil edit usul
-            //clear
             elseif($jumProPil == 2 && $idUsul != NULL){
                 foreach($propil as $pros) {
 

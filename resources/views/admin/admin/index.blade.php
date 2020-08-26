@@ -70,7 +70,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn delete-confirm" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -207,28 +207,50 @@
     </div>
 
     @push('scripts')
-        <script>
-            $('#updateAdmin').on('show.bs.modal', function (event) {
-
-                // console.log('modal opened');
-                var button = $(event.relatedTarget)
-
-                var id = button.data('id')
-                var nip = button.data('nip')
-                var nama = button.data('nama')
-                var email = button.data('email')
-
-                var modal = $(this)
-                modal.find('.modal-body #id').val(id)
-                modal.find('.modal-body #nip').val(nip)
-                modal.find('.modal-body #nama').val(nama)
-                modal.find('.modal-body #email').val(email)
-            })
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
+    <script>
+        $('#updateAdmin').on('show.bs.modal', function (event) {
 
-            
+            // console.log('modal opened');
+            var button = $(event.relatedTarget)
 
-        </script>
+            var id = button.data('id')
+            var nip = button.data('nip')
+            var nama = button.data('nama')
+            var email = button.data('email')
+
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id)
+            modal.find('.modal-body #nip').val(nip)
+            modal.find('.modal-body #nama').val(nama)
+            modal.find('.modal-body #email').val(email)
+        })
+
+        $('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Anda yakin?',
+                text: 'Data yang dihapus tidak dapat dikembalikan!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                swal("Terhapus!", "Berhasil terhapus dari database.", "success");
+                    setTimeout(function() {
+                        self.parents(".delete").submit();
+                    }, 500);
+                } else {
+                swal("Batal dihapus!", "Data aman di database.", "error");
+                }
+            });
+        });
+        
+
+    </script>
     @endpush
 @endsection

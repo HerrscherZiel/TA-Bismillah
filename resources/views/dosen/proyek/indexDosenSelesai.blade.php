@@ -45,7 +45,6 @@
                             <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-{{--                                        <th>Deskripsi</th>--}}
                                         <th>Kelas Proyek</th>
                                         <th>Periode</th>
                                         <th>Judul</th>
@@ -59,7 +58,7 @@
                                         <td>{{$pro -> namaKelasProyek}}</td>
                                         <td>{{$pro -> tahunAjaran}} | {{$pro -> semester}} </td>
                                         <td>{{$pro -> judul}}</td>
-                                        <td>{{$pro -> statusProyek}}</td>
+                                        <td><span class="badge badge-pill badge-secondary">{{$pro -> statusProyek}}</span></td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">

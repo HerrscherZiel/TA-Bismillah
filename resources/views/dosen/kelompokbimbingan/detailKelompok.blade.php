@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Bimbingan</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok</h1>
     </div>
 
     <div class="col-12">
@@ -148,9 +148,10 @@
                                                         @if(count($laporan) > 0)
                                                         @foreach($laporan as $lap)
                                                         <tr>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglMulai))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglSelesai))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglKirim))}}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($lap->tglMulai)->translatedFormat('d F Y')}}
+                                                            </td>
+                                                            <td>{{ \Carbon\Carbon::parse($lap->tglSelesai)->translatedFormat('d F Y')}}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($lap->tglKirim)->translatedFormat('d F Y')}}</td>
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a class="btn btn-info" href="/dosen/laporan/kelompok/detail-laporan/{{$lap->id_laporan}}">

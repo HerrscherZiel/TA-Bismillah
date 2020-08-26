@@ -14,7 +14,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok</h1>
     </div>
 
     <div class="col-12">
@@ -281,7 +281,11 @@
                                                     @endforeach
                                                 @endif
                                                     </tr>
-
+                                                @if(count($judulPilihan) < 1)
+                                                    <tr>
+                                                        <td colspan="4"> Kelompok belum memilih judul </td> 
+                                                    </tr>
+                                                @endif
                                                     </tbody>
                                                 </table>
                                             </div>

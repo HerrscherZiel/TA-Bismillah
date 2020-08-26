@@ -63,7 +63,7 @@
                 <div class="card-body">
                     <div class="col-12 text-center">
                         <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
-                            <h5>Belum ada kelas proyek aktif</h5>
+                            <h5>Belum ada usul proyek mahasiswa</h5>
                         </div>
                     </div>
                 </div>

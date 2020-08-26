@@ -27,15 +27,14 @@ class UsulMahasiswaController extends Controller
         $kelasperiode = Proyek::join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
                                 ->join('periode', 'periode_id', '=', 'id_periode')
                                 ->where('kelasproyek.status', '=', 'Aktif')
-                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 'kelasproyek.status as statusKelasProyek'
-                                        , 'periode.id_periode', 'periode.tahunAjaran', 'periode.semester')
+                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', '
+                                        kelasproyek.status as statusKelasProyek'
+                                        ,'periode.id_periode', 'periode.tahunAjaran', 'periode.semester')
                                 ->orderBy('id_proyek', 'desc')
                                 ->distinct()
                                 ->getQuery()
                                 ->get();
-        // dd($kelasperiode);
         
-        // dd($usul);
         return view('admin.usulMahasiswa.index')->with('kelasperiode', $kelasperiode);
 
         }
@@ -93,8 +92,9 @@ class UsulMahasiswaController extends Controller
                                 ->where('usulmahasiswa.statusUsul', '=', 'Menunggu Persetujuan')
                                 ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
                                         'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 'kelompokproyek.mahasiswaProyek_id',
-                                        'kelompokproyek.id_kelompokProyek', 'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
-                                        'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas',)
+                                        'kelompokproyek.id_kelompokProyek', 'kelompokproyek.pm', 'usulmahasiswa.*', 
+                                        'kelasproyek.namaKelasProyek','periode.tahunAjaran', 'periode.semester', 
+                                        'kelompokproyek.judulPrioritas',)
                                 ->getQuery()
                                 ->get();
 
@@ -215,12 +215,12 @@ class UsulMahasiswaController extends Controller
 
 
         if($request->status == "tolak"){
-            // dd($request->status);
             $cekJudul = KelompokProyek::where('id_kelompokProyek', '=', $request->id_kelompokProyek)
                                         ->select('kelompokproyek.*')
                                         ->getQuery()
                                         ->get();
 
+            $judul = array();
             foreach($cekJudul as $cekjud){
                 $judul = $cekjud->judulPrioritas;
             }
@@ -231,12 +231,10 @@ class UsulMahasiswaController extends Controller
                 $judulprio->judulPrioritas        = "Belum ada judul";
                 $judulprio->save();
             }
-            // dd($request->judulPrioritas);
 
             $usul                    = UsulMahasiswa::findOrFail($request->id_usulMahasiswa);
             $usul->statusUsul        = "Ditolak";
-            $usul->save();
-            
+            $usul->save();  
         }
 
         elseif($request->status == "terima"){
@@ -244,21 +242,19 @@ class UsulMahasiswaController extends Controller
             $usul->statusUsul        = "Diterima";
             $usul->save();
 
+            $prolama = array();
             foreach ($judulpilihan as $judul){
-                $prolama[] = $judul->id_proyek;
-
+                $prolama = $judul->id_proyek;
                 if($prolama != NULL){
                     $proyeklama              = Proyek::findOrFail($prolama[0]);
                     $proyeklama->statusProyek      = "Belum Diambil";
                     $proyeklama->save();
                 }
             }
-
             $cekproyek = Proyek::where('judul', '=', $request->judulUsul)
                                 ->select('id_proyek', 'judul')
                                 ->getQuery()
                                 ->get();
-
             if(count($cekproyek) < 1) {
                 $pro = new Proyek([
                     'usulMahasiswa_id'      => $request->id_usulMahasiswa,
@@ -267,18 +263,13 @@ class UsulMahasiswaController extends Controller
                     'kelasProyek_id'        => $request->kelasProyek_id,
                     'periode_id'            => $request->periode_id,
                     'statusProyek'          => 'Aktif'
-        
                 ]);
                 $pro->save();
-
             }
-
             $proakhir                    = KelompokProyek::findOrFail($request->id_kelompokProyek);
             $proakhir->judulPrioritas    = $request->judulUsul;
             $proakhir->save();
-        
         }
-
         return back()->with('success', 'Berhasil mengubah status usul');
     }
 

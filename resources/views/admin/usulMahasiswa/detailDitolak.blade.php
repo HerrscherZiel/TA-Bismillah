@@ -15,7 +15,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Usul Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Usul Proyek</h1>
     </div>
 
     <div class="col-12">

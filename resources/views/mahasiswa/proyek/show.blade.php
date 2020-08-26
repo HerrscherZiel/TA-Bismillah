@@ -14,7 +14,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Informasi Kelompok</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
     </div>
 
     <div class="col-12">
@@ -114,14 +114,6 @@
                                                 <div class="col-md-4">
                                                     : {{$kel->pm}}<br>
                                                 </div>
-                                                <!-- <div class="col-md-1 text-left">
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-                                                            <i class="fa fa-lg fa-edit">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-                                                </div> -->
 
                                             <hr>
                                             <div class="col-md-2 text-left">
@@ -181,9 +173,9 @@
                                                         @if(count($laporan) > 0)
                                                         @foreach($laporan as $lap)
                                                         <tr>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglMulai))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglSelesai))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglKirim))}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($lap->tglMulai)->translatedFormat('d F Y')}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($lap->tglSelesai)->translatedFormat('d F Y')}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($lap->tglKirim)->translatedFormat('d F Y')}}</td>
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a class="btn btn-info" href="/mahasiswa/laporan/detail/{{$lap->id_laporan}}">

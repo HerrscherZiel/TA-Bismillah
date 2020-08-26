@@ -59,7 +59,7 @@
                                         <td>{{$pro -> namaKelasProyek}}</td>
                                         <td>{{$pro -> tahunAjaran}} | {{$pro -> semester}} </td>
                                         <td>{{$pro -> judul}}</td>
-                                        <td>{{$pro -> statusProyek}}</td>
+                                        <td><span class="badge badge-pill badge-success">{{$pro -> statusProyek}}</span></td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">

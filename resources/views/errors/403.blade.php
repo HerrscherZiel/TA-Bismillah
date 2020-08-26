@@ -5,7 +5,7 @@
         <div class="col-12 text-center">
             <div class="card-body" style="background-color:#EAECF4; border-radius:6px; color:black">
                 <div class="page-error tile">
-                    <h1><i class="fa fa-exclamation-circle mr-3"></i>403</h1>
+                    <h1><i class="fa fa-exclamation-circle mr-3" style="color:red;"></i>403</h1>
                     <br>
                     <h2><p>Unauthorized Action</p></h2>
                     <br>

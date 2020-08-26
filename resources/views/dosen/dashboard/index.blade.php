@@ -54,7 +54,6 @@
                     </div>
                 </div>
 
-                <!-- Pending Requests Card Example -->
                 <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
@@ -111,7 +110,8 @@
                                         <td>{{$pro->namaKelasProyek}}</td>
                                         <td>{{$pro->semester}} | {{$pro->tahunAjaran}}</td>
                                         <td>{{$pro->judulPrioritas}}</td>
-                                        <td>{{date('d-m-Y', strtotime($pro->tglKirim))}}</td>
+                                        <td>
+                                        {{ \Carbon\Carbon::parse($pro->tglKirim)->translatedFormat('d F Y')}}</td>
                                     </tr>
                                 @endforeach
                                 @else

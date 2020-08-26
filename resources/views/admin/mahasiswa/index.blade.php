@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahMahasiswa">Tambah</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswa">Import</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importMahasiswa">Impor</button>
                             </div>
                         </div>
                     </div>
@@ -114,8 +114,18 @@
             <form method="post" action="{{ route('mahasiswa.import')}}" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header">
+                    <h5>Impor Mahasiswa</h5>
                     </div>
                     <div class="modal-body">
+                    <h4> Perlu diperhatikan! </h4>
+                    <figure class="figure">
+                    <img class="img-fluid rounded" src="{{url('/')}}/import_mahasiswa/ContohImporMahasiswa.PNG">
+                    <figcaption class="figure-caption">Gambar contoh format file impor</figcaption>
+                    </figure>
+
+                    <p><i style="color:red">Baris 1</i> Header harus sesuai seperti gambar contoh di atas <br>
+                    <i style="color:blue">Baris 2</i> Kolom tidak perlu diberi format khusus</p>
+                    <hr>
                         @csrf
                         <label>Pilih file excel</label>
                         <div class="form-group">
@@ -165,6 +175,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Email Mahasiswa :</b>
+                                    <div class="form-group">
+                                        <input class="form-control"  type="email" name="email" placeholder="Email Mahasiswa" required>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <input class="form-control" type="hidden" name="statusUser" value="Mahasiswa">
                             </div>
@@ -204,13 +221,6 @@
                                 <div class="col-md-12"><b>NIM :</b>
                                     <div class="form-group">
                                         <input class="form-control" type="text" name="nim" placeholder="NIM Mahasiswa" id="nim" value="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12"><b>Username :</b>
-                                    <div class="form-group">
-                                        <input class="form-control"  type="text" name="username" placeholder="Nama Mahasiswa" id="username">
                                     </div>
                                 </div>
                             </div>

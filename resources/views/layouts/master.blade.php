@@ -142,7 +142,7 @@
         <li class="nav-item {{ (request()->is('dosen/profil')) ? 'active' : '' }}">
             <a class="nav-link" href="/dosen/profil">
                 <i class="fas fa-fw fa-user"></i>
-                <span>Profile</span>
+                <span>Profil</span>
             </a>
         </li>
 

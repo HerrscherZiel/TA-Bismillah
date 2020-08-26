@@ -24,18 +24,17 @@ class ProyekController extends Controller
         if(Auth::guard('admin')->check()) {
 
             $kelasperiode = Proyek::join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
-                                    ->join('periode', 'periode_id', '=', 'id_periode')
-                                    ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 'kelasproyek.status as statusKelasProyek'
-                                            , 'periode.id_periode', 'periode.tahunAjaran', 'periode.semester')
-                                    ->distinct()
-                                    ->orderBy('id_proyek', 'desc')
-                                    ->getQuery()
-                                    ->get();
-            // dd($kelasperiode);
+                                ->join('periode', 'periode_id', '=', 'id_periode')
+                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 
+                                        'kelasproyek.status as statusKelasProyek','periode.id_periode',
+                                        'periode.tahunAjaran', 'periode.semester')
+                                ->distinct()
+                                ->orderBy('id_proyek', 'desc')
+                                ->getQuery()
+                                ->get();
             $kelasproyek = KelasProyek::all();
             $periode = Periode::all();
             
-            // dd($usul);
 
             return view('admin.proyek.index')->with('kelasperiode', $kelasperiode)
                                              ->with('kelasproyek', $kelasproyek)
@@ -48,19 +47,18 @@ class ProyekController extends Controller
         }
     } 
 
-    public function indexBelumDiambil($idkel, $idper)
+    public function indexDetail($idkel, $idper)
     {
         //
         if(Auth::guard('admin')->check()) {
 
-            $exist = KelasProyek::findOrFail($idkel);
-            $exist2 = Periode::findOrFail($idper);
+        $exist = KelasProyek::findOrFail($idkel);
+        $exist2 = Periode::findOrFail($idper);
 
         $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
             ->where('kelasProyek_id', '=', $idkel)
             ->where('periode_id', '=', $idper)
-            ->where('statusProyek', '=', 'Belum Diambil')
             ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
             ->getQuery()
             ->get();
@@ -71,17 +69,14 @@ class ProyekController extends Controller
                                         ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
                                         ->getQuery()
                                         ->get();
-
-            // dd($penambah);
             $id_kls = $idkel;
             $id_per = $idper;    
 
-            // $usulMhs = UsulMahasiswa::all();
             $dosen   = Dosen::all();
             $kelasproyek = KelasProyek::all();
             $periode = Periode::all();
 
-            return view('admin.proyek.indexBelumDiambil') ->with('proyek', $proyek)
+            return view('admin.proyek.indexDetail') ->with('proyek', $proyek)
                                                     ->with('penambah', $penambah)
                                                     ->with('id_kls', $id_kls)
                                                     ->with('id_per', $id_per)
@@ -97,121 +92,16 @@ class ProyekController extends Controller
 
     }
 
-    public function indexAktif($idkel, $idper)
-    {
-        //
-        if(Auth::guard('admin')->check()) {
-
-            $exist = KelasProyek::findOrFail($idkel);
-            $exist2 = Periode::findOrFail($idper);
-
-                $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-                    ->join('periode', 'periode_id', '=', 'id_periode')
-                    ->where('kelasProyek_id', '=', $idkel)
-                    ->where('periode_id', '=', $idper)
-                    ->where('statusProyek', '=', 'Aktif')
-                    ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
-                    ->getQuery()
-                    ->get();
-                    
-
-                $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                            ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
-                                            ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                            ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
-                                            ->getQuery()
-                                            ->get();
-
-                // dd($penambah);    
-
-                $id_kls = $idkel;
-                $id_per = $idper;  
-
-                // $usulMhs = UsulMahasiswa::all();
-                $dosen   = Dosen::all();
-                $kelasproyek = KelasProyek::all();
-                $periode = Periode::all();
-
-
-                return view('admin.proyek.indexAktif') ->with('proyek', $proyek)
-                                                        ->with('penambah', $penambah)
-                                                        ->with('id_kls', $id_kls)
-                                                        ->with('id_per', $id_per)                                                
-                                                        ->with('dosen', $dosen)
-                                                        ->with('kelasproyek', $kelasproyek)
-                                                        ->with('periode', $periode);
-            
-        }
-
-        else{
-            return view('errors.403');
-        }
-
-    }
-
-    public function indexSelesai($idkel, $idper)
-    {
-        //
-
-        if(Auth::guard('admin')->check()) {
-
-            $exist = KelasProyek::findOrFail($idkel);
-            $exist2 = Periode::findOrFail($idper);
-
-        $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-            ->join('periode', 'periode_id', '=', 'id_periode')
-            ->where('kelasProyek_id', '=', $idkel)
-            ->where('periode_id', '=', $idper)
-            ->where('statusProyek', '=', 'Selesai')
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
-            ->getQuery()
-            ->get();
-
-        $penambah = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                                    ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')    
-                                    ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                                    ->select('mahasiswa.namaMahasiswa', 'usulmahasiswa.id_usulMahasiswa')
-                                    ->getQuery()
-                                    ->get();
-
-
-
-        $id_kls = $idkel;
-        $id_per = $idper;  
-
-
-        // $usulMhs = UsulMahasiswa::all();
-        $dosen   = Dosen::all();
-        $kelasproyek = KelasProyek::all();
-        $periode = Periode::all();
-
-        return view('admin.proyek.indexSelesai') ->with('proyek', $proyek)
-                                                ->with('penambah', $penambah)
-                                                ->with('id_kls', $id_kls)
-                                                ->with('id_per', $id_per)                                                
-                                                ->with('dosen', $dosen)
-                                                ->with('kelasproyek', $kelasproyek)
-                                                ->with('periode', $periode);
-
-        }
-
-        else{
-            return view('errors.403');
-        }
-
-    }
-
     public function indexDosen()
     {
-
+        if(Auth::guard('dosen')->check()) {
         $id = Auth::guard('dosen')->user()->id_dosen;
-
-      //        dd($id);
 
         $proyekDosen = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
             ->join('dosen', 'dosen_id', '=', 'id_dosen')
             ->where('dosen_id', '=', $id)
+            ->where('statusProyek', '=', 'Belum Diambil')
             ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'dosen.*', 'proyek.deskripsi as desPro')
             ->getQuery()
             ->get();
@@ -222,14 +112,16 @@ class ProyekController extends Controller
         return view('dosen.proyek.index') ->with('proyekDosen', $proyekDosen)
                                             ->with('kelasproyek', $kelasproyek)
                                             ->with('periode', $periode);
+        }
+        else{
+            return view('errors.403');
+        }
     }
 
     public function indexDosenAktif()
     {
-
+        if(Auth::guard('dosen')->check()) {
         $id = Auth::guard('dosen')->user()->id_dosen;
-
-        //        dd($id);
 
         $proyekDosenAktif = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
@@ -246,15 +138,17 @@ class ProyekController extends Controller
         return view('dosen.proyek.indexDosenAktif')->with('proyekDosenAktif', $proyekDosenAktif)
                                         ->with('kelasproyek', $kelasproyek)
                                         ->with('periode', $periode);
+        }
+        else{
+            return view('errors.403');
+        }
     }
 
     public function indexDosenSelesai()
     {
+        if(Auth::guard('dosen')->check()) {
 
         $id = Auth::guard('dosen')->user()->id_dosen;
-
-        //        dd($id);
-
         $proyekDosenSelesai = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
             ->join('dosen', 'dosen_id', '=', 'id_dosen')
@@ -270,6 +164,10 @@ class ProyekController extends Controller
         return view('dosen.proyek.indexDosenSelesai')->with('proyekDosenSelesai', $proyekDosenSelesai)
                                         ->with('kelasproyek', $kelasproyek)
                                         ->with('periode', $periode);
+        }
+        else{
+            return view('errors.403');
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -307,6 +205,7 @@ class ProyekController extends Controller
         Proyek::create($request->all());
 
         return back()->with('success', 'Berhasil menambah proyek');
+    
     }
 
     /**
@@ -341,7 +240,7 @@ class ProyekController extends Controller
     public function update(Request $request)
     {
         //
-        // dd($request);
+
         $rules = [
             'kelasProyek_id' => 'required',
             'periode_id' => 'required',
@@ -353,7 +252,7 @@ class ProyekController extends Controller
         $pro = Proyek::findOrFail($request->id_proyek);
         $pro->update($request->all());
 
-        return back()->with('success', 'Berhasil mengubah data');;
+        return back()->with('success', 'Berhasil mengubah data');
     }
 
     /**

@@ -50,16 +50,10 @@ class AnggotaKelompokController extends Controller
 
         $this->validate($request,$rules, $customMessages);
 
-        if(Auth::guard('mahasiswa')->check()) {
-
             AnggotaProyek::create($request->all());
+            return back()->with('success', 'Berhasil mengundang anggota');
 
-            return back()->with('success', 'Berhasil mengundang anggota');;
-        }
 
-        else{
-            return view('errors.403');
-        }
     }
 
     /**
@@ -127,7 +121,7 @@ class AnggotaKelompokController extends Controller
     public function destroy($id)
     {
         //
-        // dd($id);
+
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 

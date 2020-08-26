@@ -15,7 +15,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Proyek</h1>
     </div>
 
     <div class="row justify-content-md-center">
@@ -86,7 +86,14 @@
                                                 @endforeach
                                             @endif
                                         </td>
-                                        <td>{{$kel->statusKelompok}}</td>
+                                        <td>                                            
+                                            @if ($kel -> statusKelompok === "Menunggu Persetujuan" )
+                                                <span class="badge badge-pill badge-primary">{{$kel -> statusKelompok}}</span>
+                                            @elseif($kel -> statusKelompok === "Selesai" )
+                                                <span class="badge badge-pill badge-secondary">{{$kel -> statusKelompok}}</span>
+                                            @elseif($kel -> statusKelompok === "Aktif" )
+                                                <span class="badge badge-pill badge-success">{{$kel -> statusKelompok}}</span>
+                                            @endif</td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
@@ -135,7 +142,7 @@
 
                 <div class="modal-body">
                     <div class="tile-body">
-                        <p><b>*Dengan membentuk kelompok anda akan otomatis terdaftar sebagai Project Manager dalam kelompok<br>
+                        <p><b>*Dengan membentuk kelompok anda akan otomatis terdaftar sebagai Project Manager dalam kelompok*</b><br>
                         <br>
                         <br>
                         </p>
@@ -146,7 +153,7 @@
                                         @if($kelpro != null)
                                         @foreach($kelpro as $kelpros)
                                             <option value="{{$kelpros -> id_mahasiswaProyek}}">
-                                                {{$kelpros -> namaKelasProyek}}
+                                                {{$kelpros -> namaKelasProyek}} | ({{$kelpros -> semester}} {{$kelpros -> tahunAjaran}} )
                                             </option>
                                         @endforeach
                                         @else

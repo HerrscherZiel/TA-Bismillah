@@ -26,7 +26,6 @@ class MahasiswaController extends Controller
         if(Auth::guard('admin')->check()) {
 
             $mahasiswa = Mahasiswa::latest()->get();
-
             return view('admin.mahasiswa.index')->with('mahasiswa', $mahasiswa);
 
         }
@@ -40,31 +39,19 @@ class MahasiswaController extends Controller
 
     public function import(Request $request)
     {
-        // validasi
-        // dd($files);
-        // dd($request->file->getMimeType());
+
         $this->validate($request, [
             'file' => 'required|mimes:xls,xlsx'
         ]);
 
-        // menangkap file excel
         $file = $request->file('file');
 
-        // membuat nama file unik
         $nama_file = rand().$file->getClientOriginalName();
 
-        // upload ke folder file_siswa di dalam folder public
-
-        // import data
         Excel::import(new MahasiswaImport,$file);
-
-        // notifikasi dengan session
-        Session::flash('sukses','Data Siswa Berhasil Diimport!');
 
         $file->move('import_mahasiswa',$nama_file);
 
-
-        // alihkan halaman kembali
         return redirect('admin/mahasiswa')->with('success','Berhasil mengimpor data mahasiswa');
 
     }
@@ -88,10 +75,12 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         //
+
         $this->validate($request, [
             'nim' => 'required  | unique:mahasiswa,nim',
             'namaMahasiswa' => 'required',
-            'statusUser' => 'required'
+            'statusUser' => 'required',
+            'email' => 'required | email | unique :profilmahasiswa,email'
         ]);
 
         preg_match('~/(.*?)/SV~', $request->nim, $output);
@@ -110,12 +99,13 @@ class MahasiswaController extends Controller
 
         $profMhs = new ProfilMahasiswa([
             'mahasiswa_id'   => $mhs->id_mahasiswa,
-            'email'          => strtok($request->namaMahasiswa, " ") . '@email' ,
+            'email'          => $request->email ,
             'pengalaman'     => '-'
         ]);
         $profMhs->save();
 
         return back()->with('success','Berhasil menambah data');
+
     }
 
     /**
@@ -155,7 +145,7 @@ class MahasiswaController extends Controller
                         Rule::unique('mahasiswa', 'nim')->ignore($request->id_mahasiswa, 'id_mahasiswa'),
                         ],
             'namaMahasiswa' => 'required',
-            'username' => 'required'
+            'username' => 'required',
         ]);
         $mahasiswa = Mahasiswa::findOrFail($request->id_mahasiswa);
         $mahasiswa->update($request->all());
@@ -179,6 +169,7 @@ class MahasiswaController extends Controller
         $mahasiswa->save();
 
         return back()->with('update','Berhasil mereset password mahasiswa');
+
     }
 
     /**
@@ -194,5 +185,6 @@ class MahasiswaController extends Controller
         $mahasiswa->delete();
 
         return back()->with('success', 'Berhasil menghapus data');
+        
     }
 }

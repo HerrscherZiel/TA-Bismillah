@@ -59,21 +59,14 @@ class MahasiswaProyekController extends Controller
             'file' => 'required|mimes:xls,xlsx'
         ]);
 
-        // menangkap file excel
         $file = $request->file('file');
 
-        // membuat nama file unik
         $nama_file = rand().$file->getClientOriginalName();
 
-        // import data
         Excel::import(new MahasiswaProyekImport,$file);
-
-        // notifikasi dengan session
-        Session::flash('sukses','Data Siswa Berhasil Diimport!');
 
         $file->move('import_mahasiswaProyek',$nama_file);
 
-        // alihkan halaman kembali
         return back()->with('success','Berhasil mengimpor data');
 
     }

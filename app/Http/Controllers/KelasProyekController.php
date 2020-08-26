@@ -19,40 +19,8 @@ class KelasProyekController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
-        $klsPro = KelasProyek::where('status', '=', 'Pendaftaran')->get();
+        $klsPro = KelasProyek::all();
         return view('admin.kelasproyek.index')->with('kelasproyek', $klsPro);
-
-        }
-
-        else {
-            return view('errors.403');
-        }
-
-    }
-
-    public function indexAktif()
-    {
-        //
-        if(Auth::guard('admin')->check()) {
-
-        $klsPro = KelasProyek::where('status', '=', 'Aktif')->get();
-        return view('admin.kelasproyek.indexAktif')->with('kelasproyek', $klsPro);
-
-        }
-
-        else {
-            return view('errors.403');
-        }
-
-    }
-
-    public function indexNonAktif()
-    {
-        //
-        if(Auth::guard('admin')->check()) {
-
-        $klsPro = KelasProyek::where('status', '=', 'Non Aktif')->get();
-        return view('admin.kelasproyek.indexNonAktif')->with('kelasproyek', $klsPro);
 
         }
 
@@ -146,7 +114,7 @@ class KelasProyekController extends Controller
         $klsPro = KelasProyek::findOrFail($request->id_kelasProyek);
         $klsPro->update($request->all());
 
-        return back()->with('success','Berhasil mengubah data');;
+        return back()->with('success','Berhasil mengubah data');
     }
 
     /**
@@ -162,5 +130,6 @@ class KelasProyekController extends Controller
         $klsPro->delete();
 
         return back()->with('success', 'Berhasil menghapus data');
+    
     }
 }

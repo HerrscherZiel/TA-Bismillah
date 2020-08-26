@@ -70,17 +70,9 @@ Route::prefix('mahasiswa')->group(function (){
     Route::post('/proyek-pilihan', 'ProyekPilihanController@store')->name('proyek.pilihan.store');
     Route::match(['put', 'patch'], '/proyek-pilihan/update/{id}','ProyekPilihanController@update')->name('proyek.pilihan.update');
 
-
-        //judul
-    Route::get('/proyek/judul', 'ProyekJudulController@index')->name('proyek.judul.index');
-
     //undangan
     Route::get('/undangan', 'UndanganController@index')->name('undangan.index');
     Route::get('/undangan/detail/{id}', 'UndanganController@show')->name('undangan.show');
-
-    //informasi
-    Route::get('/proyek/informasi', 'ProyekInformasiController@index')->name('proyek.informasi.index');
-
 
     //laporan
     Route::get('/laporan', 'LaporanController@indexMahasiswa')->name('laporan.mahasiswa.index');
@@ -165,10 +157,6 @@ Route::prefix('admin')->group(function (){
 
         ]); 
 
-        //kelasproyek
-        Route::get('/kelasproyek/aktif/index', 'KelasProyekController@indexAktif')->name('kelasproyek.aktif.index');
-        Route::get('/kelasproyek/non-aktif/index', 'KelasProyekController@indexNonAktif')->name('kelasproyek.nonaktif.index');
-
 
         //kelompokproyek
         Route::get('/kelompok/index/{idkel}/{idper}', 'KelompokProyekController@indexKelompok')->name('index.kelompok.proyek');
@@ -178,9 +166,7 @@ Route::prefix('admin')->group(function (){
         Route::match(['put', 'patch'], '/kelompok-proyek/update/{id}','KelompokProyekController@update')->name('admin.kelompok.proyek.update');
 
         //proyek
-        Route::get('/proyek/belum-diambil/{idkel}/{idper}', 'ProyekController@indexBelumDiambil')->name('proyek.belumdiambil.index');
-        Route::get('/proyek/aktif/{idkel}/{idper}', 'ProyekController@indexAktif')->name('proyek.aktif.index');
-        Route::get('/proyek/selesai/{idkel}/{idper}', 'ProyekController@indexSelesai')->name('proyek.selesai.index');
+        Route::get('/proyek/detail-proyek/{idkel}/{idper}', 'ProyekController@indexDetail')->name('proyek.detail.index');
 
         //detailusul
         Route::get('/usul/detail/{idkel}/{idper}', 'UsulMahasiswaController@detail')->name('usul.mahasiswa.detail');

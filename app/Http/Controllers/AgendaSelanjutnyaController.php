@@ -91,7 +91,7 @@ class AgendaSelanjutnyaController extends Controller
         $agenda->deskripsi           = $request->deskripsi;
         $agenda->save();
 
-        return back()->with('success', 'Berhasil mengubah agenda selanjutnya');;
+        return back()->with('success', 'Berhasil mengubah agenda selanjutnya');
     }
 
     /**

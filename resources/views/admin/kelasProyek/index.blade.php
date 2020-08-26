@@ -17,13 +17,6 @@
         <h1 class="h3 mb-0 text-gray-800">Kelas Proyek</h1>
     </div>
 
-    <div class="col-lg-11 col-md-12 col-sm-12 text-right" style="margin-bottom:10px">
-        <div class="btn-group">
-            <button type="button" class="btn btn-success text-center" ><a href="/admin/kelasproyek/aktif/index" style="color: white;">Aktif</a></button>
-            <button type="button" class="btn btn-secondary text-center" ><a href="/admin/kelasproyek/non-aktif/index" style="color: white;">Non Aktif</a></button>
-        </div>
-    </div>
-
     <div class="row justify-content-md-center">
         <div class="col-lg-10 col-md-12 col-sm-12 mb-4">
             <div class="col-md-12">
@@ -59,7 +52,15 @@
                                     <td>{{$kls -> namaKelasProyek}}</td>
                                     <td>{{$kls -> deskripsi}}</td>
                                     <td>{{$kls -> maksAnggota}}</td>
-                                    <td>{{$kls -> status}}</td>
+                                    <td>
+                                        @if ($kls->status === "Pendaftaran" )
+                                            <span class="badge badge-pill badge-primary">{{$kls -> status}}</span>
+                                        @elseif($kls->status === "Non Aktif" )
+                                            <span class="badge badge-pill badge-secondary">{{$kls -> status}}</span>
+                                        @elseif($kls->status === "Aktif" )
+                                            <span class="badge badge-pill badge-success">{{$kls -> status}}</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">

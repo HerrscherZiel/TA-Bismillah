@@ -19,11 +19,6 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-//    public function __construct()
-//    {
-//        $this->middleware('auth:mahasiswa');
-//        $this->middleware('auth:dosen');
-//    }
 
     public function indexMahasiswa()
     {
@@ -35,7 +30,6 @@ class ProfileController extends Controller
             $profil = Mahasiswa::join('profilmahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
                                ->where('id_mahasiswa', '=', $id)
                                ->get();
-
 
             return view('mahasiswa.profile.index')->with('profil', $profil);
         }
@@ -52,12 +46,11 @@ class ProfileController extends Controller
     {
         if(Auth::guard('dosen')->check()){
 
-            $id = Auth::guard('dosen')->user()->id_dosen;
-
+        $id = Auth::guard('dosen')->user()->id_dosen;
         $profil = Dosen::where('id_dosen', '=', $id)->get();
 
-
         return view('dosen.profile.index')->with('profil', $profil);
+
         }
 
         else{
@@ -125,10 +118,9 @@ class ProfileController extends Controller
             $proMhs = ProfilMahasiswa::findOrFail($request->id_profilMahasiswa);
 
             if($request->fileFoto == NULL){
-
                 $this->validate($request, [
                     'email' => ['required',
-                                Rule::unique('profilmahasiswa', 'email')->ignore($request->id_profilMahasiswa, 'id_profilmahasiswa'),
+                            Rule::unique('profilmahasiswa', 'email')->ignore($request->id_profilMahasiswa, 'id_profilmahasiswa'),
                                 ],
                     'hpMahasiswa' => 'required',
                     'ipk' => 'required | max:4',
@@ -137,18 +129,14 @@ class ProfileController extends Controller
                     'pengalaman' => 'required',
 
                 ]);
-                
                 $proMhs->update($request->all());
             }
-
             else{
 
                 $this->validate($request, [
                     'fileFoto' => 'required | image | mimes:jpeg,png,jpg | max:2000',
                 ]);
-
                 $file = $request->file('fileFoto');
-
                 $nama_file = time()."_".$file->getClientOriginalName();
                 $tujuan_upload = 'data_profilmhs';
                 $file->move($tujuan_upload, $nama_file);
@@ -175,14 +163,12 @@ class ProfileController extends Controller
                 ]);
 
                 $proDos->update($request->all());
+
             }
-
             else{
-
                 $this->validate($request, [
                     'fileFoto' => 'required | image | mimes:jpeg,png,jpg | max:2000',
                 ]);
-
                 $file = $request->file('fileFoto');
 
                 $nama_file = time()."_".$file->getClientOriginalName();
@@ -191,9 +177,7 @@ class ProfileController extends Controller
                 $proDos->fileFoto = $nama_file;
 
                 $proDos->save();
-            
             }
-
             return back()->with('success', 'Berhasil mengubah profil');
         }
 

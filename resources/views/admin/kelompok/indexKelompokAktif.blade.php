@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Proyek</h1>
     </div>
 
     <div class="col-12">
@@ -70,7 +70,7 @@
                                         @endif
 
                                         </td>
-                                        <td>{{$kel->statusKelompok}}</td>
+                                        <td><span class="badge badge-pill badge-success">{{$kel->statusKelompok}}</span></td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">

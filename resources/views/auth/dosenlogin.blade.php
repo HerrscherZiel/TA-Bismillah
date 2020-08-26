@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-10 black">
-                <div class="mt-5 mb-2"><h2>{{ __('Dosen Login') }}</h2></div>
+                <div class="mt-5 mb-2"><h2>{{ __('Login Dosen') }}</h2></div>
                     <div><h2>Sistem Informasi Kelas Proyek</h2></div>
                     <hr>
                 <div class="card-body mt-5">

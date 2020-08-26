@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Laporan Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Data Laporan</h1>
     </div>
 
     <div class="col-12">
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row text-center">
                                         <div class="col-12 table-responsive">
                                             <table class="table table-bordered" id="sampleTable">
                                                 <thead>
@@ -96,15 +96,14 @@
                                                     <th>Tanggal Mulai</th>
                                                     <th>Tanggal Selesai</th>
                                                     <th>Tanggal Kirim</th>
-
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($laporan as $lap)
                                                         <tr>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglMulai))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglSelesai))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($lap->tglKirim))}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($lap->tglMulai)->translatedFormat('d F Y')}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($lap->tglSelesai)->translatedFormat('d F Y')}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($lap->tglKirim)->translatedFormat('d F Y')}}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -243,8 +242,8 @@
                                                     <tr>
                                                         <td>{{$mi->milestone}}</td>
                                                         <td>{{$mi->statusMilestone}}</td>
-                                                        <td>{{date('d-m-Y', strtotime($mi->tglTarget))}}</td>
-                                                        <td>{{date('d-m-Y', strtotime($mi->tglPerkiraan))}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($mi->tglTarget)->translatedFormat('d F Y')}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($mi->tglPerkiraan)->translatedFormat('d F Y')}}</td>
                                                     </tr>
                                                     @endforeach
                                                     @else
@@ -291,13 +290,7 @@
                                                     <tr>
                                                         <td>{{$lamp->lampiran}}</td>
                                                         <td>
-                                                            <button class="btn btn-success"
-                                                                    data-id="{{$lamp->id_lampiran}}"
-                                                                    data-toggle="modal" data-target="#showLampiran">
-                                                                <i class="fa fa-lg fa-edit">
-                                                                </i>
-                                                            </button>
-                                                            <img src="{{asset('data_upload/'.$lamp->fileLampiran)}}" style="width:500px;">
+                                                            <img src="{{asset('data_upload/'.$lamp->fileLampiran)}}" style="width:900px;">
                                                         </td>
                                                     </tr>
                                                     @endforeach
