@@ -81,8 +81,6 @@
             resetForm($('#changePass'));
         }
 
-        // to call, use:
-         // by id, recommended
 
     </script>
     @endpush

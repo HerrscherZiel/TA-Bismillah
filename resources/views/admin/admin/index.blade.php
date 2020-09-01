@@ -70,7 +70,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn delete-confirm" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn delete-confirm" id="delete" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -81,11 +81,11 @@
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                            <form class="delete" action="{{ route('admin.reset', 'edit')}}" method="post">
+                                            <form class="reset" action="{{ route('admin.reset', 'edit')}}" method="post">
                                                     @csrf
                                                     @method('PATCH')
                                                     <input type="hidden" name="id_admin" value="{{$ads->id_admin}}">
-                                                <button class="btn btn-warning" onclick="return confirm('Apakah anda yakin ?')">
+                                                <button class="btn btn-warning reset-confirm" id="reset">
                                                     <i class="fa fa-lg fa-key"></i>
                                                 </button>
                                             </form>
@@ -230,27 +230,39 @@
 
         $('.delete-confirm').on('click', function (event) {
             event.preventDefault();
-            const url = $(this).attr('href');
+            const self = $(this);
             swal({
                 title: 'Anda yakin?',
                 text: 'Data yang dihapus tidak dapat dikembalikan!',
                 icon: 'warning',
-                buttons: ["Cancel", "Yes!"],
+                buttons: ["Batal", "Ya!"],
                 closeOnConfirm: false,
                 closeOnCancel: false
             }).then(function(isConfirm) {
                 if (isConfirm) {
-                swal("Terhapus!", "Berhasil terhapus dari database.", "success");
-                    setTimeout(function() {
-                        self.parents(".delete").submit();
-                    }, 500);
+                    self.parents(".delete").submit();
                 } else {
                 swal("Batal dihapus!", "Data aman di database.", "error");
                 }
             });
         });
-        
 
+        $('.reset-confirm').on('click', function (event) {
+            event.preventDefault();
+            const self = $(this);
+            swal({
+                title: 'Anda yakin?',
+                text: 'Password admin akan direset!',
+                icon: 'warning',
+                buttons: ["Batal", "Ya!"],
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    self.parents(".reset").submit();
+                } 
+            });
+        });
     </script>
     @endpush
 @endsection

@@ -69,7 +69,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn delete-confirm" id="delete" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -80,11 +80,11 @@
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                            <form class="delete" action="{{ route('dosen.reset', 'edit')}}" method="post">
+                                            <form class="reset" action="{{ route('dosen.reset', 'edit')}}" method="post">
                                                     @csrf
                                                     @method('PATCH')
                                                     <input type="hidden" name="id_dosen" value="{{$dos->id_dosen}}">
-                                                <button class="btn btn-warning" onclick="return confirm('Apakah anda yakin ?')">
+                                                <button class="btn btn-warning reset-confirm">
                                                     <i class="fa fa-lg fa-key"></i>
                                                 </button>
                                             </form>
@@ -243,7 +243,47 @@
     </div>
 
     @push('scripts')
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <script>
+
+            $('.delete-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".delete").submit();
+                    } else {
+                    swal("Batal dihapus!", "Data aman di database.", "error");
+                    }
+                });
+            });
+
+            $('.reset-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Password dosen akan direset!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".reset").submit();
+                    } 
+                });
+            });
+
             $('#updateDosen').on('show.bs.modal', function (event) {
 
                 // console.log('modal opened');
