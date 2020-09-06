@@ -119,23 +119,23 @@ class DashboardController extends Controller
         $kelompok = KelompokProyek::where('statusKelompok', '=', 'Aktif')
                                         ->count();
 
-    $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                        ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                        ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                        ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
-                        ->join('periode', 'periode_id', '=', 'id_periode')
-                        ->where('usulmahasiswa.statusUsul', '=', 'Menunggu Persetujuan')
-                        ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
-                                'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 
-                                'kelompokproyek.mahasiswaProyek_id','kelompokproyek.id_kelompokProyek', 
-                                'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
-                                'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas')
-                        ->limit(3)
-                        ->orderBy('id_usulMahasiswa', 'desc')
-                        ->getQuery()
-                        ->get();
+        $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                            ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                            ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                            ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
+                            ->join('periode', 'periode_id', '=', 'id_periode')
+                            ->where('usulmahasiswa.statusUsul', '=', 'Menunggu Persetujuan')
+                            ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
+                                    'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 
+                                    'kelompokproyek.mahasiswaProyek_id','kelompokproyek.id_kelompokProyek', 
+                                    'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
+                                    'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas')
+                            ->limit(3)
+                            ->orderBy('id_usulMahasiswa', 'desc')
+                            ->getQuery()
+                            ->get();
 
-    $kelompokpro = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+        $kelompokpro = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                 ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                 ->join('periode', 'periode_id', '=', 'id_periode')
                                 ->where('statusKelompok', '=', "Menunggu Persetujuan")

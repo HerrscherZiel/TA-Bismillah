@@ -30,7 +30,7 @@ class MahasiswaImport implements ToCollection, WithHeadingRow
             '*.Nama' => 'required',
             '*.Email' => 'required | email | unique :profilmahasiswa,email',
         ],
-        [ 'unique' => 'Data ke :attribute  sudah memiliki data email yang sama.']
+        [ 'unique' => 'Data ke :attribute sudah memiliki data email yang sama.']
         )->validate();
 
         foreach ($rows as $row) {

@@ -40,9 +40,8 @@ class MahasiswaAuthController extends Controller
 
     public function login(Request $request)
     {
-//        dd(request()->all());
         $this->validate($request, [
-            'username' => 'required',
+            'username' => 'required | exists:mahasiswa,username',
             'password' => 'required'
         ]);
 
@@ -72,7 +71,6 @@ class MahasiswaAuthController extends Controller
         Auth::guard('mahasiswa')->logout();
         return redirect()
             ->route('login');
-//            ->route('mahasiswa.login')
     }
 
 }

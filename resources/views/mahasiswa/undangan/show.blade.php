@@ -138,12 +138,12 @@
                     <br>
                         <div class="row">
                             <div class="col-6 text-center">
-                            <form method="post" action="{{ route('anggota.kelompok.update', 'edit')}}" 
+                            <form class="accept" method="post" action="{{ route('anggota.kelompok.update', $und->id_anggotaKelompok)}}" 
                                 enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
                                 <input type="hidden" name="id_anggotaKelompok" id="idang">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary delete-btn accept-confirm">
                                 Terima
                                     <i class="fa fa-fw fa-lg fa-check">
                                     </i>
@@ -152,11 +152,11 @@
                             </div>
                             <div class="col-6 text-center">
                         
-                            <form class="delete" action="{{ route('anggota.kelompok.destroy', $und->id_anggotaKelompok)}}" method="post">
+                            <form class="delete" action="{{ route('undangan.tolak', $und->id_anggotaKelompok)}}" method="post">
                                 <input type="hidden" name="_method" value="delete">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger delete-btn delete-confirm">
                                 Tolak
                                     <i class="fa fa-fw fa-lg fa-times">
                                     </i>
@@ -173,9 +173,44 @@
         </div>
     </div>
 
+    @push('scripts')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script>
+            $('.delete-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin menolak undangan?',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".delete").submit();
+                    } 
+                });
+            });
 
+            $('.accept-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin menerima undangan?',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".accept").submit();
+                    } 
+                });
+            });
+    </script>
 
+    @endpush
 
 
 @endsection

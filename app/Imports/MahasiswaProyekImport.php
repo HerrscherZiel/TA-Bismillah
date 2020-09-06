@@ -35,6 +35,8 @@ class MahasiswaProyekImport implements ToCollection,  WithHeadingRow
             '*.Semester' => 'required | exists:periode,semester',
             '*.Tahun Ajaran' => 'required | exists:periode,tahunAjaran',
         ],
+        [ 'required' => 'Data ke :attribute tidak boleh kosong',
+          'exists' => 'Data ke :attribute tidak terdapat di dalam sistem',]
         )->validate();
 
         foreach ($rows as $row) {

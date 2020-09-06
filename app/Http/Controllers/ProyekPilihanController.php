@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\ProyekPilihan;
+use Illuminate\Support\Facades\Validator;
 use App\UsulMahasiswa;
 use App\Proyek;
 
@@ -40,6 +41,27 @@ class ProyekPilihanController extends Controller
     public function store(Request $request)
     {
         //
+
+        // $data = $request->validate([
+        //     "proyek_id"    => "required|array",
+        //     "proyek_id.*"  => "required|distinct",
+        //     "prioritas"    => "required|array",
+        //     "prioritas.*"  => "required|distinct",
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            "proyek_id"    => "required|array",
+            "proyek_id.*"  => "required|distinct",
+            "prioritas"    => "required|array",
+            "prioritas.*"  => "required|distinct",
+        ]);
+
+        // check validation
+        if ($validator->fails()) {
+            $error = $validator->errors()->first();
+            return back()->with('error','Proyek Pilihan atau Prioritas tidak boleh memiliki nilai yang sama');
+        }
+
         $kels = $request->kelompokProyek_id;
         $pros = $request->proyek_id;
         $prio = $request->prioritas;
@@ -99,7 +121,18 @@ class ProyekPilihanController extends Controller
     public function update(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            "proyek_id"    => "required|array",
+            "proyek_id.*"  => "required|distinct",
+            "prioritas"    => "required|array",
+            "prioritas.*"  => "required|distinct",
+        ]);
 
+        // check validation
+        if ($validator->fails()) {
+            $error = $validator->errors()->first();
+            return back()->with('error','Proyek Pilihan atau Prioritas tidak boleh memiliki nilai yang sama');
+        }
         // dd($request);
         if(Auth::guard('mahasiswa')->check()) {
 

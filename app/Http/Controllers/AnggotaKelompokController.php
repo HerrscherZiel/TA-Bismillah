@@ -45,7 +45,7 @@ class AnggotaKelompokController extends Controller
         ];
 
         $customMessages = [
-            'unique_with' => 'Data yang ditambahkan sudah memiliki data yang sama'
+            'unique_with' => 'Anggota yang ditambahkan sudah menjadi anggota kelompok'
         ];
 
         $this->validate($request,$rules, $customMessages);
@@ -99,17 +99,17 @@ class AnggotaKelompokController extends Controller
             $anggota->statusAnggota = "Aktif";
             $anggota->save();
         }
-        return back()->with('success', 'Berhasil bergabung dengan kelompok');;
+        return redirect('mahasiswa/undangan')->with('success', 'Berhasil bergabung dengan kelompok');;
     }
 
-    public function reject($id)
+    public function tolak($id)
     {
         //
         // dd($id);
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 
-        return back()->with('success', 'Berhasil menolak undangan kelompok');
+        return redirect('mahasiswa/undangan')->with('success', 'Berhasil menolak undangan kelompok');
     }
 
     /**
@@ -121,10 +121,10 @@ class AnggotaKelompokController extends Controller
     public function destroy($id)
     {
         //
-
         $anggota = AnggotaProyek::findOrFail($id);
         $anggota->delete();
 
         return back()->with('success', 'Berhasil menghapus data anggota');
     }
+
 }

@@ -88,7 +88,7 @@
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger delete-btn" style="margin-left: -2px">
+                                                        <button type="submit" class="btn btn-danger delete-btn delete-confirm" style="margin-left: -2px">
                                                             <i class="fa fa-lg fa-trash"></i>
                                                         </button>
                                                     </form>
@@ -107,209 +107,230 @@
         </div>
     </div>
 
-            <!-- Modal Insert -->
-            <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <!-- Modal Insert -->
+    <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Proyek</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form method="post" action="{{ route('proyek.store')}}" enctype="multipart/form-data">
-                            @csrf
-
-                            <div class="modal-body">
-                                <div class="tile-body">
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Pilih Kelas Proyek</b>
-                                            <div class="form-group">
-                                                <select class="form-control selectbox" name="kelasProyek_id" style="width: 100%" required>
-                                                    <option disabled="" selected="">Pilih Kelas Proyek</option>
-                                                    @foreach($kelasproyek as $kelPro)
-                                                    <option value="{{$kelPro -> id_kelasProyek}}">{{$kelPro -> namaKelasProyek}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Pilih Periode</b>
-                                            <div class="form-group">
-                                                <select class="form-control selectbox"  name="periode_id" style="width: 100%">
-                                                    <option disabled="" selected="">Pilih Periode</option>
-                                                    @foreach($periode as $per)
-                                                    <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Judul</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="judul" placeholder="Judul Proyek">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Deskripsi Proyek :</b>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Proyek"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="statusProyek" value="Belum Diambil">
-                                    <input type="hidden" name="dosen_id" value="{{Auth::guard('dosen')->user()->id_dosen}}">
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Tambah</button>
-                            </div>
-
-                        </form>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Proyek</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
 
-            <!-- Modal Update -->
-            <div class="modal fade bd-modal-lg" id="updateProyekDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <form method="post" action="{{ route('proyek.store')}}" enctype="multipart/form-data">
+                    @csrf
 
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Edit Proyek</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form method="post" action="{{ route('proyek.update', 'edit')}}" enctype="multipart/form-data">
-                            @method('PATCH')
-                            @csrf
-                            <div class="modal-body">
-                                <div class="tile-body">
-                                    <input type="hidden" name="id_proyek" id="id">
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Kelas Proyek</b>
-                                            <div class="form-group">
-                                                <select class="form-control" name="kelasProyek_id" id="kelas">
-                                                    @foreach($kelasproyek as $kel)
-                                                        <option value="{{$kel -> id_kelasProyek}}">{{$kel -> namaKelasProyek}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Pilih Periode</b>
-                                            <div class="form-group">
-                                                <select class="form-control" name="periode_id" id="periode">
-                                                    @foreach($periode as $per)
-                                                        <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Judul</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="judul" id="judul">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Deskripsi Proyek</b>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi"></textarea>
-                                            </div>
-                                        </div>
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <div class="row">
+                                <div class="col-md-12"><b>Pilih Kelas Proyek</b>
+                                    <div class="form-group">
+                                        <select class="form-control selectbox" name="kelasProyek_id" style="width: 100%" required>
+                                            <option disabled="" selected="">Pilih Kelas Proyek</option>
+                                            @foreach($kelasproyek as $kelPro)
+                                            <option value="{{$kelPro -> id_kelasProyek}}">{{$kelPro -> namaKelasProyek}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Show -->
-            <div class="modal fade bd-modal-lg" id="showProyekDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Detail Proyek</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                            <div class="modal-body">
-                                <div class="tile-body">
-                                    <input type="hidden" name="id_proyek" id="id">
-                                    <div class="row">
-                                        <div class="col-6"><b>Kelas Proyek</b>
-                                            <div class="form-group">
-                                                <select class="form-control" name="kelasProyek_id" id="kelas" disabled>
-                                                    @foreach($kelasproyek as $kel)
-                                                        <option value="{{$kel -> id_kelasProyek}}">{{$kel -> namaKelasProyek}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-6"><b>Periode</b>
-                                            <div class="form-group">
-                                                <select class="form-control" name="periode_id" id="periode" disabled>
-                                                    @foreach($periode as $per)
-                                                        <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Judul Proyek</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="judul" id="judul" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Deskripsi Proyek</b>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi" disabled></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Status</b>
-                                            <div class="form-group">
-                                                <input class="form-control" id="status" name="statusProyek" disabled>
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Pilih Periode</b>
+                                    <div class="form-group">
+                                        <select class="form-control selectbox"  name="periode_id" style="width: 100%">
+                                            <option disabled="" selected="">Pilih Periode</option>
+                                            @foreach($periode as $per)
+                                            <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-12"><b>Judul</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="judul" placeholder="Judul Proyek">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Deskripsi Proyek :</b>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Proyek"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="statusProyek" value="Belum Diambil">
+                            <input type="hidden" name="dosen_id" value="{{Auth::guard('dosen')->user()->id_dosen}}">
+                        </div>
                     </div>
-                </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+
+                </form>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div class="modal fade bd-modal-lg" id="updateProyekDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Proyek</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="{{ route('proyek.update', 'edit')}}" enctype="multipart/form-data">
+                    @method('PATCH')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <input type="hidden" name="id_proyek" id="id">
+                            <div class="row">
+                                <div class="col-md-12"><b>Kelas Proyek</b>
+                                    <div class="form-group">
+                                        <select class="form-control" name="kelasProyek_id" id="kelas">
+                                            @foreach($kelasproyek as $kel)
+                                                <option value="{{$kel -> id_kelasProyek}}">{{$kel -> namaKelasProyek}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Pilih Periode</b>
+                                    <div class="form-group">
+                                        <select class="form-control" name="periode_id" id="periode">
+                                            @foreach($periode as $per)
+                                                <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Judul</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="judul" id="judul">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Deskripsi Proyek</b>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Show -->
+    <div class="modal fade bd-modal-lg" id="showProyekDosen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Detail Proyek</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <input type="hidden" name="id_proyek" id="id">
+                            <div class="row">
+                                <div class="col-6"><b>Kelas Proyek</b>
+                                    <div class="form-group">
+                                        <select class="form-control" name="kelasProyek_id" id="kelas" disabled>
+                                            @foreach($kelasproyek as $kel)
+                                                <option value="{{$kel -> id_kelasProyek}}">{{$kel -> namaKelasProyek}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6"><b>Periode</b>
+                                    <div class="form-group">
+                                        <select class="form-control" name="periode_id" id="periode" disabled>
+                                            @foreach($periode as $per)
+                                                <option value="{{$per -> id_periode}}">{{$per -> tahunAjaran}} | {{$per -> semester}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Judul Proyek</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="judul" id="judul" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Deskripsi Proyek</b>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Status</b>
+                                    <div class="form-group">
+                                        <input class="form-control" id="status" name="statusProyek" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <script>
+            $('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            const self = $(this);
+            swal({
+                title: 'Anda yakin?',
+                text: 'Data yang dihapus tidak dapat dikembalikan!',
+                icon: 'warning',
+                buttons: ["Batal", "Ya!"],
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    self.parents(".delete").submit();
+                } else {
+                swal("Batal dihapus!", "Data aman di database.", "error");
+                }
+            });
+        });
+
             $('#updateProyekDosen').on('show.bs.modal', function (event) {
 
                 // console.log('modal opened');

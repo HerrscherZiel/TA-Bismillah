@@ -170,7 +170,7 @@
                                                     <input type="hidden" name="id_kelompokProyek" id="kelompokid">
                                                     <input type="hidden" name="judulPrioritas" id="judulprio">
 
-                                                    <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin ?')">
+                                                    <button class="btn btn-danger">
                                                     Tolak
                                                         <i class="fa fa-fw fa-lg fa-times">
                                                         </i>
@@ -191,7 +191,7 @@
                                                 <input type="hidden" name="kelasProyek_id" id="kelasid">
                                                 <input type="hidden" name="judulPrioritas" id="judulprio">
                                                 <input type="hidden" name="periode_id" id="periodeid">
-                                                <button type="submit" class="btn btn-primary" onclick="return confirm('Apakah anda yakin ?')">
+                                                <button type="submit" class="btn btn-primary">
                                                 Terima
                                                     <i class="fa fa-fw fa-lg fa-check">
                                                     </i>

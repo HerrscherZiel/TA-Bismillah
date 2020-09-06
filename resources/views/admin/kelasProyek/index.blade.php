@@ -78,7 +78,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                    <button type="submit" class="btn btn-danger delete-btn delete-confirm" style="margin-left: -2px">
                                                         <i class="fa fa-lg fa-trash">
                                                         </i>
                                                     </button>
@@ -99,138 +99,159 @@
     </div>
 
 
-            <!-- Modal Insert -->
-            <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <!-- Modal Insert -->
+    <div class="modal fade bd-modal-lg insert" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Kelas Proyek</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form method="post" action="{{ route('kelasproyek.store')}}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="tile-body">
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Nama Kelas Proyek :</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="namaKelasProyek" placeholder="Nama Kelas Proyek" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Deskripsi Kelas Proyek:</b>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Kelas Proyek" required></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Maksimal Anggota Proyek :</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="number" name="maksAnggota" placeholder="1, 2, 3 dst..." required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Status</b>
-                                            <div class="form-group">
-                                                <select class="form-control" name="status" required="">
-                                                        <option selected>Pendaftaran</option>
-                                                        <option>Aktif</option>
-                                                        <option>Non Aktif</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Tambah</button>
-                            </div>
-                            </form>
-
-                        </div>
-
-                </div>
-            </div>
-
-            <!-- Modal Update -->
-            <div class="modal fade bd-modal-lg" id="updateKelasProyek" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Edit Kelas Proyek</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form method="post" action="{{ route('kelasproyek.update', 'edit')}}" enctype="multipart/form-data">
-                            @method('PATCH')
-                            @csrf
-                            <div class="modal-body">
-                                <div class="tile-body">
-                                    <input type="hidden" name="id_kelasProyek" id="id">
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Nama Kelas Proyek :</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="namaKelasProyek" id="nama" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Deskripsi Kelas :</b>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi" required></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Maksimal Anggota:</b>
-                                            <div class="form-group">
-                                                <input class="form-control" type="number" name="maksAnggota" id="maksAnggota" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12"><b>Status</b>
-                                            <div class="form-group">
-                                                <select class="form-control" name="status" id="status" required>
-                                                @php $i = 1; @endphp
-                                                @foreach($kelasproyek as $kls)
-                                                    @if($i == 1)
-                                                    <option value="{{$kls->status}}">{{$kls->status}}</option>
-                                                    @endif
-                                                    @php $i++ @endphp
-                                                @endforeach
-                                                    <option value="Pendaftaran">Pendaftaran</option>
-                                                    <option value="Aktif">Aktif</option>
-                                                    <option value="Non Aktif">Non Aktif</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Kelas Proyek</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <form method="post" action="{{ route('kelasproyek.store')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <div class="row">
+                                <div class="col-md-12"><b>Nama Kelas Proyek :</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="namaKelasProyek" placeholder="Nama Kelas Proyek" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Deskripsi Kelas Proyek:</b>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="deskripsi" placeholder="Deskripsi Kelas Proyek" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Maksimal Anggota Proyek :</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="number" name="maksAnggota" placeholder="1, 2, 3 dst..." required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Status</b>
+                                    <div class="form-group">
+                                        <select class="form-control" name="status" required="">
+                                                <option selected>Pendaftaran</option>
+                                                <option>Aktif</option>
+                                                <option>Non Aktif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                    </form>
+
                 </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div class="modal fade bd-modal-lg" id="updateKelasProyek" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Kelas Proyek</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="{{ route('kelasproyek.update', 'edit')}}" enctype="multipart/form-data">
+                    @method('PATCH')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="tile-body">
+                            <input type="hidden" name="id_kelasProyek" id="id">
+                            <div class="row">
+                                <div class="col-md-12"><b>Nama Kelas Proyek :</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="namaKelasProyek" id="nama" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Deskripsi Kelas :</b>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Maksimal Anggota:</b>
+                                    <div class="form-group">
+                                        <input class="form-control" type="number" name="maksAnggota" id="maksAnggota" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Status</b>
+                                    <div class="form-group">
+                                        <select class="form-control" name="status" id="status" required>
+                                        @php $i = 1; @endphp
+                                        @foreach($kelasproyek as $kls)
+                                            @if($i == 1)
+                                            <option value="{{$kls->status}}">{{$kls->status}}</option>
+                                            @endif
+                                            @php $i++ @endphp
+                                        @endforeach
+                                            <option value="Pendaftaran">Pendaftaran</option>
+                                            <option value="Aktif">Aktif</option>
+                                            <option value="Non Aktif">Non Aktif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
             </div>
+        </div>
+    </div>
 
         @push('scripts')
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <script>
+            $('.delete-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".delete").submit();
+                    } else {
+                    swal("Batal dihapus!", "Data aman di database.", "error");
+                    }
+                });
+            });
+
             $('#updateKelasProyek').on('show.bs.modal', function (event) {
                 // console.log('modal opened');
                 var button = $(event.relatedTarget)

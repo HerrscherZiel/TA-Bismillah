@@ -805,7 +805,7 @@ class KelompokProyekController extends Controller
         }
         
 
-        return back()->with('success', 'Berhasil mengubah judul proyek kelompok');
+        return back()->with('success', 'Berhasil mengubah data kelompok');
 
     }
 
@@ -821,6 +821,6 @@ class KelompokProyekController extends Controller
         $kelompok = KelompokProyek::findOrFail($id);
         $kelompok->delete();
 
-        return redirect()->with('success', 'Berhasil menghapus data');
+        return back()->with('success', 'Berhasil menghapus data');
     }
 }

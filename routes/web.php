@@ -73,6 +73,8 @@ Route::prefix('mahasiswa')->group(function (){
     //undangan
     Route::get('/undangan', 'UndanganController@index')->name('undangan.index');
     Route::get('/undangan/detail/{id}', 'UndanganController@show')->name('undangan.show');
+    Route::delete('/undangan/{id}', 'AnggotaKelompokController@tolak')->name('undangan.tolak');
+
 
     //laporan
     Route::get('/laporan', 'LaporanController@indexMahasiswa')->name('laporan.mahasiswa.index');

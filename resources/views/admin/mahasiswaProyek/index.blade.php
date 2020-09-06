@@ -71,7 +71,7 @@
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                        <button type="submit" class="btn btn-danger delete-btn delete-confirm" style="margin-left: -2px">
                                                             <i class="fa fa-lg fa-trash">
                                                             </i>
                                                         </button>
@@ -258,24 +258,45 @@
     </div>
 
     @push('scripts')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
+        $('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            const self = $(this);
+            swal({
+                title: 'Anda yakin?',
+                text: 'Data yang dihapus tidak dapat dikembalikan!',
+                icon: 'warning',
+                buttons: ["Batal", "Ya!"],
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    self.parents(".delete").submit();
+                } else {
+                swal("Batal dihapus!", "Data aman di database.", "error");
+                }
+            });
+        });
+
         $('#updateMahasiswaProyek').on('show.bs.modal', function (event) {
 
-        // console.log('modal opened');
-        var button = $(event.relatedTarget)
+            // console.log('modal opened');
+            var button = $(event.relatedTarget)
 
-        var id = button.data('id')
-        var idmas = button.data('idmas')
-        var nama = button.data('nama')
-        var kelasproyek = button.data('kelasproyek')
-        var periode = button.data('periode')
+            var id = button.data('id')
+            var idmas = button.data('idmas')
+            var nama = button.data('nama')
+            var kelasproyek = button.data('kelasproyek')
+            var periode = button.data('periode')
 
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #idmas').val(idmas)
-        modal.find('.modal-body #nama').val(nama)
-        modal.find('.modal-body #kelasproyek').val(kelasproyek)
-        modal.find('.modal-body #periode').val(periode)
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id)
+            modal.find('.modal-body #idmas').val(idmas)
+            modal.find('.modal-body #nama').val(nama)
+            modal.find('.modal-body #kelasproyek').val(kelasproyek)
+            modal.find('.modal-body #periode').val(periode)
         })
     </script>
     @endpush

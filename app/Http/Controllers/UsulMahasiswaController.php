@@ -27,8 +27,8 @@ class UsulMahasiswaController extends Controller
         $kelasperiode = Proyek::join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
                                 ->join('periode', 'periode_id', '=', 'id_periode')
                                 ->where('kelasproyek.status', '=', 'Aktif')
-                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', '
-                                        kelasproyek.status as statusKelasProyek'
+                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 
+                                        'kelasproyek.status as statusKelasProyek'
                                         ,'periode.id_periode', 'periode.tahunAjaran', 'periode.semester')
                                 ->orderBy('id_proyek', 'desc')
                                 ->distinct()
