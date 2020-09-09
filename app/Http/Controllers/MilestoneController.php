@@ -47,6 +47,9 @@ class MilestoneController extends Controller
             'statusMilestone' => 'required',
             'tglTarget' => 'required',
             'tglPerkiraan' => 'required',
+        ],
+        [ 'tglTarget.required' => 'Kolom Tanggal Target tidak boleh kosong.',
+        'tglPerkiraan.required' => 'Kolom Tanggal Perkiraan tidak boleh kosong.'
         ]);
         Milestone::create($request->all());
 
@@ -90,6 +93,9 @@ class MilestoneController extends Controller
             'statusMilestone' => 'required',
             'tglTarget' => 'required',
             'tglPerkiraan' => 'required',
+        ],
+        [ 'tglTarget.required' => 'Kolom Tanggal Target tidak boleh kosong.',
+        'tglPerkiraan.required' => 'Kolom Tanggal Perkiraan tidak boleh kosong.'
         ]);
         $milestone                    = Milestone::findOrFail($request->id_milestone);
         $milestone->milestone             = $request->milestone;

@@ -191,11 +191,11 @@
                                                                         <i class="fa fa-lg fa-edit">
                                                                         </i>
                                                                     </button>
-                                                                    <form class="delete" action="{{ route('laporan.destroy', $lap->id_laporan)}}" method="post">
+                                                                    <form class="delete2" action="{{ route('laporan.destroy', $lap->id_laporan)}}" method="post">
                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                                        <button type="submit" class="btn btn-danger delete-btn del-confirm" style="margin-left: -2px">
                                                                             <i class="fa fa-lg fa-trash">
                                                                             </i>
                                                                         </button>
@@ -943,6 +943,23 @@
                 }).then(function(isConfirm) {
                     if (isConfirm) {
                         self.parents(".delete").submit();
+                    } 
+                });
+            });
+
+            $('.del-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".delete2").submit();
                     } 
                 });
             });

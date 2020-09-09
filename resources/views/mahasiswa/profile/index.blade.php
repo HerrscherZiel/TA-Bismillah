@@ -25,7 +25,7 @@
                     <div class="card-header py-3">
                         <div class="col-10">
                             <div class="col-7">
-                                <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Profil</h6>
                             </div>
                         </div>
                     </div>

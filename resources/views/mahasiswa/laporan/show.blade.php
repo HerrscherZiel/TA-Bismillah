@@ -172,11 +172,11 @@
                                                                         <i class="fa fa-lg fa-edit">
                                                                         </i>
                                                                     </button>
-                                                                    <form class="delete" action="{{ route('pencapaian.destroy', $pen->id_pencapaian)}}" method="post">
+                                                                    <form class="deleteP" action="{{ route('pencapaian.destroy', $pen->id_pencapaian)}}" method="post">
                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                                        <button type="submit" class="btn btn-danger delete-btn deleteP-confirm" style="margin-left: -2px">
                                                                             <i class="fa fa-lg fa-trash">
                                                                             </i>
                                                                         </button>
@@ -246,11 +246,11 @@
                                                                     <i class="fa fa-lg fa-edit">
                                                                     </i>
                                                                 </button>
-                                                                <form class="delete" action="{{ route('agendaselanjutnya.destroy', $agen->id_agendaSelanjutnya)}}" method="post">
+                                                                <form class="deleteA" action="{{ route('agendaselanjutnya.destroy', $agen->id_agendaSelanjutnya)}}" method="post">
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                                    <button type="submit" class="btn btn-danger delete-btn deleteA-confirm" style="margin-left: -2px">
                                                                         <i class="fa fa-lg fa-trash">
                                                                         </i>
                                                                     </button>
@@ -309,7 +309,7 @@
                                                     @foreach($milestone as $mi)
                                                     <tr>
                                                         <td>{{$mi->milestone}}</td>
-                                                        <td>{{$mi->statusMilestone}}</td>
+                                                        <td>{{$mi->statusMilestone}} %</td>
                                                         <td>{{ \Carbon\Carbon::parse($mi->tglTarget)->translatedFormat('d F Y')}}</td>
                                                         <td>{{ \Carbon\Carbon::parse($mi->tglPerkiraan)->translatedFormat('d F Y')}}</td>
                                                         <td>
@@ -324,11 +324,11 @@
                                                                     <i class="fa fa-lg fa-edit">
                                                                     </i>
                                                                 </button>
-                                                                <form class="delete" action="{{ route('milestone.destroy', $mi->id_milestone)}}" method="post">
+                                                                <form class="deleteM" action="{{ route('milestone.destroy', $mi->id_milestone)}}" method="post">
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                                    <button type="submit" class="btn btn-danger delete-btn deleteM-confirm" style="margin-left: -2px">
                                                                         <i class="fa fa-lg fa-trash">
                                                                         </i>
                                                                     </button>
@@ -390,11 +390,11 @@
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <form class="delete" action="{{ route('lampiran.destroy', $lamp->id_lampiran)}}" method="post">
+                                                                <form class="deleteL" action="{{ route('lampiran.destroy', $lamp->id_lampiran)}}" method="post">
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Apakah anda yakin ?')" style="margin-left: -2px">
+                                                                    <button type="submit" class="btn btn-danger delete-btn deleteL-confirm" style="margin-left: -2px">
                                                                         <i class="fa fa-lg fa-trash">
                                                                         </i>
                                                                     </button>
@@ -636,7 +636,7 @@
                         <div class="row">
                             <div class="col-md-12"><b>Status Milestone :</b>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="statusMilestone" placeholder="x%">
+                                    <input class="form-control" type="number" name="statusMilestone" placeholder="x%">
                                 </div>
                             </div>
                         </div>
@@ -700,7 +700,7 @@
                             <div class="row">
                                 <div class="col-md-12"><b>Status Milestone :</b>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="statusMilestone" id="status">
+                                        <input class="form-control" type="number" name="statusMilestone" id="status">
                                     </div>
                                 </div>
                             </div>
@@ -782,18 +782,84 @@
 
 
     @push('scripts')
-         <script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+         <script>
+            $('.deleteP-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".deleteP").submit();
+                    } 
+                });
+            });
+
+            $('.deleteA-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".deleteA").submit();
+                    } 
+                });
+            });
+
+            $('.deleteM-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".deleteM").submit();
+                    } 
+                });
+            });
+
+            $('.deleteL-confirm').on('click', function (event) {
+                event.preventDefault();
+                const self = $(this);
+                swal({
+                    title: 'Anda yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    buttons: ["Batal", "Ya!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        self.parents(".deleteL").submit();
+                    } 
+                });
+            });
 
             $('#editPencapaian').on('show.bs.modal', function (event) {
 
                 // console.log('modal opened');
                 var button = $(event.relatedTarget)
-
                 var idpen = button.data('idpen')
                 var pencapaian = button.data('pencapaian')
                 var deskripsi = button.data('deskripsi')
-
 
                 var modal = $(this)
                 modal.find('.modal-body #idpen').val(idpen)
@@ -801,7 +867,6 @@
                 modal.find('.modal-body #deskripsi').val(deskripsi)
 
             });
-
             $('#editAgenda').on('show.bs.modal', function (event) {
 
                 // console.log('modal opened');

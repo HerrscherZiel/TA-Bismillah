@@ -44,9 +44,11 @@ class LampiranController extends Controller
         $this->validate($request, [
             'lampiran' => 'required',
             'fileLampiran' => 'required | mimes:jpeg,png,jpg | max:5000',
-            ]);
-        $lamp = new Lampiran;
+        ],
+        [ 'fileLampiran.required' => 'File lampiran tidak boleh kosong.',
+        ]);
 
+        $lamp = new Lampiran;
         $file = $request->file('fileLampiran');
         $nama_file = time()."_".$file->getClientOriginalName();
         $tujuan_upload = 'data_upload';

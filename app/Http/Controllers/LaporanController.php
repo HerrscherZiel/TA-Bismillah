@@ -15,6 +15,8 @@ use App\AnggotaProyek;
 use App\Milestone;
 use App\Lampiran;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+
 
 
 
@@ -245,7 +247,11 @@ class LaporanController extends Controller
             'tglMulai' => 'required',
             'tglSelesai' => 'required | after_or_equal:tglMulai',
             'tglKirim' => 'required | after_or_equal:tglSelesai'
+        ],
+        [ 'tglSelesai.after_or_equal' => 'Kolom Tanggal Selesai harus merupakan tanggal yang sama atau tanggal setelah tanggal mulai',
+        'tglKirim.after_or_equal' => 'Kolom Tanggal Kirim harus merupakan tanggal yang sama atau tanggal setelah tanggal selesai.'
         ]);
+
 
         Laporan::create($request->all());
         return back()->with('success', 'Berhasil menambah laporan');
@@ -436,7 +442,11 @@ class LaporanController extends Controller
             'tglMulai' => 'required',
             'tglSelesai' => 'required | after_or_equal:tglMulai',
             'tglKirim' => 'required | after_or_equal:tglSelesai'
+        ],
+        [ 'tglSelesai.after_or_equal' => 'Kolom Tanggal Selesai harus merupakan tanggal yang sama atau tanggal setelah tanggal mulai',
+        'tglKirim.after_or_equal' => 'Kolom Tanggal Kirim harus merupakan tanggal yang sama atau tanggal setelah tanggal selesai.'
         ]);
+        
             $laporan                    = Laporan::findOrFail($request->id_laporan);
             $laporan->tglMulai             = $request->tglMulai;
             $laporan->tglSelesai           = $request->tglSelesai;

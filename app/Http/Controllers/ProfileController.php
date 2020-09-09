@@ -31,6 +31,7 @@ class ProfileController extends Controller
                                ->where('id_mahasiswa', '=', $id)
                                ->get();
 
+
             return view('mahasiswa.profile.index')->with('profil', $profil);
         }
 
@@ -48,6 +49,7 @@ class ProfileController extends Controller
 
         $id = Auth::guard('dosen')->user()->id_dosen;
         $profil = Dosen::where('id_dosen', '=', $id)->get();
+        // dd($profil);
 
         return view('dosen.profile.index')->with('profil', $profil);
 
