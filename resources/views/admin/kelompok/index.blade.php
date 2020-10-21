@@ -48,6 +48,14 @@
                                     <div class="col-8 text-left">
                                         : {{$kelper->tahunAjaran}}
                                     </div>
+
+                                    <div class="col-4 text-left">
+                                        Total
+                                    </div>
+
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->total}}
+                                    </div>
                                   
                                 </div>
                             </div>
@@ -62,7 +70,7 @@
                 <div class="card-body">
                     <div class="col-12 text-center">
                         <div class="card-body" style="background-color:#EAECF4; border-radius:6px;">
-                            <h5>Belum ada ajuan kelompok proyek</h5>
+                            <h5>Belum ada ajuan kelompok proyek atau belum ada kelas proyek aktif</h5>
                         </div>
                     </div>
                 </div>

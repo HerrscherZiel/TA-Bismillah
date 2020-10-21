@@ -29,7 +29,7 @@ class MahasiswaProyekController extends Controller
         $mhsProyek = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
             ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
-            ->select('mahasiswa.*', 'kelasProyek.*', 'periode.*', 'mahasiswaproyek.*')
+            ->select('mahasiswa.*', 'kelasproyek.*', 'periode.*', 'mahasiswaproyek.*')
             ->orderBy('namaKelasProyek')
             ->getQuery()
             ->get();
@@ -39,7 +39,7 @@ class MahasiswaProyekController extends Controller
         $kelasproyek = KelasProyek::all();
         $periode = Periode::all();
 
-        return view('admin.mahasiswaproyek.index')->with('mhsProyek', $mhsProyek)
+        return view('admin.mahasiswaProyek.index')->with('mhsProyek', $mhsProyek)
                                                         ->with('mahasiswa', $mahasiswa)
                                                         ->with('kelasProyek', $kelasproyek)
                                                         ->with('periode', $periode);

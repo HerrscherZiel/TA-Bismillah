@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Dosen;
 use App\KelasProyek;
+use DB;
 use App\Periode;
 use App\Proyek;
+use App\AnggotaProyek;
+use App\KelompokProyek;
+use App\ProyekPilihan;
 use App\UsulMahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,23 +27,19 @@ class ProyekController extends Controller
     public function index(){
         if(Auth::guard('admin')->check()) {
 
-            $kelasperiode = Proyek::join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
-                                ->join('periode', 'periode_id', '=', 'id_periode')
-                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 
-                                        'kelasproyek.status as statusKelasProyek','periode.id_periode',
-                                        'periode.tahunAjaran', 'periode.semester')
-                                ->distinct()
-                                ->orderBy('id_proyek', 'desc')
-                                ->getQuery()
-                                ->get();
+            $kelasperiode = DB::table('proyek')
+                            ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
+                            ->join('periode', 'periode_id', '=', 'id_periode')
+                            ->select('kelasProyek_id', 'periode_id', 'namaKelasProyek', 'tahunAjaran', 'semester', 
+                                    DB::raw('count(*) as total'))
+                            ->groupBy('kelasProyek_id', 'periode_id', 'namaKelasProyek', 'tahunAjaran', 'semester')
+                            ->get();   
             $kelasproyek = KelasProyek::all();
             $periode = Periode::all();
-            
 
             return view('admin.proyek.index')->with('kelasperiode', $kelasperiode)
                                              ->with('kelasproyek', $kelasproyek)
                                              ->with('periode', $periode);
-
         }
 
         else{
@@ -59,7 +59,7 @@ class ProyekController extends Controller
             ->join('periode', 'periode_id', '=', 'id_periode')
             ->where('kelasProyek_id', '=', $idkel)
             ->where('periode_id', '=', $idper)
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
+            ->select('proyek.*', 'kelasproyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
             ->getQuery()
             ->get();
 
@@ -102,7 +102,7 @@ class ProyekController extends Controller
             ->join('dosen', 'dosen_id', '=', 'id_dosen')
             ->where('dosen_id', '=', $id)
             ->where('statusProyek', '=', 'Belum Diambil')
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'dosen.*', 'proyek.deskripsi as desPro')
+            ->select('proyek.*', 'kelasproyek.*', 'periode.*', 'dosen.*', 'proyek.deskripsi as desPro')
             ->getQuery()
             ->get();
 
@@ -128,7 +128,7 @@ class ProyekController extends Controller
             ->join('dosen', 'dosen_id', '=', 'id_dosen')
             ->where('dosen_id', '=', $id)
             ->where('statusProyek', '=', 'Aktif')
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'dosen.*','proyek.deskripsi as desPro')
+            ->select('proyek.*', 'kelasproyek.*', 'periode.*', 'dosen.*','proyek.deskripsi as desPro')
             ->getQuery()
             ->get();
 
@@ -150,17 +150,15 @@ class ProyekController extends Controller
 
         $id = Auth::guard('dosen')->user()->id_dosen;
         $proyekDosenSelesai = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
-            ->join('periode', 'periode_id', '=', 'id_periode')
-            ->join('dosen', 'dosen_id', '=', 'id_dosen')
-            ->where('dosen_id', '=', $id)
-            ->where('statusProyek', '=', 'Selesai')
-            ->select('proyek.*', 'kelasProyek.*', 'periode.*', 'dosen.*', 'proyek.deskripsi as desPro')
-            ->getQuery()
-            ->get();
-
+                                    ->join('periode', 'periode_id', '=', 'id_periode')
+                                    ->join('dosen', 'dosen_id', '=', 'id_dosen')
+                                    ->where('dosen_id', '=', $id)
+                                    ->where('statusProyek', '=', 'Selesai')
+                                    ->select('proyek.*', 'kelasproyek.*', 'periode.*', 'dosen.*', 'proyek.deskripsi as desPro')
+                                    ->getQuery()
+                                    ->get();
         $kelasproyek = KelasProyek::all();
         $periode = Periode::all();
-
         return view('dosen.proyek.indexDosenSelesai')->with('proyekDosenSelesai', $proyekDosenSelesai)
                                         ->with('kelasproyek', $kelasproyek)
                                         ->with('periode', $periode);
@@ -174,10 +172,6 @@ class ProyekController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -188,7 +182,6 @@ class ProyekController extends Controller
     public function store(Request $request)
     {
         //
-
         $rules = [
             'kelasProyek_id' => 'required',
             'periode_id' => 'required',
@@ -214,9 +207,51 @@ class ProyekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showAdmin($idpro)
     {
         //
+        if(Auth::guard('admin')->check()) {
+
+            $exist = Proyek::findOrFail($idpro);
+    
+            $proyek = Proyek::join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
+                        ->join('periode', 'periode_id', '=', 'id_periode')
+                        ->where('id_proyek', '=', $idpro)
+                        ->select('proyek.*', 'kelasproyek.*', 'periode.*', 'proyek.deskripsi as desProyek')
+                        ->getQuery()
+                        ->get();
+            $idkelpro = array();
+            foreach($proyek as $pro){
+                $idkelpro = $pro->id_kelasProyek;}
+            $idper = array();
+            foreach($proyek as $pro){
+                $idper = $pro->id_periode;}
+            $kelompok = ProyekPilihan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                        ->join('proyek', 'proyek_id', '=', 'id_proyek')    
+                                        ->where('id_proyek', '=', $idpro)
+                                        ->select('kelompokproyek.id_kelompokProyek', 'kelompokproyek.pm', 'proyekpilihan.prioritas', 'proyekpilihan.id_proyekPilihan', 
+                                        'statusKelompok', 'kelompokproyek.dosen_id as idDos', 'judulPrioritas', 'id_proyek', 'judul', 'statusProyek')
+                                        ->distinct()
+                                        ->getQuery()
+                                        ->get();
+            $anggota = AnggotaProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                      ->join('mahasiswa', 'id_mahasiswa', '=', 'mahasiswa_id')
+                                      ->getQuery()
+                                      ->get();                      
+            $dosen   = Dosen::all();
+            return view('admin.proyek.show') ->with('proyek', $proyek)
+                                                        ->with('kelompok', $kelompok)
+                                                        ->with('anggota', $anggota)
+                                                        ->with('idper', $idper)
+                                                        ->with('idkelpro', $idkelpro)
+                                                        ->with('dosen', $dosen);
+
+                
+            }
+    
+            else{
+                return view('errors.403');
+            }
     }
 
     /**
@@ -240,7 +275,6 @@ class ProyekController extends Controller
     public function update(Request $request)
     {
         //
-
         $rules = [
             'kelasProyek_id' => 'required',
             'periode_id' => 'required',

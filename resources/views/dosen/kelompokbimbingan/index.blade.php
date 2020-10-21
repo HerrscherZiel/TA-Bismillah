@@ -49,6 +49,14 @@
                                     <div class="col-8 text-left">
                                         : {{$kelper->tahunAjaran}}
                                     </div>
+
+                                    <div class="col-4 text-left">
+                                        Total
+                                    </div>
+
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->total}}
+                                    </div>
                                   
                                 </div>
                             </div>

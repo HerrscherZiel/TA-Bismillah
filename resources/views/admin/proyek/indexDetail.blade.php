@@ -51,7 +51,6 @@
                                         <th>Kelas Proyek</th>
                                         <th>Periode</th>
                                         <th>Judul</th>
-{{--                                        <th>Deskripsi</th>--}}
                                         <th>Penambah</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -91,18 +90,11 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-info"
-                                                            data-id="{{$pro->id_proyek}}"
-                                                            data-kelas="{{$pro->id_kelasProyek}}"
-                                                            data-periode="{{$pro->id_periode}}"
-                                                            data-desproyek="{{$pro->desProyek}}"
-                                                            data-judul="{{$pro->judul}}"
-                                                            data-penambah="{{$pro->dosen_id}}"
-                                                            data-status="{{$pro->statusProyek}}"
-                                                            data-toggle="modal" data-target="#showProyekAdmin">
+                                                <a type="button" class="btn btn-primary" href="/admin/proyek/detail/{{$pro->id_proyek}}">
                                                         <i class="fa fa-lg fa-eye">
                                                         </i>
-                                                    </button>
+                                                </a>
+
                                                     <button class="btn btn-success"
                                                             data-id="{{$pro->id_proyek}}"
                                                             data-kelas="{{$pro->id_kelasProyek}}"

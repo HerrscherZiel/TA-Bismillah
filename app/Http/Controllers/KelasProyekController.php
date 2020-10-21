@@ -20,7 +20,7 @@ class KelasProyekController extends Controller
         if(Auth::guard('admin')->check()) {
 
         $klsPro = KelasProyek::all();
-        return view('admin.kelasproyek.index')->with('kelasproyek', $klsPro);
+        return view('admin.kelasProyek.index')->with('kelasproyek', $klsPro);
 
         }
 
@@ -106,11 +106,8 @@ class KelasProyekController extends Controller
             'status' => 'required',
         ];
 
-        $customMessages = [
-            'unique_with' => 'Data yang diubah sudah memiliki data yang sama'
-        ];
 
-        $this->validate($request,$rules, $customMessages);
+        $this->validate($request,$rules);
         $klsPro = KelasProyek::findOrFail($request->id_kelasProyek);
         $klsPro->update($request->all());
 

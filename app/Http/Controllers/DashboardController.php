@@ -36,10 +36,13 @@ class DashboardController extends Controller
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
                                     ->whereIn('anggotakelompok.mahasiswaProyek_id', $idm)
-                                    ->where('statusAnggota', 'Aktif')
+                                    ->where('statusAnggota', '=', 'Aktif')
+                                    ->where('kelompokproyek.statusKelompok', '!=', "Non Aktif")
                                     ->select('kelompokproyek.*', 'namaKelasProyek', 'tahunAjaran', 'semester')
+                                    ->distinct()
                                     ->getQuery()
                                     ->get();
+                                    // dd($kelompok);
         if(count($kelompok) > 0){
             $dashboard = 1;
         }
@@ -115,30 +118,32 @@ class DashboardController extends Controller
         $mahasiswa   = Mahasiswa::all()->count();
 
         $mpro   = MahasiswaProyek::all()->count();
-        $proyek = Proyek::where('statusProyek', '=', "Aktif")->count();
-        $kelompok = KelompokProyek::where('statusKelompok', '=', 'Aktif')
+        $proyek = Proyek::all()->count();
+        $kelompok = KelompokProyek::all()
                                         ->count();
 
         $usul = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
-                            ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
-                            ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
-                            ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
-                            ->join('periode', 'periode_id', '=', 'id_periode')
-                            ->where('usulmahasiswa.statusUsul', '=', 'Menunggu Persetujuan')
-                            ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
-                                    'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 
-                                    'kelompokproyek.mahasiswaProyek_id','kelompokproyek.id_kelompokProyek', 
-                                    'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
-                                    'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas')
-                            ->limit(3)
-                            ->orderBy('id_usulMahasiswa', 'desc')
-                            ->getQuery()
-                            ->get();
+        ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+        ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+        ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
+        ->join('periode', 'periode_id', '=', 'id_periode')
+        ->where('usulmahasiswa.statusUsul', '=', 'Menunggu Persetujuan')
+        ->where('kelasproyek.status', '=', "Aktif")
+        ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
+                'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 
+                'kelompokproyek.mahasiswaProyek_id','kelompokproyek.id_kelompokProyek', 
+                'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
+                'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas')
+        ->limit(3)
+        ->orderBy('id_usulMahasiswa', 'desc')
+        ->getQuery()
+        ->get();
 
         $kelompokpro = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                 ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                 ->join('periode', 'periode_id', '=', 'id_periode')
                                 ->where('statusKelompok', '=', "Menunggu Persetujuan")
+                                ->where('kelasproyek.status', '=', "Aktif")
                                 ->select('kelompokproyek.*','kelasproyek.namaKelasProyek'
                                         ,'periode.tahunAjaran', 'periode.semester')
                                 ->limit(3)

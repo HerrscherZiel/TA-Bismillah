@@ -55,6 +55,7 @@
                                     <th>Periode</th>
                                     <th>Judul</th>
                                     <th>Pengusul</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -65,6 +66,15 @@
                                         <td>{{$us->semester}} | {{$us->tahunAjaran}}</td>
                                         <td>{{$us->judulUsul}}</td>
                                         <td>{{$us->pm}}</td>
+                                        <td>                                            
+                                            @if ($us -> statusUsul === "Menunggu Persetujuan" )
+                                                <span class="badge badge-pill badge-primary">{{$us -> statusUsul}}</span>
+                                            @elseif($us -> statusUsul === "Diterima" )
+                                                <span class="badge badge-pill badge-success">{{$us -> statusUsul}}</span>
+                                            @elseif($us -> statusUsul === "Ditolak" )
+                                                <span class="badge badge-pill badge-secondary">{{$us -> statusUsul}}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">

@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="row text-center">
             <div class="col-1">
-                <a href="javascript:window.history.back();">
+                <a href="{{ url()->previous() }}">
                 <i class="fa fa-lg fa-arrow-left" aria-hidden="true" style="transform: scale(2.1,1.5);"></i></a>
                 <br>
                 <br>

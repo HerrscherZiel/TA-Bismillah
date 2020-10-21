@@ -18,10 +18,10 @@
 
     <div>
         <div class="row list">
+        @foreach($kelompok as $kel)
             <div class="col-md-6">
                 <div class="card shadow mb-4">
 
-                @foreach($kelompok as $kel)
                     <div class="card-header py-3">
                         <div class="row">
                             <div class="col-md-8 my-auto">
@@ -81,11 +81,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-
 
                 </div>
             </div>
+            @endforeach
+
         </div>
     </div>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\ProyekPilihan;
 use App\UsulMahasiswa;
+use DB;
 use App\Proyek;
 use App\KelasProyek;
 use App\Periode;
@@ -24,16 +25,17 @@ class UsulMahasiswaController extends Controller
         //
         if(Auth::guard('admin')->check()) {
 
-        $kelasperiode = Proyek::join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
+        $kelasperiode = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
+                                ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+                                ->join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
+                                ->join('kelasproyek', 'kelasproyek_id', '=', 'id_kelasProyek')
                                 ->join('periode', 'periode_id', '=', 'id_periode')
                                 ->where('kelasproyek.status', '=', 'Aktif')
-                                ->select('kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 
-                                        'kelasproyek.status as statusKelasProyek'
-                                        ,'periode.id_periode', 'periode.tahunAjaran', 'periode.semester')
-                                ->orderBy('id_proyek', 'desc')
-                                ->distinct()
+                                ->select('kelasProyek_id', 'periode_id', 'namaKelasProyek', 'tahunAjaran', 'semester', DB::raw('count(*) as total'))
+                                ->groupBy('kelasProyek_id', 'periode_id', 'namaKelasProyek', 'tahunAjaran', 'semester')
                                 ->getQuery()
                                 ->get();
+
         
         return view('admin.usulMahasiswa.index')->with('kelasperiode', $kelasperiode);
 
@@ -76,9 +78,7 @@ class UsulMahasiswaController extends Controller
     public function detail($idkel, $idper)
     {
         //
-
         if(Auth::guard('admin')->check()) {
-
             $exist = KelasProyek::findOrFail($idkel);
             $exist2 = Periode::findOrFail($idper);
 
@@ -94,7 +94,7 @@ class UsulMahasiswaController extends Controller
                                         'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 'kelompokproyek.mahasiswaProyek_id',
                                         'kelompokproyek.id_kelompokProyek', 'kelompokproyek.pm', 'usulmahasiswa.*', 
                                         'kelasproyek.namaKelasProyek','periode.tahunAjaran', 'periode.semester', 
-                                        'kelompokproyek.judulPrioritas',)
+                                        'kelompokproyek.judulPrioritas')
                                 ->getQuery()
                                 ->get();
 
@@ -131,7 +131,7 @@ class UsulMahasiswaController extends Controller
                                 ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
                                         'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 'kelompokproyek.mahasiswaProyek_id',
                                         'kelompokproyek.id_kelompokProyek', 'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
-                                        'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas',)
+                                        'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas')
                                 ->getQuery()
                                 ->get();
 
@@ -168,7 +168,7 @@ class UsulMahasiswaController extends Controller
                                 ->select('mahasiswa.namaMahasiswa', 'mahasiswa.nim', 'mahasiswaproyek.id_mahasiswaproyek',
                                         'mahasiswaproyek.kelasProyek_id', 'mahasiswaproyek.periode_id', 'kelompokproyek.mahasiswaProyek_id',
                                         'kelompokproyek.id_kelompokProyek', 'kelompokproyek.pm', 'usulmahasiswa.*', 'kelasproyek.namaKelasProyek',
-                                        'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas',)
+                                        'periode.tahunAjaran', 'periode.semester', 'kelompokproyek.judulPrioritas')
                                 ->getQuery()
                                 ->get();
 

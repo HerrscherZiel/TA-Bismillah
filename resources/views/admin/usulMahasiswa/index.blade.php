@@ -24,7 +24,7 @@
                                         <h6 class="font-weight-bold text-primary m-0">{{$kelper->namaKelasProyek}}</h6>
                                     </div>
                                     <div class="col-md-4 text-primary text-right">
-                                        <a type="button" class="btn btn-primary" href="/admin/usul/detail/{{$kelper->id_kelasProyek}}/{{$kelper->id_periode}}">
+                                        <a type="button" class="btn btn-primary" href="/admin/usul/detail/{{$kelper->kelasProyek_id}}/{{$kelper->periode_id}}">
                                             Detail
                                         </a>
                                     </div>
@@ -48,6 +48,14 @@
 
                                     <div class="col-8 text-left">
                                         : {{$kelper->tahunAjaran}}
+                                    </div>
+
+                                    <div class="col-4 text-left">
+                                        Total Usul
+                                    </div>
+
+                                    <div class="col-8 text-left">
+                                        : {{$kelper->total}}
                                     </div>
                                   
                                 </div>

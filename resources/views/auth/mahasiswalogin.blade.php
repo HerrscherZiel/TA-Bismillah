@@ -9,6 +9,15 @@
 
     
     <div class="container">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="my-0">
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+        </ul>
+    </div>
+    @endif
         <div class="row justify-content-center">
             <div class="col-10 black">
                 <div class="mt-5 mb-2">        
@@ -23,11 +32,11 @@
                             <div class="offset-1 col-10">
                             <label for="username">{{ __('Username') }}</label>
                                 <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus placeholder="NIU">
-                                @if ($errors->has('username'))
+                                <!-- @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('username') }}</strong>
                                 </span>
-                                @endif
+                                @endif -->
                             </div>
                         </div>
 
@@ -35,11 +44,11 @@
                             <div class="offset-1 col-10">
                             <label for="password">{{ __('Password') }}</label>
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="password">
-                                @if ($errors->has('password'))
+                                <!-- @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                                @endif
+                                </span> -->
+                                <!-- @endif -->
                                 <p class="mt-2"> Lupa password ? Hubungi akademik </p>
                             </div>
                         </div>

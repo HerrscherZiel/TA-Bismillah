@@ -52,7 +52,9 @@ class MahasiswaAuthController extends Controller
         }
 
 //        dd("test");
-        return redirect()->back()->withInput($request->only('username', 'remember'));
+        return redirect()->back()->withInput($request->only('username', 'remember'))->withErrors([
+            'approve' => 'Password yang dimasukan salah atau tidak cocok dengan username.',
+        ]);
 
     }
 

@@ -48,6 +48,14 @@
                                     <div class="col-6 text-left">
                                         {{$lap->tahunAjaran}}
                                     </div>
+
+                                    <div class="col-6 text-left">
+                                        Total Laporan :
+                                    </div>
+
+                                    <div class="col-6 text-left">
+                                        {{$lap->total}}
+                                    </div>
                                   
                                 </div>
                             </div>

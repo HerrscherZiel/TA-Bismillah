@@ -15,7 +15,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Usul Proyek | Ditolak</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Usul Proyek</h1>
     </div>
 
     <div class="col-12">
@@ -56,6 +56,7 @@
                                     <th>Periode</th>
                                     <th>Judul</th>
                                     <th>Pengusul</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -66,6 +67,15 @@
                                         <td>{{$us->semester}} | {{$us->tahunAjaran}}</td>
                                         <td>{{$us->judulUsul}}</td>
                                         <td>{{$us->pm}}</td>
+                                        <td>                                            
+                                            @if ($us -> statusUsul === "Menunggu Persetujuan" )
+                                                <span class="badge badge-pill badge-primary">{{$us -> statusUsul}}</span>
+                                            @elseif($us -> statusUsul === "Diterima" )
+                                                <span class="badge badge-pill badge-success">{{$us -> statusUsul}}</span>
+                                            @elseif($us -> statusUsul === "Ditolak" )
+                                                <span class="badge badge-pill badge-secondary">{{$us -> statusUsul}}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
@@ -176,7 +186,7 @@
                                                 <input type="hidden" name="kelasProyek_id" id="kelasid">
                                                 <input type="hidden" name="judulPrioritas" id="judulprio">
                                                 <input type="hidden" name="periode_id" id="periodeid">
-                                                <button type="submit" class="btn btn-primary" onclick="return confirm('Apakah anda yakin ?')">
+                                                <button type="submit" class="btn btn-primary">
                                                 Terima
                                                     <i class="fa fa-fw fa-lg fa-check">
                                                     </i>

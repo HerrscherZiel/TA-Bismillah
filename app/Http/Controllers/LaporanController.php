@@ -9,6 +9,7 @@ use App\MahasiswaProyek;
 use App\Proyek;
 use App\KelompokProyek;
 use App\Dosen;
+use DB;
 use App\Pencapaian;
 use App\AgendaSelanjutnya;
 use App\AnggotaProyek;
@@ -16,9 +17,6 @@ use App\Milestone;
 use App\Lampiran;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
-
-
-
 
 class LaporanController extends Controller
 {
@@ -46,7 +44,7 @@ class LaporanController extends Controller
                                                 ->orderBy('id_kelasProyek', 'desc')
                                                 ->getQuery()
                                                 ->get();
-            
+
             return view('dosen.laporan.index')->with('kelasperiode', $kelasperiode);
 
         }
@@ -63,22 +61,22 @@ class LaporanController extends Controller
         if(Auth::guard('dosen')->check()) {
 
             $id = Auth::guard('dosen')->user()->id_dosen;
-
-            $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
+            $kelompok = DB::table('kelompokproyek')
+                                    ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
+                                    ->join('laporan', 'kelompokproyek_id', '=' ,'id_kelompokProyek')
                                     ->where('kelasProyek_id', '=', $idkel)
                                     ->where('periode_id', '=', $idper)
                                     ->where('dosen_id', '=', $id)
-                                    ->select('kelompokproyek.*','kelasproyek.namaKelasProyek'
-                                            ,'periode.tahunAjaran', 'periode.semester')
-                                    ->getQuery()
+                                    ->select('kelompokproyek.mahasiswaProyek_id', 'pm', 'judulPrioritas', 'dosen_id', 'statusKelompok', 'id_kelompokProyek', 
+                                            'kelasproyek.namaKelasProyek','periode.tahunAjaran', 'periode.semester', DB::raw('count(*) as total'))
+                                    ->groupBy('id_kelasProyek', 'id_periode', 'namaKelasProyek', 'tahunAjaran', 'semester', 'id_kelompokProyek', 
+                                            'kelompokproyek.mahasiswaProyek_id','pm', 'judulPrioritas', 'dosen_id', 'statusKelompok')
                                     ->get();
-            
             if(count($kelompok) < 1){
                 return view('errors.404');
             }
-
             else{
                 $dosen = Dosen::all();
                 return view('dosen.laporan.indexLaporan')->with('dosen', $dosen)
@@ -155,11 +153,12 @@ class LaporanController extends Controller
                                     ->join('mahasiswaproyek', 'anggotakelompok.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                     ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
                                     ->join('periode', 'periode_id', '=', 'id_periode')
-                                    ->whereIn('anggotaKelompok.mahasiswaProyek_id',  $idmp)
+                                    ->join('laporan', 'laporan.kelompokProyek_id', '=', 'id_kelompokProyek')
+                                    ->whereIn('anggotakelompok.mahasiswaProyek_id',  $idmp)
                                     ->where('statusKelompok', '=', 'Aktif')
-                                    ->select('kelompokproyek.*', 'mahasiswaproyek.*','kelasproyek.*', 'periode.*')
-                                    ->getQuery()
-                                    ->get();        
+                                    ->select('id_kelasProyek', 'id_periode', 'namaKelasProyek', 'tahunAjaran', 'semester', 'id_kelompokProyek', DB::raw('count(*) as total'))
+                                    ->groupBy('id_kelasProyek', 'id_periode', 'namaKelasProyek', 'tahunAjaran', 'semester', 'id_kelompokProyek' )
+                                    ->get();      
 
         return view('mahasiswa.laporan.index')->with('laporan', $laporan);
 
@@ -193,7 +192,7 @@ class LaporanController extends Controller
                             ->join('mahasiswaproyek', 'kelompokproyek.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                             ->join('anggotakelompok', 'anggotakelompok.kelompokProyek_id', '=', 'id_kelompokProyek')
                             ->where('id_kelompokProyek', '=', $id)
-                            ->whereIn('anggotaKelompok.mahasiswaProyek_id', $idmp)
+                            ->whereIn('anggotakelompok.mahasiswaProyek_id', $idmp)
                             ->select('kelompokproyek.*', 'laporan.*')
                             ->orderBy('id_laporan', 'desc')
                             ->getQuery()
@@ -201,7 +200,7 @@ class LaporanController extends Controller
         $anggota = AnggotaProyek::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                                  ->join('mahasiswaproyek', 'kelompokproyek.mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
                                  ->where('id_kelompokProyek', '=', $id)
-                                 ->whereIn('anggotaKelompok.mahasiswaProyek_id', $idmp)
+                                 ->whereIn('anggotakelompok.mahasiswaProyek_id', $idmp)
                                  ->select('anggotakelompok.mahasiswaProyek_id')
                                  ->getQuery()
                                  ->get();
@@ -257,16 +256,21 @@ class LaporanController extends Controller
         return back()->with('success', 'Berhasil menambah laporan');
     }
 
+    
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function showDosen($id)
     {
         //
+
+        
         if(Auth::guard('dosen')->check()) {
+
 
             $ids = Auth::guard('dosen')->user()->id_dosen;
             $laporan = Laporan::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')

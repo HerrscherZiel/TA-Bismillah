@@ -46,7 +46,7 @@ class AdminAuthController extends Controller
 
 //        dd("test");
         return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
-            'approve' => 'Wrong password or this account not approved yet.',
+            'approve' => 'Password yang dimasukan salah atau tidak cocok dengan email.',
         ]);
 
     }

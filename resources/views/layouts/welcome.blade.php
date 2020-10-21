@@ -40,6 +40,7 @@
 <div style="min-height: 100%; min-height: 100vh;display: flex; align-items: center;">
     <div class="container-fluid" style="padding: 0 0;">
     @if(request()->is('login'))
+    @elseif(request()->is('/'))
     @else
             <div class="col-1 text-center pb-2">
                 <a href="/login">

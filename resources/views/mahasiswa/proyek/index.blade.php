@@ -89,12 +89,13 @@
                                         <td>                                            
                                             @if ($kel -> statusKelompok === "Menunggu Persetujuan" )
                                                 <span class="badge badge-pill badge-primary">{{$kel -> statusKelompok}}</span>
-                                            @elseif($kel -> statusKelompok === "Selesai" )
+                                            @elseif($kel -> statusKelompok === "Non Aktif" )
                                                 <span class="badge badge-pill badge-secondary">{{$kel -> statusKelompok}}</span>
                                             @elseif($kel -> statusKelompok === "Aktif" )
                                                 <span class="badge badge-pill badge-success">{{$kel -> statusKelompok}}</span>
                                             @endif</td>
                                         <td>
+                                        @if($kel->pm === $kel->namaMahasiswa)
                                             <div class="text-center">
                                                 <div class="btn-group">
                                                     <a class="btn btn-info" href="/mahasiswa/proyek/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
@@ -112,6 +113,25 @@
                                                     </form>
                                                 </div>
                                             </div>
+                                            @else
+                                            <div class="text-center">
+                                                <div class="btn-group">
+                                                    <a class="btn btn-info" href="/mahasiswa/proyek/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
+                                                        <i class="fa fa-lg fa-eye">
+                                                        </i>
+                                                    </a>
+                                                    <form class="delete" action="{{ route('anggota.kelompok.destroy', $kel->id_anggotaKelompok)}}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger delete-btn delete-confirm" style="margin-left: -2px">
+                                                            <i class="fa fa-lg fa-trash">
+                                                            </i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -150,13 +170,20 @@
                             <div class="col-md-12"><b>Pilih Kelas Proyek</b>
                                 <div class="form-group">
                                     <select class="form-control selectbox" name="mahasiswaProyek_id" style="width: 100%" required>
-                                        @if($kelpro != null)
-                                        @foreach($kelpro as $kelpros)
-                                            <option value="{{$kelpros -> id_mahasiswaProyek}}">
-                                                {{$kelpros -> namaKelasProyek}} | ({{$kelpros -> semester}} {{$kelpros -> tahunAjaran}} )
+                                        @if($kelpros != null)
+                                        
+                                        @foreach($kelpro as $kelpross)
+                                            <option value="{{$kelpross -> id_mahasiswaProyek}}">
+                                                {{$kelpross -> namaKelasProyek}} | ({{$kelpross -> semester}} {{$kelpross -> tahunAjaran}} )
                                             </option>
                                         @endforeach
-                                        @else
+                                        @elseif($kelpros === null)
+                                        @foreach($kelpro as $kelpross)
+                                            <option value="{{$kelpross -> id_mahasiswaProyek}}">
+                                                {{$kelpross -> namaKelasProyek}} | ({{$kelpross -> semester}} {{$kelpross -> tahunAjaran}} )
+                                            </option>
+                                        @endforeach
+                                        @elseif($kelpros === NULL && $kelpro === NULL)
                                             <option disabled>
                                                 Belum terdaftar dalam kelas proyek
                                             </option>

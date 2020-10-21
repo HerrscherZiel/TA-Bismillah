@@ -147,11 +147,15 @@
 
                                                         <div class="col-md-4 text-right">
                                                             @foreach($kelompok as $kel)
-                                                            <a type="button" class="btn btn-primary" href="/mahasiswa/laporan/index/{{$kel->id_kelompokProyek}}">
-                                                                Lebih Lengkap
-                                                            </a>
+                                                                @if($kel->statusKelompok != "Non Aktif")
+                                                                <a type="button" class="btn btn-primary" href="/mahasiswa/laporan/index/{{$kel->id_kelompokProyek}}">
+                                                                    Lebih Lengkap
+                                                                </a>
+                                                                @endif
                                                             @endforeach
+                                                            @if($kel->statusKelompok != "Non Aktif")
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahLaporan">Tambah</button>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -239,14 +243,12 @@
                                                 </div>
                                                
                                                 <div class="col-md-4 text-right">
-                                                @if($kel->statusKelasProyek == "Pendaftaran")
                                                     @foreach($kelompok as $idPm)
                                                         @if($idPm->mProKelompok == $idPm->id_mahasiswaProyek)
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahAnggota">
                                                             Tambah</button>
                                                         @endif
                                                     @endforeach   
-                                                @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -259,13 +261,11 @@
                                                         <th>Nama Anggota</th>
                                                         <th>NIM</th>
                                                         <th>Status Anggota</th>
-                                                        @if($kel->statusKelasProyek == "Pendaftaran")
                                                             @foreach($kelompok as $idPm)
                                                                 @if($idPm->mProKelompok == $idPm->id_mahasiswaProyek)
                                                                     <th>Action</th>
                                                                 @endif
                                                             @endforeach
-                                                        @endif
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -280,7 +280,6 @@
                                                         <td>
                                                         {{$angkel->statusAnggota}}    
                                                         </td>
-                                                        @if($kel->statusKelasProyek == "Pendaftaran")
                                                             @foreach($kelompok as $idPm)
                                                                 @if($idPm->mProKelompok == $idPm->id_mahasiswaProyek)
                                                                     @if($idPm->pm != $angkel->namaMahasiswa)
@@ -304,7 +303,6 @@
                                                                     @endif
                                                                 @endif
                                                             @endforeach
-                                                        @endif
                                                     </tr>                                          
                                                 @endforeach
                                                     </tbody>
@@ -330,7 +328,6 @@
                                                 </div>
 
                                                 <div class="col-md-4 text-right">
-                                                @if($kel->statusKelasProyek == "Pendaftaran")
                                                     @foreach($kelompok as $idPm)
                                                         @if($idPm->mProKelompok == $idPm->id_mahasiswaProyek)
                                                             @if($jumlahPilihan < 2)
@@ -354,7 +351,6 @@
                                                             @endif
                                                         @endif
                                                     @endforeach
-                                                @endif
                                                 </div>
                                             </div>
                                         </div>

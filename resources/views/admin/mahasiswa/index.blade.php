@@ -231,6 +231,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12"><b>Username :</b>
+                                    <div class="form-group">
+                                        <input class="form-control"  type="text" name="username" placeholder="Username Mahasiswa" id="username">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

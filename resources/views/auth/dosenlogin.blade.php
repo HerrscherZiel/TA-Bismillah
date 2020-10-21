@@ -4,6 +4,15 @@
 
 
     <div class="container">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="my-0">
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+        </ul>
+    </div>
+    @endif
         <div class="row justify-content-center">
             <div class="col-10 black">
                 <div class="mt-5 mb-2"><h2>{{ __('Login Dosen') }}</h2></div>
@@ -16,11 +25,11 @@
                             <div class="offset-1 col-10">
                             <label for="email">{{ __('Email') }}</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="email@ugm.ac.id">
-                                @error('email')
+                                <!-- @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
+                                @enderror -->
                             </div>
                         </div>
 
@@ -28,11 +37,11 @@
                             <div class="offset-1 col-10">
                             <label for="password">{{ __('Password') }}</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="password">
-                                @error('password')
+                                <!-- @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
+                                @enderror -->
                                 <p class="mt-2"> Lupa password ? Hubungi akademik </p>
                             </div>
                         </div>

@@ -169,6 +169,7 @@ Route::prefix('admin')->group(function (){
 
         //proyek
         Route::get('/proyek/detail-proyek/{idkel}/{idper}', 'ProyekController@indexDetail')->name('proyek.detail.index');
+        Route::get('/proyek/detail/{idpro}', 'ProyekController@showAdmin')->name('admin.detail.proyek.show');
 
         //detailusul
         Route::get('/usul/detail/{idkel}/{idper}', 'UsulMahasiswaController@detail')->name('usul.mahasiswa.detail');
