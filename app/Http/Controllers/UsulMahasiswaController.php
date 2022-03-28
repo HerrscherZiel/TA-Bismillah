@@ -23,7 +23,7 @@ class UsulMahasiswaController extends Controller
     public function index()
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check() ) {
 
         $kelasperiode = UsulMahasiswa::join('kelompokproyek', 'kelompokProyek_id', '=', 'id_kelompokProyek')
                                 ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
@@ -78,7 +78,7 @@ class UsulMahasiswaController extends Controller
     public function detail($idkel, $idper)
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
             $exist = KelasProyek::findOrFail($idkel);
             $exist2 = Periode::findOrFail($idper);
 
@@ -115,7 +115,7 @@ class UsulMahasiswaController extends Controller
     public function detailDiterima($idkel, $idper)
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
 
             $exist = KelasProyek::findOrFail($idkel);
             $exist2 = Periode::findOrFail($idper);
@@ -152,7 +152,7 @@ class UsulMahasiswaController extends Controller
     public function detailDitolak($idkel, $idper)
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
 
             $exist = KelasProyek::findOrFail($idkel);
             $exist2 = Periode::findOrFail($idper);

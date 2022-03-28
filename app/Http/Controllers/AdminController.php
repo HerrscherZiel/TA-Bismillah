@@ -6,6 +6,7 @@ use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use DB;
 
 
 
@@ -20,9 +21,19 @@ class AdminController extends Controller
     {
         //
         if(Auth::guard('admin')->check()) {
-
+            $ids = Auth::guard('admin')->user()->id_admin;
             $admin = Admin::all();
-            return view('admin.admin.index')->with('admin', $admin);
+            // dd($ids);
+            $superadmin = Admin::where('statusUser', '=', 'SuperAdmin')
+                                    ->select('statusUser', 'id_admin')
+                                    ->getQuery()
+                                    ->get();
+                                    // dd($superadmin);
+
+
+            return view('admin.admin.index')->with('admin', $admin)
+                                            ->with('superadmin', $superadmin)
+                                            ->with('ids', $ids);
         
         }
 

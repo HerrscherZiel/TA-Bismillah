@@ -29,8 +29,10 @@ class MahasiswaProyekController extends Controller
         $mhsProyek = MahasiswaProyek::join('mahasiswa', 'mahasiswa_id', '=', 'id_mahasiswa')
             ->join('kelasproyek', 'kelasProyek_id', '=', 'id_kelasProyek')
             ->join('periode', 'periode_id', '=', 'id_periode')
-            ->select('mahasiswa.*', 'kelasproyek.*', 'periode.*', 'mahasiswaproyek.*')
-            ->orderBy('namaKelasProyek')
+            ->select('mahasiswa.id_mahasiswa', 'mahasiswa.nim', 'mahasiswa.namaMahasiswa', 'mahasiswa.username', 
+                    'kelasproyek.id_kelasProyek', 'kelasproyek.namaKelasProyek', 'kelasproyek.deskripsi', 'kelasproyek.maksAnggota',
+                    'kelasproyek.status', 'periode.id_periode', 'periode.tahunAjaran', 'periode.semester', 'mahasiswaproyek.*')
+            ->latest()
             ->getQuery()
             ->get();
 

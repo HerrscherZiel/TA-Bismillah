@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Laporan Kelompok</h1>
+        <h1 class="h3 mb-0 text-gray-800">List Laporan Kelompok</h1>
     </div>
 
     <div class="col-12">
@@ -60,7 +60,7 @@
                                     <td>{{ \Carbon\Carbon::parse($lap->tglKirim)->translatedFormat('d F Y')}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="/dosen/laporan/kelompok/detail-laporan/{{$lap->id_laporan}}">
+                                                <a class="btn btn-primary" title="Detail" href="/dosen/laporan/kelompok/detail-laporan/{{$lap->id_laporan}}">
                                                     <i class="fa fa-lg fa-eye">
                                                     </i>
                                                 </a>

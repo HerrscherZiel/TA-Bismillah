@@ -22,20 +22,15 @@ class Proyek extends Model
         'usulMahasiswa_id',
         'dosen_id',
     ];
-
-
     public function periode(){
         return $this->belongsTo('App\Periode', 'periode_id');
     }
-
     public function kelasproyek(){
         return $this->belongsTo('App\KelasProyek', 'kelasProyek_id');
     }
-
     public function usulmahasiswa(){
         return $this->belongsTo('App\UsulMahasiswa', 'usulMahasiswa_id');
     }
-
     public function proyek(){
         return $this->hasMany('App\ProyekPilihan', 'proyek_id');
     }

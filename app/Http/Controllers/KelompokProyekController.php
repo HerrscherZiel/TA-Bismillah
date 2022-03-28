@@ -28,7 +28,7 @@ class KelompokProyekController extends Controller
     public function index()
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
 
             $kelasperiode = DB::table('kelompokproyek')
                                 ->join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')
@@ -82,7 +82,7 @@ class KelompokProyekController extends Controller
     public function indexKelompok($idkel, $idper)
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
 
 
 
@@ -126,7 +126,7 @@ class KelompokProyekController extends Controller
     public function indexKelompokAktif($idkel, $idper)
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
 
             $exist = KelasProyek::findOrFail($idkel);
             $exist2 = Periode::findOrFail($idper);
@@ -164,7 +164,7 @@ class KelompokProyekController extends Controller
     public function indexKelompokNonAktif($idkel, $idper)
     {
         //
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
 
             $exist = KelasProyek::findOrFail($idkel);
             $exist2 = Periode::findOrFail($idper);
@@ -406,7 +406,7 @@ class KelompokProyekController extends Controller
     }
     public function showAdmin($id)
     {
-        if(Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check() || Auth::guard('dosen')->check()) {
         $exist = KelompokProyek::findOrFail($id);
 
         $kelompok = KelompokProyek::join('mahasiswaproyek', 'mahasiswaProyek_id', '=', 'id_mahasiswaProyek')

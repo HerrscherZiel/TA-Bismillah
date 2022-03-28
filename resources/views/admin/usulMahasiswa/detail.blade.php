@@ -14,7 +14,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Usul Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Usul Proyek Menunggu Persetujuan</h1>
     </div>
 
     <div class="col-12">
@@ -39,6 +39,7 @@
                             </div>
                             <div class="col-8 text-right" style="margin-bottom:10px">
                                 <div class="btn-group">
+                                <button type="button" class="btn btn-primary text-center" ><a href="/admin/usul/detail/{{$id_kls}}/{{$id_per}}" style="color: white;">Menunggu Persetujuan</a></button>
                                     <button type="button" class="btn btn-success text-center" ><a href="/admin/usul/detail-diterima/{{$id_kls}}/{{$id_per}}" style="color: white;">Diterima</a></button>
                                     <button type="button" class="btn btn-secondary text-center" ><a href="/admin/usul/detail-ditolak/{{$id_kls}}/{{$id_per}}" style="color: white;">Ditolak</a></button>
                                 </div>    
@@ -78,7 +79,7 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#showUsul" 
+                                                    <button class="btn btn-primary" title="Detail" data-toggle="modal" data-target="#showUsul" 
                                                                             data-id="{{$us->id_usulMahasiswa}}"
                                                                             data-kelas="{{$us->namaKelasProyek}}"
                                                                             data-periode="{{$us->semester}} | {{$us->tahunAjaran}}"

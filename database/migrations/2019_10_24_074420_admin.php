@@ -30,6 +30,7 @@ class Admin extends Migration
                 'nip' => '11928391238129',
                 'email' => 'admin@mail.com',
                 'namaAdmin' => 'admin',
+                'statusUser' => 'SuperAdmin',
                 'password' => bcrypt('admin123'),
                 'passwordBackup' => bcrypt('admin123'),
             )

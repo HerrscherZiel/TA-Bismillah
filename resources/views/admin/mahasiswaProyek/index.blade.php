@@ -38,7 +38,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered text-center" id="table-test" width="100%" cellspacing="0">
                                 <thead>
-                                <tr>
+                                <tr><th>No</th>
                                     <th>NIM</th>
                                     <th>Nama Mahasiswa</th>
                                     <th>Kelas Proyek</th>
@@ -48,8 +48,10 @@
                                 </thead>
 
                                 <tbody>
+                                @php $i=1; @endphp
                                 @foreach($mhsProyek as $mPro)
                                     <tr>
+                                        <td>{{$i++}} </td>
                                         <td>{{$mPro->nim}}</td>
                                         <td>{{$mPro->namaMahasiswa}}</td>
                                         <td>{{$mPro->namaKelasProyek}}</td>
@@ -57,7 +59,7 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-success"
+                                                    <button class="btn btn-success" title="Reset"
                                                             data-id="{{$mPro->id_mahasiswaProyek}}"
                                                             data-nama="{{ $mPro->namaMahasiswa}}"
                                                             data-idmas="{{$mPro->mahasiswa_id}}"
@@ -298,6 +300,11 @@
             modal.find('.modal-body #kelasproyek').val(kelasproyek)
             modal.find('.modal-body #periode').val(periode)
         })
+
+        $('#table-test').DataTable({
+            "aaSorting": []
+        });
+})
     </script>
     @endpush
 

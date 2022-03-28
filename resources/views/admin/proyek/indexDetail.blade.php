@@ -14,7 +14,7 @@
     @endif
     
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">List Proyek</h1>
     </div>
 
     <div class="col-12">
@@ -90,12 +90,12 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                <a type="button" class="btn btn-primary" href="/admin/proyek/detail/{{$pro->id_proyek}}">
+                                                <a type="button" title="Detail" class="btn btn-primary" href="/admin/proyek/detail/{{$pro->id_proyek}}">
                                                         <i class="fa fa-lg fa-eye">
                                                         </i>
                                                 </a>
 
-                                                    <button class="btn btn-success"
+                                                    <button class="btn btn-success"  title="Edit"
                                                             data-id="{{$pro->id_proyek}}"
                                                             data-kelas="{{$pro->id_kelasProyek}}"
                                                             data-periode="{{$pro->id_periode}}"

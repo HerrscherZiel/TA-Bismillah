@@ -44,7 +44,13 @@ class AgendaSelanjutnyaController extends Controller
             'agendaSelanjutnya' => 'required',
             'deskripsi' => 'required',
         ]);
-        AgendaSelanjutnya::create($request->all());
+        // AgendaSelanjutnya::create($request->all());
+
+        $agendS = new AgendaSelanjutnya;
+        $agendS->agendaSelanjutnya = $request->agendaSelanjutnya;
+        $agendS->deskripsi = $request->deskripsi;
+        $agendS->laporan_id = $request->laporan_id;
+        $agendS->save();
 
         return back()->with('success', 'Berhasil menambah agenda selanjutnya');
     }

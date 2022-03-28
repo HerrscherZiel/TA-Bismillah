@@ -127,7 +127,12 @@
                                                 <b>Status</b>
                                             </div>
                                             <div class="col-lg-4 col-sm-12">
-                                                : {{$kel->statusKelompok}}
+                                                : 
+                                                @if($kel->statusKelompok == "Non Aktif")
+                                                    Selesai
+                                                @else
+                                                {{$kel->statusKelompok}}
+                                                @endif
                                             </div>
 
                                             @endforeach    

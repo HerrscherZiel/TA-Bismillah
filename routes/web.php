@@ -112,7 +112,7 @@ Route::prefix('mahasiswa')->group(function (){
 Route::resources([
 
     'proyek'            =>  'ProyekController',
-    'kelompokbimbingan' =>  'KelompokBimbinganController',
+    // 'kelompokbimbingan' =>  'KelompokBimbinganController',
     'profile'           =>  'ProfileController',
 
 ]);

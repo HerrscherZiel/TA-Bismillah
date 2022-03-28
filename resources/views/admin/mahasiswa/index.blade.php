@@ -61,7 +61,7 @@
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-success"
+                                                <button class="btn btn-success" title="Edit"
                                                         data-id="{{$mhs->id_mahasiswa}}"
                                                         data-nim="{{$mhs->nim}}"
                                                         data-username="{{$mhs->username}}"
@@ -88,7 +88,7 @@
                                                     @csrf
                                                     @method('PATCH')
                                                     <input type="hidden" name="id_mahasiswa" value="{{$mhs->id_mahasiswa}}">
-                                                <button class="btn btn-warning reset-confirm">
+                                                <button class="btn btn-warning reset-confirm" title="Reset">
                                                     <i class="fa fa-lg fa-key"></i>
                                                 </button>
                                                 </form>

@@ -133,6 +133,10 @@
         <!-- Divider -->
 
     @if(Auth::guard('dosen')->check())
+        <div class="sidebar-heading mx-auto text-center">
+            Data Dosen
+        </div>
+
         <li class="nav-item {{ (request()->is('dosen/dashboard')) ? 'active' : '' }}">
             <a class="nav-link" href="/dosen/dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -166,6 +170,23 @@
                 <span>Laporan</span>
             </a>
         </li>
+
+        <hr>
+        <div class="sidebar-heading mx-auto text-center">
+            Data Sistem
+        </div>
+
+        <li class="nav-item {{ (request()->is('admin/usulmahasiswa', 'admin/usul/*')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/usulmahasiswa">
+                <i class="fas fa-fw fa-sticky-note"></i>
+                <span>Usul Proyek</span></a>
+        </li>
+
+        <li class="nav-item {{ (request()->is('admin/kelompokproyek', 'admin/kelompok/*')) ? 'active' : '' }}">
+            <a class="nav-link" href="/admin/kelompokproyek">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Kelompok Proyek</span></a>
+        </li>
     @endif
 
 
@@ -186,7 +207,7 @@
         <li class="nav-item {{ (request()->is('mahasiswa/proyek/kelompok', 'mahasiswa/proyek/kelompok/show/*')) ? 'active' : '' }}">
             <a class="nav-link" href="/mahasiswa/proyek/kelompok">
                 <i class="fas fa-fw fa-tasks"></i>
-                <span>Proyek</span>
+                <span>Kelompok Proyek</span>
             </a>
         </li>
 

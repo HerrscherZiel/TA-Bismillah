@@ -131,7 +131,7 @@
                                                        </td>
                                                         <td>
                                                         @if($kel->statusProyek != "Aktif" && $kel->judulPrioritas === "Belum ada judul")
-                                                        <button class="btn btn-success"
+                                                        <button class="btn btn-success"  title="Setujui"
                                                             data-idkel="{{$kel->id_kelompokProyek}}"
                                                             data-pm="{{$kel->pm}}"
                                                             data-judul="{{$kel->judul}}"
@@ -144,7 +144,7 @@
                                                         </i>
                                                         </button>
                                                         @endif
-                                                        <a type="button" class="btn btn-primary" href="/admin/kelompok/detail/{{$kel->id_kelompokProyek}}">
+                                                        <a type="button"  title="Detail" class="btn btn-primary" href="/admin/kelompok/detail/{{$kel->id_kelompokProyek}}">
                                                             <i class="fa fa-lg fa-eye">
                                                             </i>
                                                         </a>

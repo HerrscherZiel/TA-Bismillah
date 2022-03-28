@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Bimbingan</h1>
     </div>
 
     <div class="col-12">
@@ -122,13 +122,13 @@
                                                             <h6 class="font-weight-bold text-primary m-0">Laporan</h6>
                                                         </div>
 
-                                                        <div class="col-md-4 text-right">
+                                                        <!-- <div class="col-md-4 text-right">
                                                             @foreach($kelompok as $kel)
                                                             <a type="button" class="btn btn-primary" href="/dosen/laporan/kelompok/index-laporan/{{$kel->id_kelompokProyek}}">
                                                                 Lebih Lengkap
                                                             </a>
                                                             @endforeach
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
 
@@ -154,7 +154,7 @@
                                                             <td>{{ \Carbon\Carbon::parse($lap->tglKirim)->translatedFormat('d F Y')}}</td>
                                                             <td>
                                                                 <div class="btn-group">
-                                                                    <a class="btn btn-info" href="/dosen/laporan/kelompok/detail-laporan/{{$lap->id_laporan}}">
+                                                                    <a class="btn btn-primary" title="Detail" href="/dosen/laporan/kelompok/detail-laporan/{{$lap->id_laporan}}">
                                                                         <i class="fa fa-lg fa-eye">
                                                                         </i>
                                                                     </a>
@@ -170,6 +170,13 @@
 
                                                         </tbody>
                                                     </table>
+                                                    <div class="col-md-12 text-right">
+                                                    @foreach($kelompok as $kel)
+                                                            <a type="button" class="btn btn-primary" href="/dosen/laporan/kelompok/index-laporan/{{$kel->id_kelompokProyek}}">
+                                                                Selengkapnya
+                                                            </a>
+                                                            @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
 

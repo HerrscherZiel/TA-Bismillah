@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-md-4 text-right">
                                 <a type="button" class="btn btn-primary" href="/dosen/laporan/">
-                                    Lebih Lengkap
+                                    Selengkapnya
                                 </a>
                             </div>
                         </div>
@@ -122,7 +122,9 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
+                            
                 </div>
 
             </div>

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Detail Kelompok Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">List Kelompok Proyek Aktif</h1>
     </div>
 
     <div class="col-12">
@@ -30,7 +30,8 @@
                             <div class="col-lg-8 my-auto text-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary text-center" ><a href="/admin/kelompok/index/{{$id_kls}}/{{$id_per}}" style="color: white;">Menunggu Persetujuan</a></button>
-                                    <button type="button" class="btn btn-secondary text-center" ><a href="/admin/kelompok/index-nonaktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Non Aktif</a></button>
+                                    <button type="button" class="btn btn-success text-center" ><a href="/admin/kelompok/index-aktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Aktif</a></button>
+                                    <button type="button" class="btn btn-secondary text-center" ><a href="/admin/kelompok/index-nonaktif/{{$id_kls}}/{{$id_per}}" style="color: white;">Selesai</a></button>
                                 </div>                            
                             </div>
                         </div>
@@ -74,7 +75,7 @@
                                         <td>
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-info" href="/admin/kelompok/detail/{{$kel->id_kelompokProyek}}">
+                                                    <a class="btn btn-primary" title="Detail" href="/admin/kelompok/detail/{{$kel->id_kelompokProyek}}">
                                                         <i class="fa fa-lg fa-eye">
                                                         </i>
                                                     </a>

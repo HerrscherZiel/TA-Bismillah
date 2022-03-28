@@ -27,9 +27,13 @@
                             <div class="col-md-8 my-auto">
                                 <h6 class="font-weight-bold text-primary m-0">Admin</h6>
                             </div>
+                            @foreach($superadmin as $supmin)
+                                        @if($supmin->id_admin == $ids)
                             <div class="col-md-4 text-right">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">Tambah</button>
                             </div>
+                            @endif
+                            @endforeach
                         </div>
                     </div>
 
@@ -42,8 +46,12 @@
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                    <th>Action</th>
-                                    <th>Reset</th>
+                                    @foreach($superadmin as $supmin)
+                                        @if($supmin->id_admin == $ids)
+                                            <th>Action</th>
+                                            <th>Reset</th>
+                                        @endif
+                                    @endforeach
 
                                 </tr>
                                 </thead>
@@ -54,10 +62,12 @@
                                     <td>{{$ads->namaAdmin}}</td>
                                     <td>{{$ads->email}}</td>
                                     <td>{{$ads->statusUser}}</td>
+                                    @foreach($superadmin as $supmin)
+                                        @if($supmin->id_admin == $ids)
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-success"
+                                                <button class="btn btn-success" title="Edit"
                                                         data-id="{{$ads->id_admin}}"
                                                         data-nip="{{$ads->nip}}"
                                                         data-nama="{{$ads->namaAdmin}}"
@@ -85,13 +95,15 @@
                                                     @csrf
                                                     @method('PATCH')
                                                     <input type="hidden" name="id_admin" value="{{$ads->id_admin}}">
-                                                <button class="btn btn-warning reset-confirm" id="reset">
+                                                <button class="btn btn-warning reset-confirm" id="reset" title="Reset">
                                                     <i class="fa fa-lg fa-key"></i>
                                                 </button>
                                             </form>
                                             </div>
                                         </div>
                                     </td>
+                                    @endif
+                                    @endforeach
                                 </tr>
                                 @endforeach
                                 </tbody>

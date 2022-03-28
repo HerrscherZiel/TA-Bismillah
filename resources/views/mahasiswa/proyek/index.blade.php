@@ -15,7 +15,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mx-auto">
-        <h1 class="h3 mb-0 text-gray-800">Proyek</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kelompok Proyek</h1>
     </div>
 
     <div class="row justify-content-md-center">
@@ -90,7 +90,7 @@
                                             @if ($kel -> statusKelompok === "Menunggu Persetujuan" )
                                                 <span class="badge badge-pill badge-primary">{{$kel -> statusKelompok}}</span>
                                             @elseif($kel -> statusKelompok === "Non Aktif" )
-                                                <span class="badge badge-pill badge-secondary">{{$kel -> statusKelompok}}</span>
+                                                <span class="badge badge-pill badge-secondary">Selesai</span>
                                             @elseif($kel -> statusKelompok === "Aktif" )
                                                 <span class="badge badge-pill badge-success">{{$kel -> statusKelompok}}</span>
                                             @endif</td>
@@ -98,7 +98,7 @@
                                         @if($kel->pm === $kel->namaMahasiswa)
                                             <div class="text-center">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-info" href="/mahasiswa/proyek/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
+                                                    <a class="btn btn-primary" title="Detail" href="/mahasiswa/proyek/kelompok/show/{{$kel->id_kelompokProyek}}" class="btn btn-primary">
                                                         <i class="fa fa-lg fa-eye">
                                                         </i>
                                                     </a>

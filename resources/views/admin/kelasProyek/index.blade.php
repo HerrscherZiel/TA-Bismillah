@@ -64,7 +64,7 @@
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-success"
+                                                <button class="btn btn-success" title="Reset"
                                                         data-id="{{$kls->id_kelasProyek}}"
                                                         data-nama="{{$kls->namaKelasProyek}}"
                                                         data-deskripsi="{{$kls->deskripsi}}"

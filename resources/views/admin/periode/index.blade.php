@@ -52,7 +52,7 @@
                                     <td>
                                         <div class="text-center">
                                             <div class="btn-group">
-                                                <button class="btn btn-success"
+                                                <button class="btn btn-success" title="Edit"
                                                         data-id="{{$period->id_periode}}"
                                                         data-tahun="{{$period->tahunAjaran}}"
                                                         data-sem="{{$period->semester}}"
